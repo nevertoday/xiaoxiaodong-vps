@@ -228,6 +228,25 @@ ipv6: false
 
 出现 `yaml: cannot unmarshal !!seq into string` 时，优先升级到支持 Mihomo 的客户端，或使用 Shadowrocket；不要把现代 Mihomo 配置直接当成旧版 CFW 配置。
 
+### 桌面端建议：Clash Verge Rev
+
+建议 Windows、macOS 和 Linux 用户使用 Clash Verge Rev。它适合直接加载本项目生成的 Mihomo YAML 订阅，规则和 AI 分流已经配置好，用户只需要选择运行方式。
+
+官方入口：
+
+- 项目主页：<https://github.com/clash-verge-rev/clash-verge-rev>
+- 官方 Releases：<https://github.com/clash-verge-rev/clash-verge-rev/releases>
+
+推荐设置：
+
+1. 在 Profiles / 配置中添加 OpenClash / Mihomo YAML 订阅；
+2. 选中刚更新的配置；
+3. 运行模式选择 **Rule / 规则**；
+4. 打开 **System Proxy / 系统代理**；
+5. 先不要打开 Global / 全局、Direct / 直连或 TUN，除非具体应用不遵守系统代理。
+
+因为规则已经包含 Gemini、Grok、Muse、OpenAI、Claude 等 AI 分流，客户端不需要再手工添加规则。若某个应用不走系统代理，再单独评估 TUN / 服务模式、DNS 和权限设置。
+
 ## 五、CLIProxyAPI 部署逻辑
 
 建议使用独立系统用户运行：

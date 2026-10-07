@@ -54,6 +54,30 @@ DMIT 的部分套餐线路和网络稳定性较好，也适合自己购买后部
 
 详细方案见：[3x-ui + CLIProxyAPI 多服务器部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md)。
 
+## 桌面端推荐：Clash Verge Rev
+
+对于 Windows、macOS 和 Linux 桌面端，建议使用 **Clash Verge Rev** 导入已经配置好的 Mihomo 订阅。项目里的规则、AI 分流组和节点参数已经在服务器端准备好，用户不需要再手工编写规则。
+
+官方入口：
+
+- [Clash Verge Rev 项目主页](https://github.com/clash-verge-rev/clash-verge-rev)
+- [官方 Releases 下载页](https://github.com/clash-verge-rev/clash-verge-rev/releases)
+
+使用步骤：
+
+1. 从官方 Releases 下载与你的系统和 CPU 架构对应的稳定版；
+2. 打开 Clash Verge Rev，进入 **Profiles / 配置**；
+3. 粘贴服务器提供的 **OpenClash / Mihomo YAML 订阅地址**，保存并更新；
+4. 选中刚导入的配置；
+5. 将运行模式设置为 **Rule / 规则**；
+6. 打开 **System Proxy / 系统代理**。
+
+当前方案建议先使用“规则模式 + 系统代理”，不要手工改写 AI 规则，也不要一开始就切换到 Global / 全局或 Direct / 直连。访问 Gemini、Grok、Muse、OpenAI、Claude 时，配置会按已经写好的规则自动选择对应策略组；访问国内站点时则按国内直连规则处理。
+
+如果某个程序不遵守系统代理，再考虑开启 TUN / 服务模式，并重新检查 DNS 和权限。普通浏览器和大多数桌面应用先使用系统代理即可。
+
+旧版 Clash for Windows 0.19.20 可能无法解析本项目使用的 Mihomo 字段，出现 \`yaml: cannot unmarshal !!seq into string\` 时，应升级到 Clash Verge Rev 或其他支持 Mihomo 的客户端。不要把 Shadowrocket 的 Base64 订阅地址当成 Clash Verge Rev 的 YAML 订阅地址。
+
 ## 部署后检查 Claude IP 评分
 
 配置完成后，可以使用下面的第三方页面检查当前出口 IP 的 Claude 相关评分：
