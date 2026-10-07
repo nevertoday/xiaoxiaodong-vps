@@ -38,6 +38,33 @@ DMIT 的部分套餐线路和网络稳定性较好，也适合自己购买后部
 
 <https://www.dmit.io/aff.php?aff=23544>
 
+## 部署时的服务器时区策略
+
+每台服务器都应根据服务商标注的机房地区明确设置时区。公网 IP 只能作为核对信息，不能作为唯一依据，因为 IP 归属、机房位置和实际出口线路可能不一致。
+
+常见示例：
+
+- 美国西部或洛杉矶机房：`America/Los_Angeles`；
+- 需要统一日志时间的服务器：`Etc/UTC`；
+- 中国大陆本地服务器：`Asia/Shanghai`。
+
+部署参数中应显式填写：
+
+```text
+SERVER_REGION=服务商标注的机房地区
+SERVER_TIMEZONE=America/Los_Angeles
+```
+
+然后在服务器上执行并验收：
+
+```bash
+timedatectl set-timezone "$SERVER_TIMEZONE"
+timedatectl show --property=Timezone --value
+timedatectl show --property=NTPSynchronized --property=LocalRTC
+```
+
+时区只影响服务器本地时间、日志和未明确指定时区的定时任务，不会改变公网 IP、代理线路或 Claude 风控结果。
+
 ## 部署内容
 
 本项目提供一套可复用的 VPS 部署蓝图，覆盖：

@@ -48,6 +48,8 @@ SSH_ALIAS=自定义别名
 
 OS=Ubuntu LTS 或其他受支持发行版
 ARCH=x86_64 或 arm64
+SERVER_REGION=服务商标注的机房地区
+SERVER_TIMEZONE=America/Los_Angeles
 
 PANEL_PORT=53998
 SUBSCRIPTION_PORT=2096
@@ -57,6 +59,28 @@ TLS_PORT=2443
 ```
 
 如果服务器只支持密码登录，应先使用初始密码登录、写入公钥并验证密钥登录，再关闭密码认证。不能在密钥登录验证前关闭密码认证。
+
+## 时区配置策略
+
+服务器时区必须作为部署变量明确指定，不要仅凭公网 IP 的地理库自动猜测。IP 归属、机房位置和实际出口线路可能不一致，最终应以服务商控制台标注的机房地区为准，并在部署前确认：
+
+| 机房或使用地区 | 推荐时区变量 |
+|---|---|
+| 美国西部、洛杉矶 | `America/Los_Angeles` |
+| 明确要求统一 UTC 的服务器 | `Etc/UTC` |
+| 中国大陆本地管理环境 | `Asia/Shanghai` |
+
+部署时执行：
+
+```bash
+timedatectl set-timezone "$SERVER_TIMEZONE"
+timedatectl show --property=Timezone --value
+timedatectl show --property=NTPSynchronized --property=LocalRTC
+```
+
+修改时区只改变服务器本地时间显示、日志时间和未明确指定时区的定时任务，不会改变公网 IP、代理出口、路由或 Claude 风控结果。自动升级定时器如果使用 `UTC` 日历表达式，修改服务器时区也不会改变它的实际 UTC 触发时间。
+
+现有服务器如需调整，应通过 SSH 别名逐台执行并核对结果，不能把某一台服务器的时区设置复制成所有服务器的默认值。
 
 ## 一、SSH 长期登录逻辑
 
@@ -462,7 +486,8 @@ SSH 别名：<SSH_ALIAS>
 11. 自动升级只处理 CLIProxyAPI 和 Management Center，不升级 3x-ui/Xray。
 12. 完成服务、端口、订阅、API、规则和备份验收。
 13. 不在聊天、日志或终端输出私钥和完整密钥。
-14. 最后只输出脱敏后的登录地址、订阅地址、版本和验收结果。
+14. 根据服务商机房地区确认 `SERVER_TIMEZONE`，执行 `timedatectl set-timezone`，并验证 NTP 同步；不要仅凭 IP 地理库猜测时区。
+15. 最后只输出脱敏后的登录地址、订阅地址、版本和验收结果。
 ```
 
 ## 十二、方案边界
