@@ -76,7 +76,7 @@ DMIT 的部分套餐线路和网络稳定性较好，也适合自己购买后部
 
 如果某个程序不遵守系统代理，再考虑开启 TUN / 服务模式，并重新检查 DNS 和权限。普通浏览器和大多数桌面应用先使用系统代理即可。
 
-旧版 Clash for Windows 0.19.20 可能无法解析本项目使用的 Mihomo 字段，出现 \`yaml: cannot unmarshal !!seq into string\` 时，应升级到 Clash Verge Rev 或其他支持 Mihomo 的客户端。不要把 Shadowrocket 的 Base64 订阅地址当成 Clash Verge Rev 的 YAML 订阅地址。
+旧版 Clash for Windows 0.19.20 可能无法解析本项目使用的 Mihomo 字段，出现 `yaml: cannot unmarshal !!seq into string` 时，应升级到 Clash Verge Rev 或其他支持 Mihomo 的客户端。不要把 Shadowrocket 的 Base64 订阅地址当成 Clash Verge Rev 的 YAML 订阅地址。
 
 ## 部署后检查 Claude IP 评分
 
