@@ -1,0 +1,107 @@
+# 交给 AI 的部署提示词
+
+这份文件用于把本项目的部署要求交给 Codex、Claude Code 或其他可以执行 SSH 命令的 AI。建议先阅读完整的[部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md)，再复制下面的模板。
+
+## 使用前填写变量
+
+只填写服务器信息和本机私钥路径。不要把私钥正文、面板密码、订阅完整地址、OAuth 文件或 API Key 粘贴到聊天中。
+
+```text
+SERVER_IP=服务器公网 IPv4
+SSH_USER=root
+SSH_PORT=22
+SSH_KEY_PATH=/Users/你的用户名/.ssh/server-key
+SSH_ALIAS=server-name
+SERVER_REGION=服务商标注的机房地区
+SERVER_TIMEZONE=America/Los_Angeles
+```
+
+如果服务商只提供初始密码，先让 AI 用密码完成公钥写入和密钥登录验证，再关闭密码登录。没有完成验证前，不要关闭密码认证。
+
+## 首次部署提示词
+
+复制下面的完整代码块，把变量替换成实际值后发送给可以操作本机终端的 AI：
+
+```text
+你是服务器部署执行助手。请严格依据随附的《3x-ui + CLIProxyAPI 多服务器部署蓝图》，在一台全新的 VPS 上完成独立部署，并逐项验收。
+
+服务器信息：
+SERVER_IP=<SERVER_IP>
+SSH_USER=<SSH_USER>
+SSH_PORT=<SSH_PORT>
+SSH_KEY_PATH=<SSH_KEY_PATH>
+SSH_ALIAS=<SSH_ALIAS>
+SERVER_REGION=<SERVER_REGION>
+SERVER_TIMEZONE=<SERVER_TIMEZONE>
+
+必须遵守：
+1. 只操作这台新服务器，不修改任何旧服务器。
+2. 不复制旧服务器的数据库、OAuth、API Key、订阅密钥、用户凭据或 Reality 私钥。
+3. 为本机重新生成 UUID、Reality 密钥、short ID、订阅路径、面板密码、管理密钥和 CLIProxyAPI Key。
+4. 先确认系统版本、架构、磁盘、内存、当前时区、NTP 和公网 IPv4，再开始安装。
+5. 按服务商机房地区确认 SERVER_TIMEZONE，执行 timedatectl set-timezone 并验证 NTP；不要只凭 IP 地理库猜测时区。
+6. 部署 3x-ui/Xray：Reality 443、TLS 2443、IPv4 优先出站和代理侧 ipv6: false。
+7. 分别准备 OpenClash/Mihomo 和 Shadowrocket 订阅身份，不复用不同服务器的节点凭据。
+8. 配置 Gemini、Grok、Muse、OpenAI、Claude、Google AI、国内直连和最终兜底规则，并确保特殊 AI 规则排在通用规则之前。
+9. 部署 CLIProxyAPI 和 Management Center，使用独立系统用户、独立管理密钥和独立 API Key。
+10. 配置 CLIProxyAPI 自动升级：查询官方稳定版、SHA-256 校验、原子替换、健康检查、失败回滚、文件锁和失败版本退避。只升级 CLIProxyAPI 及 Management Center，不自动升级 3x-ui/Xray。
+11. 配置 UFW 或同等防火墙，检查 22、80、443、2443、2096、8318、53998 的实际用途和监听状态。
+12. 配置 systemd 自动启动、日志轮换、每日配置备份并保留至少 7 份。
+13. 不在聊天、日志或终端输出私钥正文、完整订阅密钥、面板密码、OAuth 文件或 API Key。
+14. 完成 SSH、3x-ui、Xray、订阅、Reality、TLS、CLIProxyAPI、规则、IPv4 出站、防火墙、备份和自动升级验收。
+
+执行方式：
+- 先给出只读预检结果和将要修改的服务清单；
+- 再按阶段执行，每个阶段完成后检查服务状态；
+- 如果遇到错误，保留可回滚备份，说明原因后继续修复；
+- 不要为了省时间运行未经审计的一键脚本；
+- 最后只输出脱敏后的面板地址、OpenClash/Mihomo 订阅地址、Shadowrocket 订阅地址、CLIProxyAPI 管理地址、版本和验收结果。
+```
+
+## 部署完成后的复核提示词
+
+部署完成后，可以把下面这段交给 AI 做一次只读复核：
+
+```text
+请对 SSH 别名 <SSH_ALIAS> 做只读复核，不修改配置，不输出任何密钥正文。
+
+检查：
+1. SSH 密钥登录是否成功，root 登录是否不再要求密码；
+2. SERVER_TIMEZONE、NTP 同步和系统时间是否正确；
+3. x-ui、xray、nginx、cli-proxy-api 及其自动升级 timer 是否 active；
+4. 22、80、443、2443、2096、8318、53998 是否只由预期服务监听；
+5. OpenClash/Mihomo YAML 和 Shadowrocket 订阅是否返回 200；
+6. Reality 443、TLS 2443、CLIProxyAPI /v1/models 是否能完成健康检查；
+7. 代理出站是否使用 IPv4，配置是否为 ipv6: false；
+8. Gemini、Grok、Muse、OpenAI、Claude 是否命中预期策略组；
+9. 自动升级是否有校验、锁、回滚和失败版本退避；
+10. 最近一次配置备份是否存在且权限为 0700/0600。
+
+输出：只给出通过/失败、证据摘要、需要人工处理的项目，不输出私钥、密码、OAuth 或完整订阅密钥。
+```
+
+## 只调整时区的提示词
+
+当服务器已经部署完成，只需要根据机房地区统一时间时，使用这段：
+
+```text
+请只通过 SSH 别名 <SSH_ALIAS> 调整服务器时区，不修改代理、3x-ui、Xray、CLIProxyAPI、防火墙和订阅配置。
+
+目标时区：<SERVER_TIMEZONE>
+
+执行前先读取当前时区和 NTP 状态；执行 timedatectl set-timezone <SERVER_TIMEZONE>；然后验证：
+- timedatectl show --property=Timezone --value
+- timedatectl show --property=NTPSynchronized --property=LocalRTC
+- date -Is
+
+最后只报告修改前后时区、NTP 状态和 UTC 时间，不输出任何敏感信息。
+```
+
+## 给 AI 的安全边界
+
+- AI 只能使用你明确提供的服务器和本机密钥路径；
+- 私钥应留在本机文件中，不要粘贴到聊天窗口；
+- 每台服务器都必须生成自己的凭据；
+- 涉及删除数据、重装系统、关闭最后一种登录方式或迁移真实用户凭据时，应先停下来请求人工确认；
+- 输出结果必须脱敏，完整订阅地址和管理 Key 应通过本机安全文件交付。
+

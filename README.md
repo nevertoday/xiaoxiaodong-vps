@@ -1,89 +1,87 @@
 # 小小东 VPS
 
-很多人使用 Claude 时，直接购买所谓“共享节点”或万人共用的代理。这样的 IP 往往被大量账号、自动化脚本和不同来源的用户反复使用，甚至可能来自供应商统一分发的高风险节点。即使节点短期能打开 Claude，也不能说明它适合长期使用；一旦 IP 信誉、ASN、出口行为或账号环境被标记，可能出现验证、限流、登录异常，甚至触发更严格的风控。
+> 一套面向个人 VPS 的 3x-ui/Xray、AI 分流、CLIProxyAPI 和持续维护文档。
 
-Claude 对访问环境通常比较敏感。自己购买 VPS、自己部署节点、自己维护访问凭据，可以减少共享 IP 带来的不确定性，也方便在出现问题时检查线路、IP 信誉、DNS、IPv6、规则和客户端配置。
+项目目标是把“自己购买 VPS、自己生成凭据、自己维护节点和接口”的流程写清楚，方便人工部署，也方便交给能够执行 SSH 命令的 AI。文档只提供通用方案，不包含任何真实服务器密钥或账号凭据。
 
-## 为什么建议自己买 VPS
+[项目主页](https://github.com/nevertoday/xiaoxiaodong-vps) · [完整部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md) · [AI 提示词](./AI-部署提示词.md) · [安全说明](./SECURITY.md)
 
-自建并不能保证一定通过 Claude 或 ChatGPT 的风控，但至少可以控制这些关键因素：
+## 先看哪一份文件
 
-- 出口 IP 不与陌生用户共用；
-- 节点 UUID、Reality 密钥和订阅路径由自己生成；
-- 不需要把账号、OAuth 或 API Key 交给共享节点供应商；
-- 可以单独更换 IP、调整规则、关闭 IPv6、检查 DNS 和出站线路；
-- 可以保留配置备份，并在升级或故障后回滚。
+| 你的目的 | 建议阅读 |
+| --- | --- |
+| 了解项目、选择客户端、复制下载地址 | 本 README |
+| 从零部署一台 VPS | [3x-ui + CLIProxyAPI 多服务器部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md) |
+| 直接把要求交给 Codex 或其他执行型 AI | [交给 AI 的部署提示词](./AI-部署提示词.md) |
+| 报告公开文档中的安全问题 | [SECURITY.md](./SECURITY.md) |
 
-不要把自建节点大范围分享给陌生人。共享人数越多，IP 信誉和账号风控的不确定性越高。
+## 下载与在线阅读
 
-## 个人推荐的 VPS 服务商
+如果你只想保存到本机，直接下载整个项目 ZIP：
 
-我个人主要推荐两家：
+- [下载项目 ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip)
+- [浏览 GitHub 项目](https://github.com/nevertoday/xiaoxiaodong-vps)
 
-### 搬瓦工 BandwagonHost
+也可以单独打开或保存这些 Markdown 文件：
 
-目前如果 DMIT 没有合适库存，可以优先查看搬瓦工。库存、地区和套餐会变化，最终以官网实时页面为准。
+- [README 在线版](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/README.md)
+- [部署蓝图原文](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/3x-ui-CLIProxyAPI-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E8%93%9D%E5%9B%BE.md)
+- [AI 提示词原文](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/AI-%E9%83%A8%E7%BD%B2%E6%8F%90%E7%A4%BA%E8%AF%8D.md)
+- [安全说明原文](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/SECURITY.md)
 
-个人使用体验中，搬瓦工的部分线路和 IP 稳定性较好，曾帮助我应对过 ChatGPT 和 Claude 较严格的访问环境与风控检查。但这属于个人经验，不代表任何套餐或 IP 都能保证通过风控，也不代表购买后一定可以使用 Claude。
+## 这套方案包含什么
 
-我的邀请链接：
+| 模块 | 作用 |
+| --- | --- |
+| 3x-ui / Xray | 管理节点、Reality 主入口和 TLS 备用入口 |
+| OpenClash / Mihomo | 路由器和桌面端使用的 YAML 订阅与规则 |
+| Shadowrocket | 移动端使用的通用订阅 |
+| AI 分流 | Gemini、Grok、Muse、OpenAI、Claude、Google AI 等策略组 |
+| CLIProxyAPI | API 入口、Management Center、健康检查和上游账号管理 |
+| 自动维护 | 版本校验、定时升级、备份、回滚、日志轮换和端口检查 |
+| 安全基础 | SSH 密钥、UFW、systemd 限权、IPv4 优先和代理侧 IPv6 关闭 |
 
-<https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55>
+每台服务器都应独立生成 UUID、Reality 密钥、订阅路径、面板密码、管理密钥和 API Key。不能把一台服务器的数据库、OAuth、订阅或用户凭据直接复制到另一台。
 
-### DMIT
+## 推荐使用路径
 
-DMIT 的部分套餐线路和网络稳定性较好，也适合自己购买后部署。库存和可购买地区会变化，购买前应确认当前套餐、流量、带宽、路由和退款规则。
+### 1. 购买并记录一台 VPS
 
-我的邀请链接：
+准备好以下信息：
 
-<https://www.dmit.io/aff.php?aff=23544>
+- 公网 IPv4；
+- SSH 用户名和端口；
+- 本机私钥路径，或服务商提供的初始密码；
+- 服务商控制台标注的机房地区；
+- 操作系统、CPU 架构、内存和流量限制。
 
-## 部署时的服务器时区策略
+如果服务商只有初始密码，先用密码写入公钥并确认密钥登录成功，再关闭密码认证。不要在密钥登录验证前关闭密码认证。
 
-每台服务器都应根据服务商标注的机房地区明确设置时区。公网 IP 只能作为核对信息，不能作为唯一依据，因为 IP 归属、机房位置和实际出口线路可能不一致。
+### 2. 填写变量并交给 AI
 
-常见示例：
-
-- 美国西部或洛杉矶机房：`America/Los_Angeles`；
-- 需要统一日志时间的服务器：`Etc/UTC`；
-- 中国大陆本地服务器：`Asia/Shanghai`。
-
-部署参数中应显式填写：
+打开 [AI-部署提示词](./AI-部署提示词.md)，先填写这一段：
 
 ```text
+SERVER_IP=服务器公网 IPv4
+SSH_USER=root
+SSH_PORT=22
+SSH_KEY_PATH=/Users/你的用户名/.ssh/server-key
+SSH_ALIAS=server-name
 SERVER_REGION=服务商标注的机房地区
 SERVER_TIMEZONE=America/Los_Angeles
 ```
 
-然后在服务器上执行并验收：
+然后把完整提示词和[部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md)交给能够执行本机 SSH 命令的 AI。私钥正文不要粘贴到聊天中；只提供本机文件路径，并要求 AI 输出脱敏结果。
 
-```bash
-timedatectl set-timezone "$SERVER_TIMEZONE"
-timedatectl show --property=Timezone --value
-timedatectl show --property=NTPSynchronized --property=LocalRTC
-```
+### 3. 用实际客户端验收
 
-时区只影响服务器本地时间、日志和未明确指定时区的定时任务，不会改变公网 IP、代理线路或 Claude 风控结果。
+部署完成后，先打开订阅地址，确认返回 HTTP 200；再导入客户端，选择规则模式，最后分别测试普通网站和 Gemini、Grok、Muse、OpenAI、Claude。
 
-## 部署内容
-
-本项目提供一套可复用的 VPS 部署蓝图，覆盖：
-
-- 3x-ui / Xray；
-- Reality 443 和 TLS 备用节点；
-- OpenClash / Mihomo 与 Shadowrocket 订阅；
-- Gemini、Grok、Muse、OpenAI、Claude 等 AI 分流；
-- IPv4 优先出站和代理侧 IPv6 关闭；
-- CLIProxyAPI 与 Management Center；
-- CLIProxyAPI 自动升级、SHA-256 校验、健康检查和失败回滚；
-- SSH 密钥登录、UFW、防火墙、systemd 安全配置；
-- 配置备份、端口检查和故障排查。
-
-详细方案见：[3x-ui + CLIProxyAPI 多服务器部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md)。
+不要只看“面板能打开”。节点握手、订阅解析、AI 规则命中、CLIProxyAPI `/v1/models`、防火墙、自动升级和备份都要完成验收。
 
 ## 桌面端推荐：Clash Verge Rev
 
-对于 Windows、macOS 和 Linux 桌面端，建议使用 **Clash Verge Rev** 导入已经配置好的 Mihomo 订阅。项目里的规则、AI 分流组和节点参数已经在服务器端准备好，用户不需要再手工编写规则。
+Windows、macOS 和 Linux 建议使用 **Clash Verge Rev**。项目里的规则、AI 分流组和节点参数已经在服务器端准备好，客户端通常只需要导入 Mihomo YAML 订阅。
 
 官方入口：
 
@@ -92,61 +90,111 @@ timedatectl show --property=NTPSynchronized --property=LocalRTC
 
 使用步骤：
 
-1. 从官方 Releases 下载与你的系统和 CPU 架构对应的稳定版；
-2. 打开 Clash Verge Rev，进入 **Profiles / 配置**；
+1. 从 Releases 下载与你的系统和 CPU 架构对应的版本；
+2. 打开 **Profiles / 配置**；
 3. 粘贴服务器提供的 **OpenClash / Mihomo YAML 订阅地址**，保存并更新；
 4. 选中刚导入的配置；
-5. 将运行模式设置为 **Rule / 规则**；
+5. 运行模式选择 **Rule / 规则**；
 6. 打开 **System Proxy / 系统代理**。
 
-当前方案建议先使用“规则模式 + 系统代理”，不要手工改写 AI 规则，也不要一开始就切换到 Global / 全局或 Direct / 直连。访问 Gemini、Grok、Muse、OpenAI、Claude 时，配置会按已经写好的规则自动选择对应策略组；访问国内站点时则按国内直连规则处理。
+规则已经包含 Gemini、Grok、Muse、OpenAI、Claude 等 AI 分流，通常不需要手工添加规则。普通浏览器和大多数桌面应用先使用系统代理；只有某个程序不遵守系统代理时，再单独评估 TUN / 服务模式、DNS 和权限。
 
-如果某个程序不遵守系统代理，再考虑开启 TUN / 服务模式，并重新检查 DNS 和权限。普通浏览器和大多数桌面应用先使用系统代理即可。
+旧版 Clash for Windows 0.19.20 可能无法解析本项目使用的 Mihomo 字段，出现下面的错误时，应升级到支持 Mihomo 的客户端：
 
-旧版 Clash for Windows 0.19.20 可能无法解析本项目使用的 Mihomo 字段，出现 `yaml: cannot unmarshal !!seq into string` 时，应升级到 Clash Verge Rev 或其他支持 Mihomo 的客户端。不要把 Shadowrocket 的 Base64 订阅地址当成 Clash Verge Rev 的 YAML 订阅地址。
+```text
+yaml: unmarshal errors:
+  line 24: cannot unmarshal !!seq into string
+  line 27: cannot unmarshal !!seq into string
+  line 30: cannot unmarshal !!seq into string
+```
 
-## 使用前的客户端环境建议
+不要把 Shadowrocket 的 Base64 订阅地址当成 Clash Verge Rev 的 YAML 订阅地址。
 
-节点配置完成后，建议保持设备环境稳定：
+## 服务器时区策略
 
-- 按隐私需要关闭不必要的系统定位权限，尤其是浏览器和不需要定位的应用；关闭定位不会改变代理出口 IP，也不能保证通过任何服务的风控检查；
-- 如果长期固定使用某个 VPS 出口，可以把电脑时区设为该 VPS 所在地区，并尽量不要频繁在多个时区之间切换；
-- 时区设置只是设备环境的一部分，不能伪造实际位置，也不能替代稳定的线路和正常的账号使用；
-- 保持系统语言、浏览器配置、登录设备和网络习惯相对稳定，避免短时间内反复切换多个地区、节点和账号。
+时区必须作为部署变量明确指定。以服务商控制台的机房地区为准，公网 IP 只用于交叉核对，不能单独依赖 IP 地理库。
 
-## 使用行为规范
+常见值：
 
-请把自建节点用于正常的个人工作、学习和开发，遵守所在地法律、服务商条款和 AI 服务的使用政策。尤其注意：
+| 机房地区 | `SERVER_TIMEZONE` |
+| --- | --- |
+| 美国西部、洛杉矶 | `America/Los_Angeles` |
+| 统一使用 UTC | `Etc/UTC` |
+| 中国大陆本地机房 | `Asia/Shanghai` |
 
-- 不要向 AI 服务提出违法、暴力伤害、恶意入侵、窃取隐私或其他违背人类基本安全与尊严的问题；
-- 不要把个人账号当作公共接口、共享节点或批量调用入口；
-- 避免短时间内连续提交大量相似问题、并发刷请求、自动化轮询、批量导出或类似“蒸馏厂”的行为；
-- 不要绕过速率限制、验证码、账号限制或服务商的安全措施；
-- 有批量处理需求时，优先使用官方 API、合理限速和明确授权的工作流，并确认服务条款允许。
+部署时执行：
 
-稳定、少量、真实的个人使用更容易维护，也更容易在出现问题时定位原因。
+```bash
+timedatectl set-timezone "$SERVER_TIMEZONE"
+timedatectl show --property=Timezone --value
+timedatectl show --property=NTPSynchronized --property=LocalRTC
+```
 
-## 部署后检查 Claude IP 评分
+时区只影响服务器本地时间、日志和未明确指定时区的定时任务，不会改变公网 IP、代理出口、路由或 Claude 风控结果。
 
-配置完成后，可以使用下面的第三方页面检查当前出口 IP 的 Claude 相关评分：
+## 为什么建议自己买 VPS
+
+很多人直接使用共享节点或所谓“万人共用”的供应商节点。这样的 IP 可能被大量账号、自动化脚本和不同来源的用户反复使用，IP 信誉、ASN、出口行为和账号环境都更难判断。
+
+自己购买 VPS、自己生成凭据、自己维护节点，可以控制：
+
+- 出口 IP 是否与陌生用户共用；
+- UUID、Reality 密钥和订阅路径如何生成；
+- DNS、IPv6、规则和出站线路如何检查；
+- 配置如何备份、升级和回滚。
+
+自建不能保证通过 Claude、ChatGPT 或其他服务的风控，但能减少共享节点带来的不确定性。也不要把自建节点大范围分享给陌生人。
+
+## 个人推荐的 VPS 服务商
+
+### 搬瓦工 BandwagonHost
+
+库存、地区和套餐会变化，最终以官网实时页面为准。个人使用中，部分搬瓦工线路和 IP 稳定性较好，但任何套餐和 IP 都不能保证一定通过 AI 服务的风控。
+
+我的邀请链接：
+
+<https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55>
+
+### DMIT
+
+购买前请确认当前套餐、库存、地区、流量、带宽、路由和退款规则。
+
+我的邀请链接：
+
+<https://www.dmit.io/aff.php?aff=23544>
+
+两家链接都是邀请链接。如果通过链接购买，我可能获得推广佣金；这不代表对具体套餐、线路、IP 或 AI 可用性的保证。
+
+## 配置完成后的检查
+
+可以用下面的第三方页面检查当前代理出口的 Claude 相关评分：
 
 <https://ip.net.coffee/claude/>
 
-个人建议把 **70 分以上** 作为一个相对安心的参考线。这个分数只是第三方检测结果，不是 Claude 官方许可，也不能保证账号一定不触发风控。测试时应确认检测到的是实际代理出口 IP，而不是本地宽带 IP，并尽量使用干净的浏览器环境进行复测。
+个人会把 **70 分以上** 当作相对安心的参考线，不把它当作 Claude 官方许可或稳定性保证。测试时确认页面检测到的是代理出口 IP，而不是本地宽带 IP。
 
-如果分数偏低，可以让 Codex 协助检查：
+分数偏低时，可以让 AI 检查：
 
-- IP 是否被列入黑名单或存在滥用历史；
-- ASN、机房类型和地理位置是否异常；
-- 反向 DNS、DNS 泄漏和 IPv6 是否暴露；
-- 节点协议、SNI、Reality 参数和客户端规则是否正确；
-- 是否存在多人共用、旧订阅残留或异常访问记录。
+- IP 黑名单、滥用历史、ASN 和机房类型；
+- 反向 DNS、DNS 泄漏和 IPv6 暴露；
+- Reality、SNI、short ID、UUID 和客户端规则；
+- 是否残留旧订阅、旧用户或共享使用痕迹。
 
-如果问题来自服务商 IP 的历史信誉，配置优化不一定能彻底解决，换一个干净的 IP 或更换套餐可能更有效。
+如果问题来自服务商 IP 的历史信誉，配置优化不一定能彻底解决，换 IP 或更换套餐可能更有效。
 
-## 安全说明
+## 设备环境与使用行为
 
-本项目只发布通用架构和占位符，不包含任何真实服务器的：
+- 按隐私需要关闭不必要的系统定位权限；这不会改变代理出口 IP，也不能保证通过任何服务的风控；
+- 如果长期固定使用某个 VPS 出口，可以让电脑时区与 VPS 所在地区一致，并避免频繁切换；
+- 保持系统语言、浏览器、登录设备和网络习惯相对稳定；
+- 不要把个人账号变成公共 API、共享节点或批量调用入口；
+- 避免短时间内大量相似提问、并发刷请求、自动化轮询、批量导出或类似模型蒸馏厂的行为；
+- 不要绕过速率限制、验证码、账号限制或服务商安全措施；
+- 遵守所在地法律、服务商条款和 AI 服务使用政策，不提交违法、暴力伤害、恶意入侵或窃取隐私的请求。
+
+## 安全边界
+
+公开项目不包含任何真实服务器的：
 
 - SSH 私钥；
 - 面板密码；
@@ -155,10 +203,10 @@ timedatectl show --property=NTPSynchronized --property=LocalRTC
 - OAuth 文件；
 - CLIProxyAPI 管理密钥或 API Key。
 
-部署时必须为每台服务器重新生成凭据，并通过本机安全文件或密钥管理器注入。不要把真实密钥提交到 Git，也不要把完整订阅地址公开发到公共群组。
+部署时必须为每台服务器重新生成凭据，并通过本机安全文件或密钥管理器注入。不要把真实密钥提交到 Git，也不要把完整订阅地址公开发到公共群组。发现文档安全问题，请按 [SECURITY.md](./SECURITY.md) 联系维护者。
 
-## 关联与免责声明
+## 方案边界
 
-本文中的 DMIT 和 BandwagonHost 链接是我的邀请链接。如果通过链接购买，我可能获得相应的推广佣金；这不会改变文档中的技术方案，也不代表对服务商、套餐、线路或 Claude 可用性的保证。购买前请自行确认价格、库存、地区、流量、退款和服务条款。
+服务商线路、运营商网络、客户端版本、IP 历史信誉、上游账号权限和供应商 API 限额都会影响最终结果。这套项目可以标准化部署和验收，但不能保证所有地区都能访问同一个 IP，也不能保证上游 AI 账号本身可用。
 
-这是一份部署和运维参考方案。服务商线路、运营商网络、客户端版本、IP 历史信誉、上游账号权限和供应商 API 限额都会影响最终结果。完成部署后，必须按蓝图中的验收清单进行实际连接测试。
+最重要的原则是：每台服务器独立生成凭据，先验证 SSH 和服务，再交付给用户；所有自动更新都必须可校验、可健康检查、可回滚。
