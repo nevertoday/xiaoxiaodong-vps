@@ -1,0 +1,30 @@
+# macOS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+secrets/
+private/
+credentials/
+
+# SSH / TLS / API credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_ed25519*
+id_rsa*
+authorized_keys
+
+# Backups and generated runtime data
+backups/
+*.tar.gz
+*.zip
+*.sqlite
+*.db
+*.log
