@@ -32,6 +32,35 @@
 
 低配 AI 可以按本文完成安装和验收，但必须逐项执行检查，不能只运行一个未经审计的一键脚本。每台服务器都应该生成自己的 UUID、Reality 密钥、订阅路径、面板密码、管理密钥和 API Key。
 
+## 公网 HTTPS 证书策略
+
+所有对外的 HTTPS 入口都必须使用受浏览器和客户端信任的 IP 证书。当前方案使用 Let's Encrypt 的 IP 证书，不把自签名证书作为正常交付结果。
+
+证书实施要求：
+
+- 使用 Python 3.10+ 和 Certbot 5.4+；当前验证版本为 5.8.0；
+- 使用 `webroot` HTTP-01 校验，webroot 为 `/var/www/acme`，公网 TCP 80 必须可访问；
+- 使用 Let's Encrypt `shortlived` profile 和 `--ip-address <SERVER_IP>` 申请 IP 证书；
+- 证书统一放在 `/etc/letsencrypt/live/<SERVER_IP>/`，由 Nginx 和 Xray TLS 入口引用；
+- 同一张证书用于订阅入口 2096、3x-ui 面板 53998、CLIProxyAPI 8318，以及 Xray TLS 2443；
+- IP 证书有效期很短，必须设置每 6 小时检查一次的 systemd timer，并在 deploy hook 中执行 `nginx -t && systemctl reload nginx && systemctl try-restart x-ui.service`；
+- 部署后必须用系统信任库验证签发者和 IP SAN，并执行 `certbot renew --dry-run --run-deploy-hooks`；
+- 如果 IP 证书申请失败，部署应暂停并报告原因，不得悄悄改用自签名证书继续交付；
+- 不能只检查端口能否握手，必须同时检查浏览器/`curl` 的证书信任、有效期和 `subjectAltName` 中的服务器 IP。
+
+推荐申请形态如下，实际执行时将 IP 替换为本机值：
+
+```bash
+certbot certonly \
+  --webroot -w /var/www/acme \
+  --ip-address <SERVER_IP> \
+  --preferred-profile shortlived \
+  --key-type ecdsa \
+  --preferred-challenges http
+```
+
+不要使用 `-k` 或 `--insecure` 来掩盖证书问题。节点配置中的 `skip-cert-verify` 只用于明确需要兼容自签名 TLS 节点的客户端，不能替代订阅、面板和 API 入口的正规证书。
+
 ## 总体架构
 
 ```
@@ -315,6 +344,7 @@ API：8318
 - CLIProxyAPI 主程序；
 - CLIProxyAPI Management Center 静态文件；
 - Nginx HTTPS 反代；
+- Let's Encrypt IP 证书、短周期自动续期和 deploy hook；
 - 独立管理密钥；
 - 独立 API Key；
 - `/v1/models` 健康检查；
@@ -384,6 +414,7 @@ Unit=cliproxy-auto-update-all.service
 - Xray 配置；
 - CLIProxyAPI 配置；
 - Nginx 配置；
+- `/etc/letsencrypt` 证书、续期配置和 renewal hook；
 - 订阅生成器配置；
 - 本地规则镜像；
 - systemd unit 文件；
@@ -411,6 +442,9 @@ free -m
 另外核对：
 
 - 3x-ui 面板 HTTPS 返回 200；
+- 2096、53998、8318 和 2443 使用受信任的 Let's Encrypt IP 证书；
+- `openssl s_client` 能看到正确的 Let's Encrypt issuer 和服务器 IP SAN；
+- `certbot renew --dry-run --run-deploy-hooks` 成功；
 - OpenClash 订阅 HTTPS 返回 200 且 YAML 可解析；
 - Shadowrocket 订阅 HTTPS 返回 200；
 - Reality 443 入口可握手；

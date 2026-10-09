@@ -38,6 +38,7 @@
 | Shadowrocket | 移动端使用的通用订阅 |
 | AI 分流 | Gemini、Grok、Muse、OpenAI、Claude、Google AI 等策略组 |
 | CLIProxyAPI | API 入口、Management Center、健康检查和上游账号管理 |
+| HTTPS 证书 | Let's Encrypt IP 证书、Nginx/Xray 共用、短周期自动续期和失败检查 |
 | 自动维护 | 版本校验、定时升级、备份、回滚、日志轮换和端口检查 |
 | 安全基础 | SSH 密钥、UFW、systemd 限权、IPv4 优先和代理侧 IPv6 关闭 |
 

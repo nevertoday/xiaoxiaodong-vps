@@ -48,7 +48,10 @@ SERVER_TIMEZONE=<SERVER_TIMEZONE>
 11. 配置 UFW 或同等防火墙，检查 22、80、443、2443、2096、8318、53998 的实际用途和监听状态。
 12. 配置 systemd 自动启动、日志轮换、每日配置备份并保留至少 7 份。
 13. 不在聊天、日志或终端输出私钥正文、完整订阅密钥、面板密码、OAuth 文件或 API Key。
-14. 完成 SSH、3x-ui、Xray、订阅、Reality、TLS、CLIProxyAPI、规则、IPv4 出站、防火墙、备份和自动升级验收。
+14. HTTPS 必须使用受信任的 Let's Encrypt IP 证书：安装 Python 3.10+ 和 Certbot >=5.4（当前验证版本 5.8.0），使用 `/var/www/acme` webroot、`--ip-address <SERVER_IP>` 和 `--preferred-profile shortlived` 申请；证书申请失败时停止并报告，不得静默使用自签名证书。
+15. 让 Nginx 的 2096、53998、8318 和 Xray TLS 2443 共用该服务器自己的证书；设置每 6 小时检查一次续期，并在 deploy hook 中校验 Nginx 后 reload Nginx、重启需要重新读取证书的服务。
+16. 验证浏览器/系统信任链、证书 issuer、IP SAN、有效期和 `certbot renew --dry-run --run-deploy-hooks`，不能只验证 TCP/TLS 握手。
+17. 完成 SSH、3x-ui、Xray、订阅、Reality、TLS、CLIProxyAPI、规则、IPv4 出站、防火墙、备份和自动升级验收。
 
 执行方式：
 - 先给出只读预检结果和将要修改的服务清单；
@@ -76,6 +79,7 @@ SERVER_TIMEZONE=<SERVER_TIMEZONE>
 8. Gemini、Grok、Muse、OpenAI、Claude 是否命中预期策略组；
 9. 自动升级是否有校验、锁、回滚和失败版本退避；
 10. 最近一次配置备份是否存在且权限为 0700/0600。
+11. HTTPS 证书是否由受信任 CA 签发，issuer 是否为 Let's Encrypt，SAN 是否包含服务器 IP，Certbot 版本是否 >=5.4，短周期续期 timer 和 deploy hook 是否 active。
 
 输出：只给出通过/失败、证据摘要、需要人工处理的项目，不输出私钥、密码、OAuth 或完整订阅密钥。
 ```
