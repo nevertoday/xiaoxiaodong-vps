@@ -6,7 +6,7 @@
 相关入口：
 
 - [项目 README](./README.md)：先了解方案、客户端和下载地址；
-- [交给 AI 的部署提示词](./AI-部署提示词.md)：复制变量和可直接发送的代码块；
+- [新服务器部署模板](./部署模板.md)：填写连接信息并复制可直接使用的代码块；
 - [GitHub 项目 ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip)：保存整套文档。
 
 ## 阅读路径
@@ -17,7 +17,7 @@
 4. 部署 CLIProxyAPI、自动升级和备份；
 5. 最后按“交付验收清单”逐项留下结果。
 
-如果把任务交给 AI，建议同时提供本文件和 [AI-部署提示词](./AI-部署提示词.md)，并要求它先做只读预检，再按阶段执行。
+使用部署工具时，建议同时提供本文件和[新服务器部署模板](./部署模板.md)，并要求先做只读预检，再按阶段执行。
 
 ## 结论：低配 AI 能不能照此部署
 
@@ -82,19 +82,17 @@ CLIProxyAPI 客户端 ───────────> HTTPS 8318/v1 ─> CLIP
 
 ## 执行前必须收集的变量
 
-将下面的占位符替换成当前服务器信息。私钥正文不要放进提示词或 Markdown 文档。
+将下面的占位符替换成当前服务器信息。私钥正文不要放进聊天内容或 Markdown 文档。
 
 ```text
 SERVER_IP=服务器公网 IPv4
 SSH_USER=root
 SSH_PORT=22
-SSH_KEY_PATH=/本机/私钥路径
+SSH_PASSWORD=初始密码（使用密钥时留空）
+SSH_KEY_PATH=/本机/私钥路径（使用密码时留空）
 SSH_ALIAS=自定义别名
 
-OS=Ubuntu LTS 或其他受支持发行版
-ARCH=x86_64 或 arm64
-SERVER_REGION=服务商标注的机房地区
-SERVER_TIMEZONE=America/Los_Angeles
+SERVER_TIMEZONE=可选；不确定时由部署工具按服务商机房确认
 
 PANEL_PORT=53998
 SUBSCRIPTION_PORT=2096
@@ -508,9 +506,9 @@ journalctl -k --since '24 hours ago' | grep -i oom
 
 2 GB 服务器适合常见的文本流式并发。1 GB 服务器在大量长连接、大上下文或多媒体请求下余量较小，应优先升级到 2 GB。不要先人为设置很小的 `MemoryMax`，否则会制造人为 OOM。
 
-## 十一、交给低配 AI 的执行提示词模板
+## 十一、自动化部署执行模板
 
-将下面内容连同本文交给执行 AI，并把真实私钥通过本机文件路径提供：
+将下面内容连同本文交给部署工具，并把真实私钥通过本机文件路径提供：
 
 ```text
 目标：在全新 VPS 上独立部署 3x-ui/Xray、OpenClash 和 Shadowrocket 订阅、

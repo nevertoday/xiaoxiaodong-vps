@@ -2,9 +2,9 @@
 
 > 一套面向个人 VPS 的 3x-ui/Xray、AI 分流、CLIProxyAPI 和持续维护文档。
 
-项目目标是把“自己购买 VPS、自己生成凭据、自己维护节点和接口”的流程写清楚，方便人工部署，也方便交给能够执行 SSH 命令的 AI。文档只提供通用方案，不包含任何真实服务器密钥或账号凭据。
+项目目标是把“自己购买 VPS、自己生成凭据、自己维护节点和接口”的流程写清楚，方便人工部署或使用自动化部署工具。文档只提供通用方案，不包含任何真实服务器密钥或账号凭据。
 
-[项目主页](https://github.com/nevertoday/xiaoxiaodong-vps) · [完整部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md) · [AI 提示词](./AI-部署提示词.md) · [安全说明](./SECURITY.md)
+[项目主页](https://github.com/nevertoday/xiaoxiaodong-vps) · [完整部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md) · [部署模板](./部署模板.md) · [安全说明](./SECURITY.md)
 
 ## 先看哪一份文件
 
@@ -12,7 +12,7 @@
 | --- | --- |
 | 了解项目、选择客户端、复制下载地址 | 本 README |
 | 从零部署一台 VPS | [3x-ui + CLIProxyAPI 多服务器部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md) |
-| 直接把要求交给 Codex 或其他执行型 AI | [交给 AI 的部署提示词](./AI-部署提示词.md) |
+| 使用现成模板部署新 VPS | [新服务器部署模板](./部署模板.md) |
 | 报告公开文档中的安全问题 | [SECURITY.md](./SECURITY.md) |
 
 ## 下载与在线阅读
@@ -26,7 +26,7 @@
 
 - [README 在线版](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/README.md)
 - [部署蓝图原文](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/3x-ui-CLIProxyAPI-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E8%93%9D%E5%9B%BE.md)
-- [AI 提示词原文](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/AI-%E9%83%A8%E7%BD%B2%E6%8F%90%E7%A4%BA%E8%AF%8D.md)
+- [部署模板原文](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/%E9%83%A8%E7%BD%B2%E6%A8%A1%E6%9D%BF.md)
 - [安全说明原文](https://raw.githubusercontent.com/nevertoday/xiaoxiaodong-vps/main/SECURITY.md)
 
 ## 这套方案包含什么
@@ -53,26 +53,26 @@
 - 公网 IPv4；
 - SSH 用户名和端口；
 - 本机私钥路径，或服务商提供的初始密码；
-- 服务商控制台标注的机房地区；
-- 操作系统、CPU 架构、内存和流量限制。
+- 希望设置的 SSH 别名，例如 `bwg`；
+- 时区可以留空，由部署工具根据服务商机房确认。
 
 如果服务商只有初始密码，先用密码写入公钥并确认密钥登录成功，再关闭密码认证。不要在密钥登录验证前关闭密码认证。
 
-### 2. 填写变量并交给 AI
+### 2. 提供连接信息
 
-打开 [AI-部署提示词](./AI-部署提示词.md)，先填写这一段：
+打开[新服务器部署模板](./部署模板.md)，只填写这一段：
 
 ```text
 SERVER_IP=服务器公网 IPv4
 SSH_USER=root
 SSH_PORT=22
-SSH_KEY_PATH=/Users/你的用户名/.ssh/server-key
-SSH_ALIAS=server-name
-SERVER_REGION=服务商标注的机房地区
-SERVER_TIMEZONE=America/Los_Angeles
+SSH_PASSWORD=服务商初始密码（使用密钥时留空）
+SSH_KEY_PATH=/Users/你的用户名/.ssh/server-key（使用密码时留空）
+SSH_ALIAS=希望以后使用的 SSH 别名，例如 bwg
+SERVER_TIMEZONE=可选；不确定时留空
 ```
 
-然后把完整提示词和[部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md)交给能够执行本机 SSH 命令的 AI。私钥正文不要粘贴到聊天中；只提供本机文件路径，并要求 AI 输出脱敏结果。
+然后把完整模板和[部署蓝图](./3x-ui-CLIProxyAPI-服务器部署蓝图.md)交给能够执行本机 SSH 命令的部署工具。私钥正文不要粘贴到聊天中；只提供本机文件路径，并要求输出脱敏结果。
 
 ### 3. 用实际客户端验收
 
