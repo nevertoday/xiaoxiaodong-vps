@@ -1170,46 +1170,54 @@ def cmd_verify(a):
 def cmd_export(a):
     if sys.stdout.isatty() and not a.force:
         die('export 会输出全部密码和 Key，请重定向到本机文件，例如：ssh 别名 "xxd-vps export" > 登录信息.md')
+    labels = json.loads((FILES / 'export-labels.json').read_text())
+    if a.lang not in labels:
+        die('不支持的语言：' + a.lang + '（可选：' + ', '.join(labels) + '）')
+    L = labels[a.lang]
     d, c = deploy(), creds()
     ip, sub = d['ip'], f"https://{d['ip']}:{PORT['sub']}"
-    print(f"""# {d['alias']} 服务器登录信息
+    nodes = L['nodes'].replace('{reality}', c['reality_name']).replace('{tls}', c['tls_name'])
+    body = f"""# {L['title'].replace('{alias}', d['alias'])}
 
-> 这份文件包含全部密码和 Key，只保存在你自己的电脑上，不要发群、截图或上传。
+> {L['warn']}
 
-| 项目 | 内容 |
+| {L['item']} | {L['value']} |
 | --- | --- |
-| SSH 登录 | `ssh {d['alias']}` |
-| 服务器 IP | `{ip}` |
-| 时区 | `{d['timezone']}` |
+| {L['ssh']} | `ssh {d['alias']}` |
+| {L['ip']} | `{ip}` |
+| {L['tz']} | `{d['timezone']}` |
 
-## 代理订阅
+## {L['subs']}
 
-| 用途 | 订阅地址 |
+| {L['use']} | {L['url']} |
 | --- | --- |
 | Clash Verge Rev / OpenClash / Mihomo | `{sub}{c['clash_path']}{c['sub_id_clash']}` |
-| Shadowrocket（iPhone） | `{sub}{c['sub_path']}{c['sub_id_mobile']}` |
+| {L['mobile']} | `{sub}{c['sub_path']}{c['sub_id_mobile']}` |
 
-节点：`{c['reality_name']}`（主力，TCP 443）、`{c['tls_name']}`（备用，TCP 2443）。
+{nodes}
 
-## 3x-ui 面板
+## {L['panel']}
 
-| 项目 | 内容 |
+| {L['item']} | {L['value']} |
 | --- | --- |
-| 地址 | `https://{ip}:{PORT['panel']}{c['panel_path']}` |
-| 用户名 | `{c['panel_username']}` |
-| 密码 | `{c['panel_password']}` |
+| {L['addr']} | `https://{ip}:{PORT['panel']}{c['panel_path']}` |
+| {L['user']} | `{c['panel_username']}` |
+| {L['pass']} | `{c['panel_password']}` |
 
 ## CLIProxyAPI
 
-| 项目 | 内容 |
+| {L['item']} | {L['value']} |
 | --- | --- |
-| 管理中心 | `https://{ip}:{PORT['cliproxy']}/management.html` |
-| 管理中心登录 Key | `{c['cliproxy_management_key']}` |
-| API 地址（Base URL） | `https://{ip}:{PORT['cliproxy']}/v1` |
-| API Key | `{c['cliproxy_api_key']}` |
+| {L['cpa_mgmt']} | `https://{ip}:{PORT['cliproxy']}/management.html` |
+| {L['cpa_key']} | `{c['cliproxy_management_key']}` |
+| {L['cpa_base']} | `https://{ip}:{PORT['cliproxy']}/v1` |
+| {L['api_key']} | `{c['cliproxy_api_key']}` |
 
-刚部署完没有任何上游账号：登录管理中心，添加你自己的账号或供应商 Key 后才能调用模型。
-""")
+{L['empty']}
+"""
+    if a.lang == 'ar':
+        body = '<div dir="rtl">\n\n' + body + '\n</div>\n'
+    print(body)
     return 0
 
 
@@ -1233,6 +1241,7 @@ def main():
     v.add_argument('--full', action='store_true', help='额外做一次证书续期演练')
     e = sp.add_parser('export')
     e.add_argument('--force', action='store_true')
+    e.add_argument('--lang', default='zh', help='登录信息文件的语言：zh en ko ja ar es fr ru de pt')
     a = ap.parse_args()
     if os.geteuid() != 0:
         die('需要 root 权限运行')

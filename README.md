@@ -1,5 +1,7 @@
 # 小小东 VPS
 
+**中文** · [English](./README.en.md) · [한국어](./README.ko.md) · [日本語](./README.ja.md) · [العربية](./README.ar.md) · [Español](./README.es.md) · [Français](./README.fr.md) · [Русский](./README.ru.md) · [Deutsch](./README.de.md) · [Português](./README.pt.md)
+
 出差到上网不方便的国家，也能正常用常用的网站和 AI 工具。
 
 做法很简单：自己买一台海外服务器，让 AI 按这套方案配好，手机和电脑导入订阅就能用。线路只给你自己用，不和陌生人共享。

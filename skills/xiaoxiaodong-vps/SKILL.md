@@ -9,6 +9,12 @@ description: 按小小东 VPS 方案，把一台全新的 Debian / Ubuntu VPS �
 
 方案每一部分为什么这样设计，见 [references/design.md](references/design.md)；出错时先查 [references/troubleshooting.md](references/troubleshooting.md)。
 
+## 语言
+
+用户用什么语言和你说话，你就全程用那种语言交流（问问题、报进度、交付说明都是）。本文件里的中文模板，按用户的语言转述即可。
+
+保存登录信息时用 `--lang` 生成对应语言的文件：中文 `zh`（默认）、English `en`、한국어 `ko`、日本語 `ja`、العربية `ar`、Español `es`、Français `fr`、Русский `ru`、Deutsch `de`、Português `pt`；其他语言用 `en`。脚本自己的终端输出是中文，你转述给用户就行。
+
 ## 必须遵守
 
 1. **只操作用户这次给的这台服务器。** 不登录、不读取、不修改任何其他服务器；`~/.ssh/config` 里已有的条目一律不动。
@@ -91,7 +97,7 @@ bash "$R" 名称 verify --full
 2. 保存登录信息到本机（不会显示在终端）：
 
    ```bash
-   bash "$R" 名称 save     # → 桌面「小小东VPS-名称-登录信息.md」，权限 600（没有桌面目录时放在主目录）
+   bash "$R" 名称 save --lang zh   # → 桌面「小小东VPS-名称-登录信息.md」；其他语言是「XXD-VPS-名称-login-语言.md」。权限 600，没有桌面目录时放在主目录
    ```
 
 3. 从用户这台电脑测一下能不能连到服务器（返回 404 表示连通、证书正常）：

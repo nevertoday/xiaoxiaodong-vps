@@ -1,0 +1,102 @@
+{
+  "zh": {
+    "title": "{alias} 服务器登录信息",
+    "warn": "这份文件包含全部密码和 Key，只保存在你自己的电脑上，不要发群、截图或上传。",
+    "item": "项目", "value": "内容", "ssh": "SSH 登录", "ip": "服务器 IP", "tz": "时区",
+    "subs": "代理订阅", "use": "用途", "url": "订阅地址", "mobile": "Shadowrocket（iPhone）",
+    "nodes": "节点：`{reality}`（主力，TCP 443）、`{tls}`（备用，TCP 2443）。",
+    "panel": "3x-ui 面板", "addr": "地址", "user": "用户名", "pass": "密码",
+    "cpa_mgmt": "管理中心", "cpa_key": "管理中心登录 Key", "cpa_base": "API 地址（Base URL）", "api_key": "API Key",
+    "empty": "刚部署完没有任何上游账号：登录管理中心，添加你自己的账号或供应商 Key 后才能调用模型。"
+  },
+  "en": {
+    "title": "{alias} server login details",
+    "warn": "This file contains every password and key. Keep it only on your own computer. Do not share, screenshot or upload it.",
+    "item": "Item", "value": "Value", "ssh": "SSH login", "ip": "Server IP", "tz": "Time zone",
+    "subs": "Proxy subscriptions", "use": "For", "url": "Subscription URL", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "Nodes: `{reality}` (main, TCP 443) and `{tls}` (backup, TCP 2443).",
+    "panel": "3x-ui panel", "addr": "URL", "user": "Username", "pass": "Password",
+    "cpa_mgmt": "Management center", "cpa_key": "Management login key", "cpa_base": "API base URL", "api_key": "API key",
+    "empty": "A fresh install has no upstream accounts. Sign in to the management center and add your own account or provider key before calling models."
+  },
+  "ko": {
+    "title": "{alias} 서버 로그인 정보",
+    "warn": "이 파일에는 모든 비밀번호와 키가 들어 있습니다. 본인 컴퓨터에만 보관하고, 공유·캡처·업로드하지 마세요.",
+    "item": "항목", "value": "내용", "ssh": "SSH 로그인", "ip": "서버 IP", "tz": "시간대",
+    "subs": "프록시 구독", "use": "용도", "url": "구독 주소", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "노드: `{reality}`(주 노드, TCP 443), `{tls}`(예비 노드, TCP 2443).",
+    "panel": "3x-ui 패널", "addr": "주소", "user": "사용자 이름", "pass": "비밀번호",
+    "cpa_mgmt": "관리 센터", "cpa_key": "관리 센터 로그인 키", "cpa_base": "API 주소 (Base URL)", "api_key": "API 키",
+    "empty": "새로 설치하면 업스트림 계정이 없습니다. 관리 센터에 로그인해 본인 계정이나 제공업체 키를 추가해야 모델을 호출할 수 있습니다."
+  },
+  "ja": {
+    "title": "{alias} サーバーのログイン情報",
+    "warn": "このファイルにはすべてのパスワードとキーが含まれています。自分のパソコンにだけ保存し、共有・スクリーンショット・アップロードはしないでください。",
+    "item": "項目", "value": "内容", "ssh": "SSH ログイン", "ip": "サーバー IP", "tz": "タイムゾーン",
+    "subs": "プロキシ購読", "use": "用途", "url": "購読 URL", "mobile": "Shadowrocket（iPhone）",
+    "nodes": "ノード：`{reality}`（メイン、TCP 443）、`{tls}`（予備、TCP 2443）。",
+    "panel": "3x-ui パネル", "addr": "URL", "user": "ユーザー名", "pass": "パスワード",
+    "cpa_mgmt": "管理センター", "cpa_key": "管理センターのログインキー", "cpa_base": "API ベース URL", "api_key": "API キー",
+    "empty": "インストール直後は上流アカウントがありません。管理センターにログインし、自分のアカウントやプロバイダーのキーを追加するとモデルを呼び出せます。"
+  },
+  "ar": {
+    "title": "بيانات تسجيل الدخول إلى الخادم {alias}",
+    "warn": "يحتوي هذا الملف على جميع كلمات المرور والمفاتيح. احتفظ به على جهازك فقط، ولا تشاركه أو تلتقط له صورة أو ترفعه إلى أي مكان.",
+    "item": "البند", "value": "القيمة", "ssh": "تسجيل الدخول عبر SSH", "ip": "عنوان IP للخادم", "tz": "المنطقة الزمنية",
+    "subs": "اشتراكات البروكسي", "use": "الاستخدام", "url": "رابط الاشتراك", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "العقد: `{reality}` (الرئيسية، TCP 443) و`{tls}` (الاحتياطية، TCP 2443).",
+    "panel": "لوحة 3x-ui", "addr": "الرابط", "user": "اسم المستخدم", "pass": "كلمة المرور",
+    "cpa_mgmt": "مركز الإدارة", "cpa_key": "مفتاح الدخول إلى مركز الإدارة", "cpa_base": "عنوان API الأساسي", "api_key": "مفتاح API",
+    "empty": "التثبيت الجديد لا يحتوي على أي حساب. سجّل الدخول إلى مركز الإدارة وأضف حسابك أو مفتاح المزوّد قبل استدعاء النماذج."
+  },
+  "es": {
+    "title": "Datos de acceso del servidor {alias}",
+    "warn": "Este archivo contiene todas las contraseñas y claves. Guárdalo solo en tu ordenador. No lo compartas, no le hagas capturas ni lo subas a ningún sitio.",
+    "item": "Elemento", "value": "Valor", "ssh": "Acceso SSH", "ip": "IP del servidor", "tz": "Zona horaria",
+    "subs": "Suscripciones del proxy", "use": "Para", "url": "URL de suscripción", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "Nodos: `{reality}` (principal, TCP 443) y `{tls}` (respaldo, TCP 2443).",
+    "panel": "Panel 3x-ui", "addr": "URL", "user": "Usuario", "pass": "Contraseña",
+    "cpa_mgmt": "Centro de administración", "cpa_key": "Clave de acceso al centro de administración", "cpa_base": "URL base de la API", "api_key": "Clave de API",
+    "empty": "Una instalación nueva no tiene cuentas. Entra en el centro de administración y añade tu propia cuenta o la clave de un proveedor antes de llamar a los modelos."
+  },
+  "fr": {
+    "title": "Identifiants du serveur {alias}",
+    "warn": "Ce fichier contient tous les mots de passe et toutes les clés. Gardez-le uniquement sur votre ordinateur. Ne le partagez pas, ne le capturez pas et ne le mettez en ligne nulle part.",
+    "item": "Élément", "value": "Valeur", "ssh": "Connexion SSH", "ip": "IP du serveur", "tz": "Fuseau horaire",
+    "subs": "Abonnements proxy", "use": "Pour", "url": "URL d'abonnement", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "Nœuds : `{reality}` (principal, TCP 443) et `{tls}` (secours, TCP 2443).",
+    "panel": "Panneau 3x-ui", "addr": "URL", "user": "Nom d'utilisateur", "pass": "Mot de passe",
+    "cpa_mgmt": "Centre de gestion", "cpa_key": "Clé de connexion au centre de gestion", "cpa_base": "URL de base de l'API", "api_key": "Clé API",
+    "empty": "Une installation neuve n'a aucun compte. Connectez-vous au centre de gestion et ajoutez votre propre compte ou la clé d'un fournisseur avant d'appeler des modèles."
+  },
+  "ru": {
+    "title": "Данные для входа на сервер {alias}",
+    "warn": "В этом файле все пароли и ключи. Храните его только на своём компьютере. Не пересылайте, не делайте скриншоты и никуда не загружайте.",
+    "item": "Пункт", "value": "Значение", "ssh": "Вход по SSH", "ip": "IP сервера", "tz": "Часовой пояс",
+    "subs": "Подписки прокси", "use": "Для чего", "url": "Адрес подписки", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "Узлы: `{reality}` (основной, TCP 443) и `{tls}` (резервный, TCP 2443).",
+    "panel": "Панель 3x-ui", "addr": "Адрес", "user": "Имя пользователя", "pass": "Пароль",
+    "cpa_mgmt": "Центр управления", "cpa_key": "Ключ входа в центр управления", "cpa_base": "Базовый адрес API", "api_key": "Ключ API",
+    "empty": "После установки в системе нет ни одного аккаунта. Войдите в центр управления и добавьте свой аккаунт или ключ провайдера, прежде чем вызывать модели."
+  },
+  "de": {
+    "title": "Zugangsdaten für den Server {alias}",
+    "warn": "Diese Datei enthält alle Passwörter und Schlüssel. Bewahren Sie sie nur auf Ihrem eigenen Computer auf. Nicht teilen, keine Screenshots, nirgends hochladen.",
+    "item": "Eintrag", "value": "Wert", "ssh": "SSH-Anmeldung", "ip": "Server-IP", "tz": "Zeitzone",
+    "subs": "Proxy-Abonnements", "use": "Für", "url": "Abo-URL", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "Knoten: `{reality}` (Haupt, TCP 443) und `{tls}` (Reserve, TCP 2443).",
+    "panel": "3x-ui-Panel", "addr": "URL", "user": "Benutzername", "pass": "Passwort",
+    "cpa_mgmt": "Verwaltungszentrale", "cpa_key": "Anmeldeschlüssel der Verwaltungszentrale", "cpa_base": "API-Basis-URL", "api_key": "API-Schlüssel",
+    "empty": "Eine neue Installation hat noch keine Konten. Melden Sie sich in der Verwaltungszentrale an und fügen Sie Ihr eigenes Konto oder einen Anbieter-Schlüssel hinzu, bevor Sie Modelle aufrufen."
+  },
+  "pt": {
+    "title": "Dados de acesso do servidor {alias}",
+    "warn": "Este arquivo contém todas as senhas e chaves. Guarde-o apenas no seu computador. Não compartilhe, não tire print e não envie para lugar nenhum.",
+    "item": "Item", "value": "Valor", "ssh": "Login SSH", "ip": "IP do servidor", "tz": "Fuso horário",
+    "subs": "Assinaturas do proxy", "use": "Para", "url": "URL da assinatura", "mobile": "Shadowrocket (iPhone)",
+    "nodes": "Nós: `{reality}` (principal, TCP 443) e `{tls}` (reserva, TCP 2443).",
+    "panel": "Painel 3x-ui", "addr": "URL", "user": "Usuário", "pass": "Senha",
+    "cpa_mgmt": "Central de gerenciamento", "cpa_key": "Chave de acesso à central de gerenciamento", "cpa_base": "URL base da API", "api_key": "Chave de API",
+    "empty": "Uma instalação nova não tem contas. Entre na central de gerenciamento e adicione sua própria conta ou a chave de um provedor antes de chamar modelos."
+  }
+}
