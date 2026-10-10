@@ -107,7 +107,7 @@ bash "$R" 名称 verify --full
    - 登录信息文件的路径（让用户自己打开，你不要读出来）；
    - 电脑装 Clash Verge Rev，导入文件里的 **Clash 订阅**，选"规则"模式并打开"系统代理"；iPhone 用 Shadowrocket 导入 **Shadowrocket 订阅**；路由器 OpenClash 用 Clash 订阅；
    - CLIProxyAPI 现在是空的，要在管理中心添加自己的上游账号或供应商 Key；
-   - 可以到 <https://ip.net.coffee/claude/> 看出口评分，70 分以上相对安心。
+   - 导入后打开 <https://ipinfo.io>，显示服务器的 IP 就说明通了；要出差的话，出发前在手机和电脑上都测一遍。
 
 ## 以后的复核和维护
 
