@@ -288,7 +288,7 @@ rule-providers:
     format: yaml
   ACL-ChinaCompanyIp:
     type: http
-    behavior: ipcidr
+    behavior: classical
     url: https://{{SERVER_IP}}:2096/rules/acl-china-company-ip.yaml
     path: ./ruleset/acl-china-company-ip.yaml
     interval: 86400
@@ -296,7 +296,7 @@ rule-providers:
     format: yaml
   ACL-ChinaIp:
     type: http
-    behavior: ipcidr
+    behavior: classical
     url: https://{{SERVER_IP}}:2096/rules/acl-china-ip.yaml
     path: ./ruleset/acl-china-ip.yaml
     interval: 86400
@@ -419,6 +419,10 @@ rules:
 - DOMAIN-SUFFIX,statsig.com,AI-人工智能
 - DOMAIN-SUFFIX,featuregates.org,AI-人工智能
 - DOMAIN-SUFFIX,featureassets.org,AI-人工智能
+- DOMAIN-KEYWORD,claude,AI-人工智能
+- DOMAIN-KEYWORD,anthropic,AI-人工智能
+- DOMAIN-KEYWORD,openai,AI-人工智能
+- DOMAIN-KEYWORD,generativelanguage,AI-人工智能
 - DOMAIN-SUFFIX,oaistatsig.com,AI-人工智能
 - DOMAIN-SUFFIX,sora.com,AI-人工智能
 - DOMAIN-SUFFIX,chatgpt.livekit.cloud,AI-人工智能
@@ -445,9 +449,6 @@ rules:
 - RULE-SET,ACL-UnBan,DIRECT
 - RULE-SET,ACL-GoogleFCM,DIRECT
 - RULE-SET,ACL-GoogleCN,DIRECT
-- RULE-SET,Meta-CN-Domain,DIRECT
-- RULE-SET,ACL-ChinaDomain,DIRECT
-- RULE-SET,cn-domain,DIRECT
 - RULE-SET,ACL-YouTube,MEDIA-影音
 - RULE-SET,YouTube,MEDIA-影音
 - RULE-SET,ACL-Netflix,NETFLIX-奈飞
@@ -458,12 +459,15 @@ rules:
 - RULE-SET,ACL-OneDrive,MICROSOFT-微软
 - RULE-SET,Google,GOOGLE-谷歌
 - RULE-SET,ACL-ProxyGFW,PROXY-代理
+- RULE-SET,Meta-CN-Domain,DIRECT
+- RULE-SET,ACL-ChinaDomain,DIRECT
 - RULE-SET,ACL-ChinaCompanyIp,DIRECT,no-resolve
 - RULE-SET,ACL-ChinaIp,DIRECT,no-resolve
 - RULE-SET,ACL-Download,DIRECT
 - RULE-SET,DirectLite,DIRECT
-- RULE-SET,ChinaCIDR,DIRECT
-- RULE-SET,cn-ip,DIRECT
+- RULE-SET,ChinaCIDR,DIRECT,no-resolve
+- RULE-SET,cn-domain,DIRECT
+- RULE-SET,cn-ip,DIRECT,no-resolve
 - GEOIP,CN,DIRECT
 - MATCH,PROXY-代理
 find-process-mode: 'off'

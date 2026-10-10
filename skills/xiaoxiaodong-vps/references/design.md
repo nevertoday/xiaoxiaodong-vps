@@ -95,14 +95,16 @@ Clash 订阅自带完整规则（模板在 `scripts/server/files/clash-template.
 
 1. 服务器自己的 IP、局域网地址直连；
 2. **Gemini / Google AI 相关域名**（含登录、静态资源）→ `AI-人工智能`；
-3. OpenAI、Claude、Gemini 规则集，以及 ChatGPT、Claude、Grok / xAI、Perplexity、Copilot、Cursor、Midjourney、Hugging Face、Muse 等域名 → `AI-人工智能`；
+3. OpenAI、Claude、Gemini 规则集，以及 ChatGPT、Claude、Grok / xAI、Perplexity、Copilot、Cursor、Midjourney、Hugging Face、Muse 等域名，再加 `claude`、`anthropic`、`openai`、`generativelanguage` 四个关键词兜底 → `AI-人工智能`；
 4. MetaCubeX 的 `category-ai-!cn` 兜底其他海外 AI 服务；
-5. 国内域名和国内 IP 直连；YouTube、Netflix、Telegram、Apple、Microsoft、Google 各自分组；
+5. 国内域名和国内 IP 直连（国内 IP 段规则带 `no-resolve`，不为了匹配规则去做 DNS 解析）；YouTube、Netflix、Telegram、Apple、Microsoft、Google 各自分组；
 6. 最后 `MATCH` 走代理。
 
 AI 规则必须排在通用规则前面，否则 Gemini 的登录、静态资源域名可能被分到 Google 或直连组，出口不一致，容易出现"页面打得开但用不了"。
 
-**规则文件放在你自己的服务器上**：服务器每天从 ACL4SSR、MetaCubeX、Loyalsoldier 的公开地址下载一次（`rule-sources.json`），保存到 `/var/lib/xxd-vps/rules/`，客户端只从 `https://你的IP:2096/rules/` 下载。好处是路由器在国内也不用直连 GitHub；某个上游下载失败时保留上一份，不会出现空规则。部署和验收时还会检查每个规则集声明的格式和文件实际内容一致（上游改过格式时会被发现）。
+规则顺序与小小东最新的生产服务器完全一致（132 条，27 个规则集）。
+
+**规则文件放在你自己的服务器上**：服务器每天从 ACL4SSR（`Clash/*.list`，转换成规则集格式）、MetaCubeX、misakaio/chnroutes2 的公开地址下载一次（`rule-sources.json`），保存到 `/var/lib/xxd-vps/rules/`，客户端只从 `https://你的IP:2096/rules/` 下载。好处是路由器在国内也不用直连 GitHub；某个上游下载失败时保留上一份，不会出现空规则。部署和验收时还会检查每个规则集声明的格式和文件实际内容一致（上游改过格式时会被发现）。
 
 DNS 使用 fake-ip，国内域名走阿里 / 腾讯 DoH。AI 域名不在本地解析，直接按域名交给代理，由服务器解析。
 
