@@ -56,7 +56,7 @@
 
 AI 下载不了项目时，手动[下载 ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) 解压，然后在那段话里加一句"项目已经在：文件夹路径"。
 
-完成后，你电脑上会多一个文件 `~/xxd-vps/你的名字/登录信息.md`，里面有：
+完成后，桌面上会多一个文件 `小小东VPS-你的名字-登录信息.md`，里面有：
 
 - 电脑和路由器用的 **Clash 订阅地址**、iPhone 用的 **Shadowrocket 订阅地址**；
 - 3x-ui 面板的地址、账号、密码；

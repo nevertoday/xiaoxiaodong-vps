@@ -42,7 +42,7 @@ touch "$CONFIG"; chmod 600 "$CONFIG"
 # 名称已被占用时不覆盖别的服务器
 existing=$(ssh -G "$ALIAS" 2>/dev/null | awk '$1=="hostname"{print $2}')
 if grep -Eq "^[[:space:]]*Host[[:space:]]+(.*[[:space:]])?${ALIAS}([[:space:]]|$)" "$CONFIG"; then
-  [ "$existing" = "$HOST" ] || fail "ssh 名称 \"$ALIAS\" 已经指向另一台服务器（$existing），请换一个名称"
+  [ "$existing" = "$HOST" ] || fail "ssh 名称 \"$ALIAS\" 已经指向另一台服务器（${existing}），请换一个名称"
   ALREADY=1
 else
   ALREADY=0
@@ -57,7 +57,7 @@ is_private_key() { head -c 64 "$1" 2>/dev/null | grep -q -- '-----BEGIN .*PRIVAT
 
 if [ -n "$KEY" ]; then
   KEY="${KEY/#\~/$HOME}"
-  [ -f "$KEY" ] || fail "找不到密钥文件：$KEY（macOS 若拦截“下载”文件夹，请先把文件复制到桌面）"
+  [ -f "$KEY" ] || fail "找不到密钥文件：${KEY}（macOS 若拦截“下载”文件夹，请先把文件复制到桌面）"
   src="$KEY"
   if [[ "$KEY" == *.zip ]]; then
     unzip -q -o "$KEY" -d "$TMP/zip" || fail "解压失败：$KEY"
