@@ -20,7 +20,7 @@ description: 按小小东 VPS 方案，把一台全新的 Debian / Ubuntu VPS �
 
 ## 第一步：问用户要信息
 
-用一条消息问齐，用户没提到的可选项用默认值，不要一项一项追问：
+用户常常是复制 README 里的那段话来的，消息里已经写了 IP、登录方式、名称。**已经给了的不要再问**，只补问缺的必填项；"默认"表示 root / 22；可选项没写就用默认值。缺信息时用一条消息问齐，不要一项一项追问：
 
 ```text
 请告诉我这几项（服务商后台都能看到）：
@@ -51,7 +51,7 @@ description: 按小小东 VPS 方案，把一台全新的 Debian / Ubuntu VPS �
 
 ## 第二步：建立 `ssh 名称` 免密登录
 
-本目录记为 `$SKILL`（本 SKILL.md 所在目录）。本机需要 `bash`、`ssh`（OpenSSH 8.4+）、`unzip`；Windows 请在 WSL 里运行。
+本目录记为 `$SKILL`（本 SKILL.md 所在目录；如果是从下载的项目里读到本文件，就是 `项目目录/skills/xiaoxiaodong-vps`）。本机需要 `bash`、`ssh`（OpenSSH 8.4+）、`unzip`；Windows 请在 WSL 里运行。
 
 ```bash
 # 密钥文件（OpenSSH 私钥或服务商给的 zip）

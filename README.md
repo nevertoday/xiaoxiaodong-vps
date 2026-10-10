@@ -30,7 +30,38 @@
 
 准备一个能在电脑上执行命令的 AI 工具：[Claude Code](https://claude.com/claude-code) 或 [Codex](https://github.com/openai/codex)。Windows 用户请在 WSL 里使用。
 
-**安装 skill**（复制到终端执行一次）：
+**复制下面这段话，填上你的服务器信息，发给 AI：**
+
+```text
+请按「小小东 VPS」方案配置我新买的服务器。
+
+方案地址：https://github.com/nevertoday/xiaoxiaodong-vps
+请先把这个项目下载到本机，完整阅读 skills/xiaoxiaodong-vps/SKILL.md，
+严格按里面的步骤和规则，用项目里的脚本完成部署和验收。
+
+我的服务器：
+- IP：
+- 登录方式：初始密码（请让我在终端里自己输入）
+- SSH 用户名和端口：默认
+- 以后想用这个名字登录：bwg
+```
+
+只需要改三处：
+
+- **IP**：填服务商后台显示的服务器 IP；
+- **登录方式**：服务商给的是密钥文件，就改成 `密钥文件：文件在电脑上的路径`（zip 也可以）；
+- **名字**：把 `bwg` 换成你喜欢的名字，以后输入 `ssh 这个名字` 就能登录服务器。
+
+用户名和端口不是 root / 22 的，把"默认"改成实际值。机房城市、每月流量额度可以不填，AI 会按服务商机房设置时区。
+
+然后等它跑完，通常十几分钟。中途 AI 会请你在终端里输入一次服务器密码。密码不要发在聊天里；配置完成后服务器会关闭密码登录，只能用你电脑上的密钥登录。
+
+> AI 如果说下载不了项目，就手动[下载 ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) 并解压，在上面那段话里加一句"项目已经在：解压后的文件夹路径"。
+
+<details>
+<summary>经常配服务器？也可以把它装成 skill，以后一句话就能调用</summary>
+
+复制到终端执行一次：
 
 ```bash
 git clone https://github.com/nevertoday/xiaoxiaodong-vps.git
@@ -39,19 +70,9 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.claude/skills/
 cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 ```
 
-没有 git 的话，[下载 ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip)，把里面的 `skills/xiaoxiaodong-vps` 文件夹复制到上面两个目录。
+之后对 AI 说"用 xiaoxiaodong-vps 帮我配置新买的服务器"就行（Claude Code 里也可以输入 `/xiaoxiaodong-vps`，Codex 里输入 `$xiaoxiaodong-vps`），AI 会自己问你要服务器信息。
 
-**然后对 AI 说：**
-
-```text
-用 xiaoxiaodong-vps 帮我配置新买的服务器
-```
-
-Claude Code 里也可以直接输入 `/xiaoxiaodong-vps`，Codex 里输入 `$xiaoxiaodong-vps`。
-
-AI 会问你四件事：服务器 IP、登录密码或密钥文件、SSH 端口、以后想用什么名字登录（比如 `bwg`）。回答完就等它跑完，通常十几分钟。
-
-> 密码最好按 AI 的提示在终端里自己输入，不要发在聊天里。配置完成后服务器会关闭密码登录，只能用你电脑上的密钥登录。
+</details>
 
 完成后你会得到一个只保存在你电脑上的文件 `~/xxd-vps/你的名字/登录信息.md`，里面有：
 
@@ -76,7 +97,18 @@ iPhone 用 Shadowrocket 导入 **Shadowrocket 订阅地址**；路由器 OpenCla
 
 ## 以后需要维护时
 
-对 AI 说"用 xiaoxiaodong-vps 检查一下 ssh 你的名字 这台服务器"，它会跑一遍完整验收（服务、证书、订阅、节点、CLIProxyAPI、自动更新、备份、防火墙、SSH），只报告问题，不乱改。
+想检查服务器是否一切正常，复制这段话发给 AI（把 `bwg` 换成你的名字）：
+
+```text
+请按「小小东 VPS」方案检查我的服务器：ssh bwg
+
+方案地址：https://github.com/nevertoday/xiaoxiaodong-vps
+请下载项目，阅读 skills/xiaoxiaodong-vps/SKILL.md 的"以后的复核和维护"部分，
+先做只读验收，把没通过的项目和原因告诉我，我同意后再修。
+不要在聊天里显示密码、订阅地址或 Key。
+```
+
+它会检查服务、证书、订阅、节点、CLIProxyAPI、自动更新、备份、防火墙和 SSH，只报告问题，不乱改。
 
 遇到问题先看 [常见问题](./skills/xiaoxiaodong-vps/references/troubleshooting.md)。想知道每个设计为什么这样做，看 [方案详解](./skills/xiaoxiaodong-vps/references/design.md)。
 
