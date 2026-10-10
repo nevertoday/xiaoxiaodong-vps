@@ -29,9 +29,270 @@ dns:
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
   nameserver-policy:
+    +.accounts.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.ai.studio:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.aicode.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.aida.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.aisandbox-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.aistudio.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.anthropic.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.antigravity-unleash.goog:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.antigravity.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.bard.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.chat.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.chatgpt.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.chatgpt.livekit.cloud:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.clau.de:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.claude.ai:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.claude.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.claudeusercontent.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.copilot.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.copilot.microsoft.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.cursor.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.cursor.sh:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.deepmind.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.deepmind.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.flow.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.geller-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.gemini.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.gemini.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.gemini.gstatic.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.generativeai.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.generativelanguage.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.githubcopilot.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.googleusercontent.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.grok.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.gstatic.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.host.livekit.cloud:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.huggingface.co:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.jules.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.jules.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.labs.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.labs.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.makersuite.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.meta.ai:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.midjourney.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.muse.ai:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.notebook.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.notebooklm.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.notebooklm.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.oaistatic.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.oaistatsig.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.oaiusercontent.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.opal.google:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.opal.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.openai.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.perplexity.ai:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.perplexity.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.poe.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.pplx.ai:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.proactivebackend-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.robinfrontend-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.sora.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.stitch.withgoogle.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.turn.livekit.cloud:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    +.x.ai:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    accounts.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    ai.google.dev:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    alkalicore-pa.clients6.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    alkalimakersuite-pa.clients6.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    antigravity-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    antigravity.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    apis.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    challenges.cloudflare.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    cloudaicompanion.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    cloudcode-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    daily-cloudcode-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    identitytoolkit.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    login.live.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    login.microsoftonline.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    notebooklm-pa.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    notebooklm.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    oauth2.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    ogs.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    rule-set:Claude:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    rule-set:Gemini:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    rule-set:OpenAI:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    rule-set:ai-non-cn:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
     rule-set:cn-domain:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
+    securetoken.googleapis.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    webchannel-alkalimakersuite-pa.clients6.google.com:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
   prefer-h3: false
   proxy-server-nameserver:
   - https://dns.alidns.com/dns-query

@@ -106,7 +106,7 @@ AI 规则必须排在通用规则前面，否则 Gemini 的登录、静态资源
 
 **规则文件放在你自己的服务器上**：服务器每天从 ACL4SSR（`Clash/*.list`，转换成规则集格式）、MetaCubeX、misakaio/chnroutes2 的公开地址下载一次（`rule-sources.json`），保存到 `/var/lib/xxd-vps/rules/`，客户端只从 `https://你的IP:2096/rules/` 下载。好处是路由器在国内也不用直连 GitHub；某个上游下载失败时保留上一份，不会出现空规则。部署和验收时还会检查每个规则集声明的格式和文件实际内容一致（上游改过格式时会被发现）。
 
-DNS 使用 fake-ip，国内域名走阿里 / 腾讯 DoH。AI 域名不在本地解析，直接按域名交给代理，由服务器解析。
+DNS 使用 fake-ip，国内域名走阿里 / 腾讯 DoH。Grok、x.ai、Muse、ChatGPT、Claude、Gemini 等 87 个 AI 域名单独用 Cloudflare / Google 的 DoH 解析，并开启 `respect-rules`，让这些 DNS 查询本身也按规则走代理，不暴露给本地网络。
 
 ## CLIProxyAPI
 

@@ -63,7 +63,7 @@
 
 **浏览器打开订阅地址提示"不是私密连接"**：证书不对或过期。`ssh 名称 'xxd-vps verify'` 看证书项；如果续期失败，查 `journalctl -u xxd-vps-cert-renew`，通常是 80 端口被安全组拦了。
 
-**OpenClash 里 AI 网站很慢或解析超时**：本方案的订阅不会把 AI 域名交给本地 DNS 解析。如果你在 OpenClash 里自己加了指向 1.1.1.1 / 8.8.8.8 的 `nameserver-policy`，删掉即可（OpenClash 会强制关闭 `respect-rules`，这些 DNS 请求会直连海外而超时）。
+**OpenClash 里 AI 网站很慢或解析超时**：订阅给 AI 域名配置了 1.1.1.1 / 8.8.8.8 的 DoH，并靠 `respect-rules` 让这些查询走代理。OpenClash 会强制关闭 `respect-rules`，查询就变成直连海外 DoH，在部分网络会超时（Clash Verge Rev 不受影响）。遇到时，在 OpenClash 的配置覆写里删掉这些 AI 域名的 `nameserver-policy` 条目，只保留 `rule-set:cn-domain`。
 
 ## CLIProxyAPI
 
