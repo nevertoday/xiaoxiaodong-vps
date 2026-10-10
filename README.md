@@ -17,10 +17,11 @@
 
 ### 第一步：买一台服务器
 
-我优先推荐**搬瓦工**，它的线路帮我熬过了 ChatGPT 和 Claude 好几轮严格的风控。**DMIT** 也很稳定，但经常缺货，缺货时直接买搬瓦工就行。
+目前请直接买**搬瓦工**：它的线路帮我熬过了 ChatGPT 和 Claude 好几轮严格的风控，也是现在唯一有货的推荐。
 
-- **[搬瓦工 BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
-- **[DMIT](https://www.dmit.io/aff.php?aff=23544)**
+**[点这里购买搬瓦工 BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+
+我也推荐 [DMIT](https://www.dmit.io/aff.php?aff=23544)，同样很稳定，但**现在暂时缺货**，不用等它补货。
 
 > 两个都是我的邀请链接，通过它们购买我可能获得佣金。库存、价格以官网为准，任何套餐都不能保证一定通过 AI 服务的风控。
 
