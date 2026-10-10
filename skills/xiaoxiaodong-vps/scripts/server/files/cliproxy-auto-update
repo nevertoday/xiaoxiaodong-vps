@@ -1,0 +1,331 @@
+#!/usr/bin/python3
+"""Transactional CLIProxyAPI updater. No credentials are logged or passed to curl."""
+import argparse, ast, datetime, fcntl, hashlib, json, os, pathlib, re, shutil, signal
+import subprocess, sys, tarfile, tempfile, time, urllib.request, urllib.error, ssl
+
+CONFIG = pathlib.Path(os.environ.get('UPDATER_CONFIG', '/etc/cliproxy-auto-update/instances.json'))
+CACHE = pathlib.Path(os.environ.get('UPDATER_CACHE', '/var/cache/cliproxy-auto-update'))
+STATE = pathlib.Path(os.environ.get('UPDATER_STATE', '/var/lib/cliproxy-auto-update'))
+LOCK = os.environ.get('UPDATER_LOCK', '/run/cliproxy-auto-update.lock')
+CLI_REPO = 'router-for-me/CLIProxyAPI'
+PANEL_REPO = 'router-for-me/Cli-Proxy-API-Management-Center'
+UA = 'cliproxy-auto-update/3'
+MIRROR = os.environ.get('UPDATER_MIRROR_URL','').rstrip('/')
+PUBLISH = os.environ.get('UPDATER_PUBLISH_DIR','')
+
+def log(msg):
+    print(datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), msg, flush=True)
+
+def run(args, timeout=60):
+    p = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+    if p.returncode:
+        raise RuntimeError(f'command failed: {args[0]} (exit {p.returncode})')
+    return p.stdout
+
+def sha(path):
+    h = hashlib.sha256()
+    with open(path, 'rb') as f:
+        for b in iter(lambda: f.read(1024*1024), b''): h.update(b)
+    return h.hexdigest()
+
+def atomic_copy(src, dest, mode=None):
+    dest = pathlib.Path(dest); dest.parent.mkdir(parents=True, exist_ok=True)
+    old = dest.stat() if dest.exists() else None
+    fd, name = tempfile.mkstemp(prefix='.'+dest.name+'.', dir=dest.parent)
+    try:
+        with os.fdopen(fd, 'wb') as out, open(src, 'rb') as inp:
+            shutil.copyfileobj(inp, out); out.flush(); os.fsync(out.fileno())
+        os.chmod(name, mode if mode is not None else (old.st_mode & 0o777 if old else 0o644))
+        if old and os.geteuid() == 0: os.chown(name, old.st_uid, old.st_gid)
+        os.replace(name, dest)
+        fd = os.open(dest.parent, os.O_RDONLY)
+        try: os.fsync(fd)
+        finally: os.close(fd)
+    finally:
+        if os.path.exists(name): os.unlink(name)
+
+def write_json(path, data):
+    path = pathlib.Path(path); path.parent.mkdir(parents=True, exist_ok=True)
+    fd, name = tempfile.mkstemp(dir=path.parent)
+    try:
+        with os.fdopen(fd, 'w') as f:
+            json.dump(data, f, indent=2); f.flush(); os.fsync(f.fileno())
+        os.chmod(name, 0o600); os.replace(name, path)
+    finally:
+        if os.path.exists(name): os.unlink(name)
+
+def download(url, dest):
+    # Resume release archives across retries and timer runs; metadata is always fresh.
+    archive=str(dest).endswith('.tar.gz') or str(dest).endswith('.tar.gz.part')
+    last=None
+    for attempt in range(3):
+        opts=['curl','--fail','--silent','--show-error','--location','--connect-timeout','8',
+              '--max-time','120','--user-agent',UA]
+        if archive:opts+=['--continue-at','-']
+        if MIRROR and url.startswith(MIRROR) and os.environ.get('UPDATER_MIRROR_RESOLVE'):opts+=['--resolve',os.environ['UPDATER_MIRROR_RESOLVE']]
+        try:
+            run(opts+['--output',str(dest),url],timeout=130);return
+        except Exception as e:
+            last=e
+            if not archive:break
+    raise last
+
+def version(binary):
+    p = subprocess.run([str(binary), '-h'], capture_output=True, text=True, timeout=8)
+    m = re.search(r'Version:\s*(\d+\.\d+\.\d+)', p.stdout+p.stderr)
+    if not m: raise RuntimeError('binary version cannot be determined')
+    return 'v'+m.group(1)
+
+def version_tuple(v):
+    if not re.fullmatch(r'v\d+\.\d+\.\d+', v): raise RuntimeError('unsupported release tag')
+    return tuple(map(int,v[1:].split('.')))
+
+def release(repo, tmp):
+    p = tmp / (repo.split('/')[-1]+'.json')
+    try:
+        download('https://api.github.com/repos/'+repo+'/releases/latest', p)
+        d = json.loads(p.read_text())
+        version_tuple(d['tag_name'])
+        if d.get('draft') or d.get('prerelease'): raise RuntimeError('nonstable release')
+        if PUBLISH:publish_asset(repo,d['tag_name'],'release.json',p)
+        return d
+    except Exception:
+        log('WARN release API unavailable; using official GitHub release redirect: '+repo)
+        u = run(['curl','--fail','--silent','--show-error','--location','--connect-timeout','8',
+                 '--max-time','25','--output','/dev/null','--write-out','%{url_effective}',
+                 'https://github.com/'+repo+'/releases/latest'],timeout=30).strip()
+        m = re.fullmatch(r'https://github.com/'+re.escape(repo)+r'/releases/tag/(v\d+\.\d+\.\d+)',u)
+        if not m: raise RuntimeError('official stable release redirect invalid')
+        tag=m.group(1)
+        if MIRROR:
+            try:
+                download(MIRROR+'/'+repo.split('/')[-1]+'/'+tag+'/release.json',p)
+                mirrored=json.loads(p.read_text())
+                if mirrored.get('tag_name')==tag and mirrored.get('assets'):return mirrored
+            except Exception:pass
+        return {'tag_name':tag,'assets':[]}
+
+def cached_asset(repo, rel, name, tmp):
+    tag=rel['tag_name']; version_tuple(tag)
+    if pathlib.Path(name).name != name: raise RuntimeError('invalid asset name')
+    assets={a['name']:a for a in rel.get('assets',[])}
+    asset=assets.get(name,{})
+    digest=asset.get('digest') or ''
+    expected=digest[7:] if digest.startswith('sha256:') else ''
+    base='https://github.com/'+repo+'/releases/download/'+tag+'/'
+    if not expected:
+        manifest=tmp/(repo.split('/')[-1]+'-checksums.txt')
+        if not manifest.exists(): download(base+'checksums.txt',manifest)
+        for line in manifest.read_text().splitlines():
+            bits=line.split()
+            if len(bits)==2 and bits[1].lstrip('*')==name: expected=bits[0]
+    if not re.fullmatch(r'[a-fA-F0-9]{64}',expected): raise RuntimeError('no published SHA-256 for '+name)
+    target=CACHE/repo.split('/')[-1]/tag/name
+    if target.exists() and sha(target)==expected.lower():
+        publish_asset(repo,tag,name,target)
+        return target
+    target.parent.mkdir(parents=True,exist_ok=True)
+    stage=target.with_name('.'+name+'.part') if name.endswith('.tar.gz') else tmp/name
+    if MIRROR:
+        try:download(MIRROR+'/'+repo.split('/')[-1]+'/'+tag+'/'+name,stage)
+        except Exception:download(base+name,stage)
+    else:download(base+name,stage)
+    if sha(stage)!=expected.lower():
+        stage.unlink()
+        raise RuntimeError('download checksum mismatch: '+name)
+    atomic_copy(stage,target,0o644)
+    if stage!=target and stage.exists():stage.unlink()
+    publish_asset(repo,tag,name,target); return target
+
+def publish_asset(repo,tag,name,source):
+    if not PUBLISH:return
+    root=pathlib.Path(PUBLISH); dest=root/repo.split('/')[-1]/tag/name
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    for d in [root,root/repo.split('/')[-1],dest.parent]:d.chmod(0o755)
+    if not dest.exists() or sha(dest)!=sha(source):atomic_copy(source,dest,0o644)
+
+def scalar(text):
+    text=text.strip()
+    if text.startswith(('"',"'")):
+        if text[0]=='"':
+            val,end=json.JSONDecoder().raw_decode(text); return val
+        m=re.match(r"'((?:[^']|'')*)'",text)
+        if m:return m.group(1).replace("''", "'")
+    text=re.split(r'\s+#',text,1)[0].strip()
+    if text in ('true','false'): return text=='true'
+    if text in ('null','~'): return None
+    if re.fullmatch(r'\d+',text): return int(text)
+    return text
+
+def normalize_config(cfg):
+    flat=dict(cfg)
+    for section in ('server','access','oauth'):
+        if isinstance(cfg.get(section),dict):flat.update(cfg[section])
+    return flat
+
+def app_config(path):
+    text=pathlib.Path(path).read_text()
+    try: return normalize_config(json.loads(text))
+    except ValueError: pass
+    try:
+        import yaml
+        return normalize_config(yaml.safe_load(text))
+    except ImportError: pass
+    # Relevant scalar fields and a standard block or inline api-keys list.
+    cfg={}; in_keys=False
+    for line in text.splitlines():
+        if not line.strip() or line.lstrip().startswith('#'):continue
+        m=re.match(r'^\s*(host|port|auth-dir|api-keys):\s*(.*)$',line)
+        if m:
+            k,v=m.groups(); in_keys=k=='api-keys' and not v.strip();cfg[k]=[] if in_keys else scalar(v)
+            if k=='api-keys' and v.strip():
+                try:cfg[k]=json.loads(v)
+                except ValueError:cfg[k]=ast.literal_eval(v)
+        elif in_keys:
+            m=re.match(r'^\s*-\s*(.+)$',line)
+            if m:cfg['api-keys'].append(scalar(m.group(1)))
+            else:in_keys=False
+    return cfg
+
+def healthy(inst, attempts=5):
+    cfg=app_config(inst['config']); keys=cfg.get('api-keys') or []
+    if not isinstance(keys,list) or not keys: raise RuntimeError('API key is unavailable; aborting update')
+    url=inst['local_url']
+    req=urllib.request.Request(url, headers={'Authorization':'Bearer '+str(keys[0]),'User-Agent':UA})
+    for i in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=5) as res:
+                data=json.load(res)
+                if res.status==200 and isinstance(data.get('data'),list):
+                    return {'http':200,'models':len(data['data'])}
+        except (OSError,ValueError): pass
+        if i+1<attempts:time.sleep(1)
+    raise RuntimeError('authenticated local /v1/models health check failed')
+
+def active(service):
+    return subprocess.run(['systemctl','is-active','--quiet',service],stdout=subprocess.DEVNULL).returncode==0
+
+def public_probe(inst):
+    url=inst.get('public_url')
+    if not url:return None
+    keys=app_config(inst['config']).get('api-keys',[])
+    req=urllib.request.Request(url,headers={'Authorization':'Bearer '+str(keys[0]),'User-Agent':UA})
+    ctx=ssl._create_unverified_context() if inst.get('public_insecure') else None
+    try:
+        with urllib.request.urlopen(req,timeout=8,context=ctx) as r:
+            data=json.load(r)
+            if r.status==200 and isinstance(data.get('data'),list):return {'http':200,'models':len(data['data'])}
+    except (OSError,ValueError):pass
+    log('WARN public probe failed for '+inst['service']+'; local health passed')
+    return {'http':'failed'}
+
+def extract_binary(archive, tmp):
+    dest=tmp/'cli-proxy-api'
+    with tarfile.open(archive,'r:gz') as t:
+        matches=[m for m in t.getmembers() if m.name.lstrip('./')=='cli-proxy-api' and m.isfile()]
+        if len(matches)!=1:raise RuntimeError('release must contain one regular binary')
+        with t.extractfile(matches[0]) as inp, open(dest,'wb') as out:shutil.copyfileobj(inp,out)
+    dest.chmod(0o755);return dest
+
+def update_instance(inst, target, latest, force=False):
+    svc=inst['service']; b=pathlib.Path(inst['binary']); current=version(b)
+    result={'service':svc,'before':current,'after':current,'checked_at':time.time()}
+    if not active(svc):
+        result['status']='inactive-skipped';log(svc+' inactive; preserving stopped state');return result
+    result['local']=healthy(inst)
+    if version_tuple(latest)<=version_tuple(current):
+        result.update(status='current',public=public_probe(inst));log(svc+' current: '+current);return result
+    failfile=STATE/(svc+'.failure.json')
+    if failfile.exists() and not force:
+        failure=json.loads(failfile.read_text())
+        if failure.get('tag')==latest and time.time()-failure.get('time',0)<86400:
+            result['status']='failed-release-backoff';log(svc+' failed version backoff: '+latest);return result
+    backup=b.parent/'backups'/'auto-update'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+    backup.mkdir(parents=True,mode=0o700); old=backup/'cli-proxy-api'
+    shutil.copy2(b,old);shutil.copy2(inst['config'],backup/'config.yaml');(backup/'config.yaml').chmod(0o600)
+    confhash=sha(inst['config']);start=time.monotonic()
+    try:
+        # Atomic rename avoids ETXTBSY and leaves the old process serving during downloads.
+        atomic_copy(target,b,0o755)
+        run(['systemctl','restart',svc],timeout=65)
+        if not active(svc):raise RuntimeError('service is inactive after restart')
+        result['local']=healthy(inst)
+        if version(b)!=latest:raise RuntimeError('installed version mismatch')
+        if sha(inst['config'])!=confhash:raise RuntimeError('application config changed during update')
+    except BaseException:
+        log('ERROR '+svc+' failed; restoring '+current)
+        atomic_copy(old,b,0o755)
+        if sha(inst['config'])!=confhash:atomic_copy(backup/'config.yaml',inst['config'])
+        run(['systemctl','reset-failed',svc],timeout=15)
+        run(['systemctl','restart',svc],timeout=65)
+        healthy(inst)
+        write_json(failfile,{'tag':latest,'time':time.time(),'restored':current})
+        log('ROLLBACK verified: '+svc+' '+current)
+        raise
+    result.update(after=latest,status='updated',restart_health_seconds=round(time.monotonic()-start,2),public=public_probe(inst),backup=str(backup))
+    if failfile.exists():failfile.unlink()
+    dirs=sorted(backup.parent.iterdir(),key=lambda p:p.name,reverse=True)
+    for p in dirs[3:]:
+        if p.is_dir():shutil.rmtree(p)
+    log(svc+' updated '+current+' -> '+latest+f' (restart+health {result["restart_health_seconds"]}s)')
+    return result
+
+def update_panel(inst, rel, tmp):
+    # Independent panel failure never blocks the API update.
+    asset=cached_asset(PANEL_REPO,rel,'management.html',tmp)
+    target=pathlib.Path(inst['static_dir'])/'management.html'
+    if target.exists() and sha(target)==sha(asset):return
+    if target.exists():atomic_copy(target,target.with_name('management.html.auto-update-backup'),0o644)
+    atomic_copy(asset,target,0o644);log('management panel updated: '+inst['service']+' '+rel['tag_name'])
+
+def interrupted(signum, frame):raise KeyboardInterrupt('updater interrupted')
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');parser.add_argument('--force',action='store_true');args=parser.parse_args()
+    os.umask(0o077);STATE.mkdir(parents=True,exist_ok=True);CACHE.mkdir(parents=True,exist_ok=True)
+    with open(LOCK,'w') as lock:
+        try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except BlockingIOError:log('another updater is active; skipping');return 0
+        signal.signal(signal.SIGTERM,interrupted);signal.signal(signal.SIGINT,interrupted)
+        instances=json.loads(CONFIG.read_text())
+        # Keep legacy per-instance service entry points usable.
+        if os.environ.get('SERVICE'):instances=[i for i in instances if i['service']==os.environ['SERVICE']]
+        if not instances:raise RuntimeError('no configured instances')
+        with tempfile.TemporaryDirectory(prefix='cliproxy-update-') as td:
+            tmp=pathlib.Path(td);rel=release(CLI_REPO,tmp);latest=rel['tag_name'];log('latest stable CLIProxyAPI: '+latest)
+            target=None;reports=[];errors=0
+            for inst in instances:
+                try:
+                    if args.check:
+                        reports.append({'service':inst['service'],'version':version(inst['binary']),'latest':latest,'local':healthy(inst)});continue
+                    if active(inst['service']) and version_tuple(version(inst['binary']))<version_tuple(latest) and target is None:
+                        arch={'x86_64':'amd64','aarch64':'aarch64'}.get(os.uname().machine)
+                        if not arch:raise RuntimeError('unsupported architecture')
+                        archive=cached_asset(CLI_REPO,rel,f'CLIProxyAPI_{latest[1:]}_linux_{arch}.tar.gz',tmp)
+                        target=extract_binary(archive,tmp)
+                        if version(target)!=latest:raise RuntimeError('downloaded binary version mismatch')
+                    reports.append(update_instance(inst,target,latest,args.force))
+                except Exception as e:
+                    errors+=1;log('ERROR '+inst['service']+': '+type(e).__name__+' '+str(e));reports.append({'service':inst['service'],'status':'error','error':type(e).__name__+' '+str(e)})
+            if not args.check:
+                try:
+                    panel=release(PANEL_REPO,tmp)
+                    for inst in instances:
+                        try:update_panel(inst,panel,tmp)
+                        except Exception as e:log('WARN panel update skipped: '+inst['service']+' '+type(e).__name__)
+                except Exception as e:log('WARN panel release unavailable: '+type(e).__name__)
+            write_json(STATE/('check.json' if args.check else 'last-run.json'),{'latest':latest,'time':time.time(),'instances':reports,'errors':errors})
+            # Bound cache growth to three release directories per repository.
+            if not args.check:
+                for repo in CACHE.iterdir():
+                    if repo.is_dir():
+                        dirs=sorted([p for p in repo.iterdir() if p.is_dir() and re.fullmatch(r'v\d+\.\d+\.\d+',p.name)],key=lambda p:version_tuple(p.name),reverse=True)
+                        for p in dirs[3:]:
+                            shutil.rmtree(p)
+                            if PUBLISH:
+                                published=pathlib.Path(PUBLISH)/repo.name/p.name
+                                if published.is_dir():shutil.rmtree(published)
+            return 1 if errors else 0
+if __name__=='__main__':
+    try:sys.exit(main())
+    except Exception as e:log('ERROR updater stopped safely: '+type(e).__name__+' '+str(e));sys.exit(1)

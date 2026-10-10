@@ -1,0 +1,26 @@
+# NAME: DirectLite
+payload:
+  - DOMAIN,connectivitycheck.android.com
+  - DOMAIN,connectivitycheck.gstatic.com
+  - DOMAIN,detectportal.firefox.com
+  - DOMAIN,router.asus.com
+  - DOMAIN-SUFFIX,lan
+  - DOMAIN-SUFFIX,local
+  - DOMAIN-SUFFIX,localhost
+  - DOMAIN-SUFFIX,msftconnecttest.com
+  - DOMAIN-SUFFIX,msftncsi.com
+  - DOMAIN-SUFFIX,openwrt.lan
+  - DOMAIN-SUFFIX,qq.com
+  - DOMAIN-SUFFIX,taobao.com
+  - DOMAIN-SUFFIX,tmall.com
+  - DOMAIN-SUFFIX,alicdn.com
+  - DOMAIN-SUFFIX,aliyun.com
+  - DOMAIN-SUFFIX,baidu.com
+  - DOMAIN-SUFFIX,bilibili.com
+  - DOMAIN-SUFFIX,douyin.com
+  - DOMAIN-SUFFIX,jd.com
+  - DOMAIN-SUFFIX,mi.com
+  - DOMAIN-SUFFIX,wechat.com
+  - DOMAIN-SUFFIX,weixin.qq.com
+  - DOMAIN-SUFFIX,zhihu.com
+  - DOMAIN-SUFFIX,zhimg.com

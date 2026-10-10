@@ -28,3 +28,7 @@ backups/
 *.sqlite
 *.db
 *.log
+
+# Python
+__pycache__/
+*.pyc

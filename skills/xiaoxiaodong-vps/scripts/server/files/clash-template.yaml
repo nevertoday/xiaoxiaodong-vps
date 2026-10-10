@@ -1,0 +1,471 @@
+# 小小东 VPS — Clash / Mihomo 订阅模板（写入 3x-ui 的 subClashRules）
+# 部署时替换：{{SERVER_IP}} {{REALITY_NAME}} {{TLS_NAME}}
+mode: rule
+ipv6: false
+unified-delay: true
+tcp-concurrent: true
+profile:
+  store-selected: true
+  store-fake-ip: true
+dns:
+  cache-algorithm: arc
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  direct-nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
+  direct-nameserver-follow-policy: true
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+  - '*.lan'
+  - +.local
+  - +.msftconnecttest.com
+  - +.msftncsi.com
+  fake-ip-range: 198.18.0.1/16
+  ipv6: false
+  nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
+  nameserver-policy:
+    rule-set:cn-domain:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  prefer-h3: false
+  proxy-server-nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
+  respect-rules: true
+proxy-groups:
+- name: AUTO-自动切换
+  type: fallback
+  proxies:
+  - '{{REALITY_NAME}}'
+  - '{{TLS_NAME}}'
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  lazy: true
+- name: PROXY-代理
+  type: select
+  proxies:
+  - AUTO-自动切换
+  - '{{REALITY_NAME}}'
+  - '{{TLS_NAME}}'
+  - DIRECT
+- name: AI-人工智能
+  type: select
+  proxies:
+  - AUTO-自动切换
+  - '{{TLS_NAME}}'
+  - '{{REALITY_NAME}}'
+  - PROXY-代理
+  - DIRECT
+- name: TELEGRAM-电报
+  type: select
+  proxies:
+  - PROXY-代理
+  - AUTO-自动切换
+  - '{{REALITY_NAME}}'
+  - '{{TLS_NAME}}'
+  - DIRECT
+- name: GOOGLE-谷歌
+  type: select
+  proxies:
+  - PROXY-代理
+  - AUTO-自动切换
+  - '{{REALITY_NAME}}'
+  - '{{TLS_NAME}}'
+  - DIRECT
+- name: MEDIA-影音
+  type: select
+  proxies:
+  - AUTO-自动切换
+  - '{{TLS_NAME}}'
+  - '{{REALITY_NAME}}'
+  - PROXY-代理
+  - DIRECT
+- name: NETFLIX-奈飞
+  type: select
+  proxies:
+  - MEDIA-影音
+  - PROXY-代理
+  - AUTO-自动切换
+  - '{{REALITY_NAME}}'
+  - '{{TLS_NAME}}'
+  - DIRECT
+- name: APPLE-苹果
+  type: select
+  proxies:
+  - DIRECT
+  - PROXY-代理
+  - AUTO-自动切换
+  - '{{REALITY_NAME}}'
+  - '{{TLS_NAME}}'
+- name: MICROSOFT-微软
+  type: select
+  proxies:
+  - DIRECT
+  - PROXY-代理
+  - AUTO-自动切换
+  - '{{REALITY_NAME}}'
+  - '{{TLS_NAME}}'
+- name: PROXY
+  type: select
+  proxies:
+  - AUTO-自动切换
+  - '{{TLS_NAME}}'
+  - PROXY-代理
+  - DIRECT
+rule-providers:
+  OpenAI:
+    type: http
+    behavior: domain
+    url: https://{{SERVER_IP}}:2096/rules/openai.yaml
+    path: ./ruleset/xxd-openai.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  Claude:
+    type: http
+    behavior: domain
+    url: https://{{SERVER_IP}}:2096/rules/claude.yaml
+    path: ./ruleset/xxd-claude.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  Gemini:
+    type: http
+    behavior: domain
+    url: https://{{SERVER_IP}}:2096/rules/gemini.yaml
+    path: ./ruleset/xxd-gemini.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  Google:
+    type: http
+    behavior: domain
+    url: https://{{SERVER_IP}}:2096/rules/google.yaml
+    path: ./ruleset/xxd-google.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  YouTube:
+    type: http
+    behavior: domain
+    url: https://{{SERVER_IP}}:2096/rules/youtube.yaml
+    path: ./ruleset/xxd-youtube.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  DirectLite:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/direct-lite.yaml
+    path: ./ruleset/xxd-direct-lite.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ChinaCIDR:
+    type: http
+    behavior: ipcidr
+    url: https://{{SERVER_IP}}:2096/rules/cncidr.yaml
+    path: ./ruleset/xxd-cncidr.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-LocalAreaNetwork:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-local.yaml
+    path: ./ruleset/acl-local.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-UnBan:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-unban.yaml
+    path: ./ruleset/acl-unban.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-GoogleFCM:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-google-fcm.yaml
+    path: ./ruleset/acl-google-fcm.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-GoogleCN:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-google-cn.yaml
+    path: ./ruleset/acl-google-cn.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-YouTube:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-youtube.yaml
+    path: ./ruleset/acl-youtube.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-Netflix:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-netflix.yaml
+    path: ./ruleset/acl-netflix.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-ProxyMedia:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-proxy-media.yaml
+    path: ./ruleset/acl-proxy-media.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-Telegram:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-telegram.yaml
+    path: ./ruleset/acl-telegram.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-Apple:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-apple.yaml
+    path: ./ruleset/acl-apple.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-Microsoft:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-microsoft.yaml
+    path: ./ruleset/acl-microsoft.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-OneDrive:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-onedrive.yaml
+    path: ./ruleset/acl-onedrive.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-ProxyGFW:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-proxy-gfw.yaml
+    path: ./ruleset/acl-proxy-gfw.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  Meta-CN-Domain:
+    type: http
+    behavior: domain
+    url: https://{{SERVER_IP}}:2096/rules/meta-cn-domain.yaml
+    path: ./ruleset/meta-cn-domain.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-ChinaDomain:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-china-domain.yaml
+    path: ./ruleset/acl-china-domain.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-ChinaCompanyIp:
+    type: http
+    behavior: ipcidr
+    url: https://{{SERVER_IP}}:2096/rules/acl-china-company-ip.yaml
+    path: ./ruleset/acl-china-company-ip.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-ChinaIp:
+    type: http
+    behavior: ipcidr
+    url: https://{{SERVER_IP}}:2096/rules/acl-china-ip.yaml
+    path: ./ruleset/acl-china-ip.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ACL-Download:
+    type: http
+    behavior: classical
+    url: https://{{SERVER_IP}}:2096/rules/acl-download.yaml
+    path: ./ruleset/acl-download.yaml
+    interval: 86400
+    proxy: DIRECT
+    format: yaml
+  ai-non-cn:
+    behavior: domain
+    format: mrs
+    interval: 43200
+    path: ./rule-providers/category-ai-non-cn.mrs
+    proxy: DIRECT
+    size-limit: 5242880
+    type: http
+    url: https://{{SERVER_IP}}:2096/rules/meta-ai-non-cn.mrs
+  cn-domain:
+    behavior: domain
+    format: mrs
+    interval: 86400
+    path: ./rule-providers/cn-domain.mrs
+    proxy: DIRECT
+    size-limit: 20971520
+    type: http
+    url: https://{{SERVER_IP}}:2096/rules/meta-cn-domain.mrs
+  cn-ip:
+    behavior: ipcidr
+    format: mrs
+    interval: 86400
+    path: ./rule-providers/cn-ip.mrs
+    proxy: DIRECT
+    size-limit: 20971520
+    type: http
+    url: https://{{SERVER_IP}}:2096/rules/meta-cn-ip.mrs
+rules:
+- IP-CIDR,{{SERVER_IP}}/32,DIRECT,no-resolve
+- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+- IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+- IP-CIDR6,::1/128,DIRECT,no-resolve
+- IP-CIDR6,fc00::/7,DIRECT,no-resolve
+- IP-CIDR6,fe80::/10,DIRECT,no-resolve
+- DOMAIN,ai.google.dev,AI-人工智能
+- DOMAIN,alkalicore-pa.clients6.google.com,AI-人工智能
+- DOMAIN,alkalimakersuite-pa.clients6.google.com,AI-人工智能
+- DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com,AI-人工智能
+- DOMAIN,cloudaicompanion.googleapis.com,AI-人工智能
+- DOMAIN,cloudcode-pa.googleapis.com,AI-人工智能
+- DOMAIN,daily-cloudcode-pa.googleapis.com,AI-人工智能
+- DOMAIN,notebooklm-pa.googleapis.com,AI-人工智能
+- DOMAIN,notebooklm.googleapis.com,AI-人工智能
+- DOMAIN,antigravity-pa.googleapis.com,AI-人工智能
+- DOMAIN,antigravity.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,notebooklm.google,AI-人工智能
+- DOMAIN-SUFFIX,deepmind.google,AI-人工智能
+- DOMAIN-SUFFIX,antigravity-unleash.goog,AI-人工智能
+- DOMAIN-SUFFIX,antigravity.google,AI-人工智能
+- DOMAIN-SUFFIX,opal.google,AI-人工智能
+- DOMAIN-SUFFIX,flow.google,AI-人工智能
+- DOMAIN-SUFFIX,generativeai.google,AI-人工智能
+- DOMAIN-SUFFIX,deepmind.com,AI-人工智能
+- DOMAIN-SUFFIX,ai.studio,AI-人工智能
+- DOMAIN-SUFFIX,labs.google,AI-人工智能
+- DOMAIN-SUFFIX,jules.google,AI-人工智能
+- DOMAIN-SUFFIX,gemini.google,AI-人工智能
+- DOMAIN-SUFFIX,makersuite.google.com,AI-人工智能
+- DOMAIN-SUFFIX,robinfrontend-pa.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,notebook.google.com,AI-人工智能
+- DOMAIN-SUFFIX,gemini.google.com,AI-人工智能
+- DOMAIN-SUFFIX,notebooklm.google.com,AI-人工智能
+- DOMAIN-SUFFIX,bard.google.com,AI-人工智能
+- DOMAIN-SUFFIX,jules.google.com,AI-人工智能
+- DOMAIN-SUFFIX,aistudio.google.com,AI-人工智能
+- DOMAIN-SUFFIX,labs.google.com,AI-人工智能
+- DOMAIN-SUFFIX,gemini.gstatic.com,AI-人工智能
+- DOMAIN-SUFFIX,aisandbox-pa.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,aicode.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,aida.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,opal.google.com,AI-人工智能
+- DOMAIN-SUFFIX,generativelanguage.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,geller-pa.googleapis.com,AI-人工智能
+- DOMAIN-SUFFIX,stitch.withgoogle.com,AI-人工智能
+- DOMAIN-SUFFIX,accounts.google.com,AI-人工智能
+- DOMAIN,apis.google.com,AI-人工智能
+- DOMAIN,ogs.google.com,AI-人工智能
+- DOMAIN-SUFFIX,gstatic.com,AI-人工智能
+- DOMAIN-SUFFIX,googleusercontent.com,AI-人工智能
+- DOMAIN,oauth2.googleapis.com,AI-人工智能
+- DOMAIN,securetoken.googleapis.com,AI-人工智能
+- DOMAIN,identitytoolkit.googleapis.com,AI-人工智能
+- RULE-SET,ACL-LocalAreaNetwork,DIRECT
+- RULE-SET,OpenAI,AI-人工智能
+- RULE-SET,Claude,AI-人工智能
+- RULE-SET,Gemini,AI-人工智能
+- DOMAIN-SUFFIX,chat.com,AI-人工智能
+- DOMAIN-SUFFIX,chatgpt.com,AI-人工智能
+- DOMAIN-SUFFIX,oaistatic.com,AI-人工智能
+- DOMAIN-SUFFIX,oaiusercontent.com,AI-人工智能
+- DOMAIN-SUFFIX,openai.com,AI-人工智能
+- DOMAIN-SUFFIX,anthropic.com,AI-人工智能
+- DOMAIN-SUFFIX,claude.ai,AI-人工智能
+- DOMAIN-SUFFIX,claude.com,AI-人工智能
+- DOMAIN-SUFFIX,clau.de,AI-人工智能
+- DOMAIN-SUFFIX,claudeusercontent.com,AI-人工智能
+- DOMAIN-SUFFIX,claudemcpclient.com,AI-人工智能
+- DOMAIN-SUFFIX,claudemcpcontent.com,AI-人工智能
+- DOMAIN,servd-anthropic-website.b-cdn.net,AI-人工智能
+- DOMAIN,cdn.usefathom.com,AI-人工智能
+- DOMAIN,challenges.cloudflare.com,AI-人工智能
+- DOMAIN-SUFFIX,statsig.com,AI-人工智能
+- DOMAIN-SUFFIX,featuregates.org,AI-人工智能
+- DOMAIN-SUFFIX,featureassets.org,AI-人工智能
+- DOMAIN-SUFFIX,oaistatsig.com,AI-人工智能
+- DOMAIN-SUFFIX,sora.com,AI-人工智能
+- DOMAIN-SUFFIX,chatgpt.livekit.cloud,AI-人工智能
+- DOMAIN-SUFFIX,host.livekit.cloud,AI-人工智能
+- DOMAIN-SUFFIX,turn.livekit.cloud,AI-人工智能
+- DOMAIN,login.live.com,AI-人工智能
+- DOMAIN,login.microsoftonline.com,AI-人工智能
+- DOMAIN-SUFFIX,copilot.microsoft.com,AI-人工智能
+- DOMAIN-SUFFIX,copilot.com,AI-人工智能
+- DOMAIN-SUFFIX,githubcopilot.com,AI-人工智能
+- DOMAIN-SUFFIX,perplexity.ai,AI-人工智能
+- DOMAIN-SUFFIX,perplexity.com,AI-人工智能
+- DOMAIN-SUFFIX,pplx.ai,AI-人工智能
+- DOMAIN-SUFFIX,grok.com,AI-人工智能
+- DOMAIN-SUFFIX,x.ai,AI-人工智能
+- DOMAIN-SUFFIX,poe.com,AI-人工智能
+- DOMAIN-SUFFIX,meta.ai,AI-人工智能
+- DOMAIN-SUFFIX,midjourney.com,AI-人工智能
+- DOMAIN-SUFFIX,huggingface.co,AI-人工智能
+- DOMAIN-SUFFIX,cursor.com,AI-人工智能
+- DOMAIN-SUFFIX,cursor.sh,AI-人工智能
+- DOMAIN-SUFFIX,muse.ai,AI-人工智能
+- RULE-SET,ai-non-cn,AI-人工智能
+- RULE-SET,ACL-UnBan,DIRECT
+- RULE-SET,ACL-GoogleFCM,DIRECT
+- RULE-SET,ACL-GoogleCN,DIRECT
+- RULE-SET,Meta-CN-Domain,DIRECT
+- RULE-SET,ACL-ChinaDomain,DIRECT
+- RULE-SET,cn-domain,DIRECT
+- RULE-SET,ACL-YouTube,MEDIA-影音
+- RULE-SET,YouTube,MEDIA-影音
+- RULE-SET,ACL-Netflix,NETFLIX-奈飞
+- RULE-SET,ACL-ProxyMedia,MEDIA-影音
+- RULE-SET,ACL-Telegram,TELEGRAM-电报
+- RULE-SET,ACL-Apple,APPLE-苹果
+- RULE-SET,ACL-Microsoft,MICROSOFT-微软
+- RULE-SET,ACL-OneDrive,MICROSOFT-微软
+- RULE-SET,Google,GOOGLE-谷歌
+- RULE-SET,ACL-ProxyGFW,PROXY-代理
+- RULE-SET,ACL-ChinaCompanyIp,DIRECT,no-resolve
+- RULE-SET,ACL-ChinaIp,DIRECT,no-resolve
+- RULE-SET,ACL-Download,DIRECT
+- RULE-SET,DirectLite,DIRECT
+- RULE-SET,ChinaCIDR,DIRECT
+- RULE-SET,cn-ip,DIRECT
+- GEOIP,CN,DIRECT
+- MATCH,PROXY-代理
+find-process-mode: 'off'
+geox-url:
+  mmdb: https://{{SERVER_IP}}:2096/rules/geoip.metadb

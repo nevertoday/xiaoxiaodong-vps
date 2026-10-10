@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Refresh the local rule mirror from public upstreams. A failed download keeps the previous file,
+so clients never receive an empty or broken rule set."""
+import concurrent.futures, hashlib, json, pathlib, sys, urllib.request
+
+SOURCES = pathlib.Path('/etc/xxd-vps/rule-sources.json')
+ROOT = pathlib.Path('/var/lib/xxd-vps/rules')
+STATE = pathlib.Path('/var/lib/xxd-vps/rules-state.json')
+LIMIT = 32 * 1024 * 1024
+
+
+def fetch(item):
+    name, url = item
+    req = urllib.request.Request(url, headers={'User-Agent': 'xxd-vps-rules/1'})
+    with urllib.request.urlopen(req, timeout=90) as r:
+        body = r.read(LIMIT + 1)
+    if not 100 < len(body) <= LIMIT:
+        raise RuntimeError('unexpected size')
+    if name.endswith('.yaml') and b'payload' not in body[:4096]:
+        raise RuntimeError('not a rule-provider payload')
+    tmp = ROOT / ('.' + name + '.pending')
+    tmp.write_bytes(body)
+    tmp.chmod(0o644)
+    tmp.replace(ROOT / name)
+    return {'name': name, 'bytes': len(body), 'sha256': hashlib.sha256(body).hexdigest()}
+
+
+def main():
+    ROOT.mkdir(parents=True, exist_ok=True)
+    ROOT.chmod(0o755)
+    items = [(k, v) for k, v in json.loads(SOURCES.read_text()).items() if not k.startswith('_')]
+    ok, failed = [], []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        futures = {pool.submit(fetch, i): i[0] for i in items}
+        for f in concurrent.futures.as_completed(futures):
+            try:
+                ok.append(f.result())
+            except Exception as e:
+                failed.append(futures[f])
+                print('WARN keep previous ' + futures[f] + ': ' + type(e).__name__, flush=True)
+    STATE.write_text(json.dumps({'ok': sorted(ok, key=lambda x: x['name']), 'failed': sorted(failed)}, indent=2))
+    missing = [n for n, _ in items if not (ROOT / n).exists()]
+    print(f'rules refreshed: {len(ok)} ok, {len(failed)} kept previous, {len(missing)} missing', flush=True)
+    return 1 if missing else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
