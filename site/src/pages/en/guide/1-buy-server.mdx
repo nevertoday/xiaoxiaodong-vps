@@ -2,7 +2,7 @@
 layout: ../../../layouts/Guide.astro
 step: 1
 need: Email, a payment method
-description: Rent a server from a provider, get its IP, root password and SSH port, and test whether the IP can be reached from mainland China.
+description: Rent a server from a provider and get its IP, root password and SSH port.
 ---
 import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
@@ -79,23 +79,6 @@ The server shows as "Running" in the provider's dashboard, and you've written do
 Don't post these three in group chats, send them to strangers or share screenshots. After the next steps, the server will only accept your computer's key, and the password will no longer work for remote login.
 </Callout>
 
-## Test it now: can this IP be reached from mainland China?
-
-A new server occasionally gets an IP that's already blocked in mainland China. It's easiest to sort out right after buying, so take a minute to test before configuring anything:
-
-1. Open `https://tcp.ping.pe/your-IP:SSH-port` in a browser, e.g. `https://tcp.ping.pe/203.0.113.10:22`. A brand-new server only has its SSH port open, so test that.
-2. Wait a dozen seconds for the table to finish, scroll to the rows starting with `China` at the bottom, and **look only at the 6 rows whose ISP is China Telecom, China Unicom or China Mobile** (the home and mobile networks people actually use).
-
-| Those 6 rows show | Meaning | What to do |
-|---|---|---|
-| Mostly `successful`, with a time in ms | Reachable from China | Go on to the next step |
-| All `failed`, while other countries are `successful` | This IP is blocked in China | **Don't configure it yet** — refund and rebuy, or change the IP, as in [My IP is blocked](/en/howto/ip-blocked/) |
-| `failed` everywhere in the world | The server isn't up yet; it's not a block | Wait a few minutes and test again |
-
-<Callout type="tip">
-Ignore the rows whose ISP is Tencent (Tencent Cloud): when testing the SSH port they show failed even for a healthy IP.
-</Callout>
-
 ## Stuck?
 
 <Q q="Payment failed. What now?">
@@ -117,5 +100,4 @@ No. Note it down and tell the AI (or put it in the command) in the next steps.
   "I wrote down the server IP",
   "I wrote down the root password (or where the key file is)",
   "I wrote down the SSH port",
-  "On tcp.ping.pe, the China Telecom, Unicom and Mobile rows connect",
 ]} />

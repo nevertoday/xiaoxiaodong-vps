@@ -18,7 +18,9 @@ IP 被墙的典型样子：
 - 让 AI 给服务器体检，一切正常；在境外（或者用别的梯子）能正常登录服务器；
 - 常见的是 **ping 得通，但所有端口都连不上**（只封了 TCP）；也有 ping 都不通的。
 
-想自己确认：在浏览器打开 `https://tcp.ping.pe/服务器IP:443`，再把 `:443` 换成 `:22` 测一次。表格最下面 `China` 开头的几行里，**只看 ISP 是 China Telecom、China Unicom、China Mobile 的那 6 行**：它们都是 `failed`，而其他国家都是 `successful`，基本就是被墙了。ISP 是 Tencent 的几行别看，测 22 端口时正常的 IP 也会 failed。
+想自己确认（服务器要已经按本教程配置好）：在浏览器打开 `https://tcp.ping.pe/服务器IP:443`，再把 `:443` 换成 `:22` 测一次。表格最下面 `China` 开头的几行里，**只看 ISP 是 China Telecom、China Unicom、China Mobile 的那 6 行**：它们都是 `failed`，而其他国家都是 `successful`，基本就是被墙了。ISP 是 Tencent 的几行别看，测 22 端口时正常的 IP 也会 failed。
+
+还没配置的服务器别用这个方法判断：443 端口要配置完才有程序在接听，没人接听的端口全世界都会显示 failed，测不出是不是被墙。
 
 也可以用 [itdog.cn 的 TCPing](https://www.itdog.cn/tcping/)，国内测试点更多：国内大部分测试点都超时、而服务器体检正常，同样说明被墙了。
 
@@ -85,12 +87,11 @@ DMIT 的规则写在 [官方文档](https://docs.dmit.io/zh/guide/faq/ip) 里，
 
 方案部署时，证书、订阅地址和节点都和 IP 绑在一起。配置工具发现服务器 IP 变了会直接停下，不会在旧配置上硬改，所以换完 IP 要**从头配置一次**：
 
-1. 先用上面的 TCPing 测一下新 IP，确认国内能连上。
-2. 在商家后台重装系统，见 [后台重装系统为 Ubuntu](/howto/reinstall-os/)。
-3. 用新 IP 从 [第 3 步「配置服务器」](/guide/3-deploy/) 重新开始，**起一个新的 ssh 名字**（旧名字还指向旧 IP，方案不会覆盖它）。
-4. 在所有设备上**删掉旧订阅、导入新订阅**（订阅地址里的 IP 变了）。
-5. 按 [第 5 步](/guide/5-verify/) 检查一遍。新 IP 的 Claude AI 信任评分也要重新看。
-6. 搬瓦工之前接过 KiwiVM 流量显示的，按 [查看流量](/howto/traffic-and-ip/) 再接一次。
+1. 在商家后台重装系统，见 [后台重装系统为 Ubuntu](/howto/reinstall-os/)。
+2. 用新 IP 从 [第 3 步「配置服务器」](/guide/3-deploy/) 重新开始，**起一个新的 ssh 名字**（旧名字还指向旧 IP，方案不会覆盖它）。
+3. 在所有设备上**删掉旧订阅、导入新订阅**（订阅地址里的 IP 变了）。
+4. 按 [第 5 步](/guide/5-verify/) 检查一遍，能正常上网就说明新 IP 在国内能连上。新 IP 的 Claude AI 信任评分也要重新看。
+5. 搬瓦工之前接过 KiwiVM 流量显示的，按 [查看流量](/howto/traffic-and-ip/) 再接一次。
 
 <Callout type="ok">
 新 IP 在国内能连上，重新部署完成，所有设备导入了新订阅，第 5 步检查都通过。

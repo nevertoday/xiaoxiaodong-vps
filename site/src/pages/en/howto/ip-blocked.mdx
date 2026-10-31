@@ -18,7 +18,9 @@ What a blocked IP usually looks like:
 - An AI health check says the server is fine, and you can log in to it from outside China (or over another VPN);
 - Most often **ping still works but every port times out** (only TCP is blocked); sometimes ping fails too.
 
-To check it yourself, open `https://tcp.ping.pe/your-server-IP:443` in a browser, then again with `:22` instead of `:443`. In the rows starting with `China` at the bottom, **look only at the 6 rows whose ISP is China Telecom, China Unicom or China Mobile**: if they're all `failed` while other countries are `successful`, the IP is almost certainly blocked. Ignore the Tencent rows — on port 22 they fail even for a healthy IP.
+To check it yourself (the server must already be set up with this guide), open `https://tcp.ping.pe/your-server-IP:443` in a browser, then again with `:22` instead of `:443`. In the rows starting with `China` at the bottom, **look only at the 6 rows whose ISP is China Telecom, China Unicom or China Mobile**: if they're all `failed` while other countries are `successful`, the IP is almost certainly blocked. Ignore the Tencent rows — on port 22 they fail even for a healthy IP.
+
+Don't use this test on a server you haven't set up yet: nothing answers on port 443 until setup is done, and a port nobody answers shows failed everywhere in the world, so it can't tell you whether the IP is blocked.
 
 [itdog.cn TCPing](https://www.itdog.cn/tcping/) works too and has more test points in China: if most of them time out while the health check passes, the IP is blocked.
 
@@ -85,12 +87,11 @@ A new IP can be blocked again; nobody can promise otherwise. Don't share your su
 
 The setup ties the certificate, subscription URLs and nodes to the IP. When the setup tool sees the server's IP has changed it stops rather than patching the old config, so a new IP means **setting up from scratch**:
 
-1. Test the new IP with TCPing as above to confirm it's reachable from China.
-2. Reinstall the OS in the provider's dashboard: see [Reinstall the OS as Ubuntu](/en/howto/reinstall-os/).
-3. Start again from [step 3 "Configure the server"](/en/guide/3-deploy/) with the new IP, and **choose a new ssh name** (the old one still points at the old IP, and the setup won't overwrite it).
-4. On every device, **delete the old subscription and import the new one** (the IP in the URL changed).
-5. Check everything as in [step 5](/en/guide/5-verify/), including the new IP's Claude AI trust score.
-6. On BandwagonHost, if you had KiwiVM usage display set up, connect it again as in [Check traffic](/en/howto/traffic-and-ip/).
+1. Reinstall the OS in the provider's dashboard: see [Reinstall the OS as Ubuntu](/en/howto/reinstall-os/).
+2. Start again from [step 3 "Configure the server"](/en/guide/3-deploy/) with the new IP, and **choose a new ssh name** (the old one still points at the old IP, and the setup won't overwrite it).
+3. On every device, **delete the old subscription and import the new one** (the IP in the URL changed).
+4. Check everything as in [step 5](/en/guide/5-verify/), including the new IP's Claude AI trust score. If you can get online, the new IP is reachable from China.
+5. On BandwagonHost, if you had KiwiVM usage display set up, connect it again as in [Check traffic](/en/howto/traffic-and-ip/).
 
 <Callout type="ok">
 The new IP is reachable from China, setup is done, every device has the new subscription, and the step 5 checks pass.

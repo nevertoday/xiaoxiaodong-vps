@@ -2,7 +2,7 @@
 layout: ../../layouts/Guide.astro
 step: 1
 need: 邮箱、付款方式
-description: 在服务商那里租一台服务器，拿到 IP、root 密码和 SSH 端口，并测一下这个 IP 在国内能不能连上。
+description: 在服务商那里租一台服务器，拿到 IP、root 密码和 SSH 端口。
 ---
 import Callout from "../../components/Callout.astro";
 import Term from "../../components/Term.astro";
@@ -79,23 +79,6 @@ import Shot from "../../components/Shot.astro";
 不要把这三样发到群里、发给陌生人，也不要截图分享。下一步配置好以后，服务器会改成只能用你电脑上的密钥登录，密码就不能用来远程登录了。
 </Callout>
 
-## 马上测一下：这个 IP 在国内能不能连上
-
-新买的服务器偶尔会分到一个在国内已经被封的 IP。刚买时发现最好处理，所以配置之前先花一分钟测一下：
-
-1. 在浏览器打开 `https://tcp.ping.pe/你的IP:SSH端口`，比如 `https://tcp.ping.pe/203.0.113.10:22`。刚开通的服务器只开着 SSH 端口，所以测它。
-2. 等十几秒，表格跑完后翻到最下面 `China` 开头的几行，**只看 ISP 一栏是 China Telecom、China Unicom、China Mobile 的那 6 行**（中国电信、联通、移动，就是家里和手机用的网络）。
-
-| 那 6 行显示 | 说明 | 怎么办 |
-|---|---|---|
-| 大多是 `successful`，后面带毫秒数 | 国内能连上 | 继续下一步 |
-| 全是 `failed`，其他国家却都是 `successful` | 这个 IP 在国内被封了 | **先别配置**，按 [IP 被墙了怎么办](/howto/ip-blocked/) 退款重买或换 IP |
-| 全世界都是 `failed` | 服务器还没开好，不是被封 | 等几分钟再测 |
-
-<Callout type="tip">
-ISP 是 Tencent（腾讯云）的那几行别看：测 SSH 端口时，正常的 IP 在这几行也会显示 failed。
-</Callout>
-
 ## 卡住了？
 
 <Q q="付款失败怎么办？">
@@ -117,5 +100,4 @@ ISP 是 Tencent（腾讯云）的那几行别看：测 SSH 端口时，正常的
   "我记下了服务器 IP",
   "我记下了 root 密码（或者密钥文件放在哪）",
   "我记下了 SSH 端口",
-  "tcp.ping.pe 上电信、联通、移动那几行能连上",
 ]} />
