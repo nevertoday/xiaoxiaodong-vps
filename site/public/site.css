@@ -93,14 +93,8 @@
   .route h3 { display: flex; align-items: center; gap: 8px; margin: 0; font: var(--weight-strong) var(--text-base) / 1.5 var(--font-body); }
   .route p { margin: 6px 0 0; color: var(--muted); font-size: var(--text-sm); line-height: 20px; }
 
-  .roadmap { margin: 0; padding: 0; list-style: none; }
-  .roadmap li { display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto; gap: var(--space-3); align-items: baseline; padding: 12px 0; }
-  .roadmap li + li { border-top: 1px solid var(--line); }
-  .roadmap__n { color: var(--muted); font: var(--text-sm) var(--font-mono); }
-  .roadmap__title { font-weight: var(--weight-medium); }
-  .roadmap__title a { color: var(--ink); }
-  .roadmap__sum { display: block; margin-top: 2px; color: var(--muted); font-size: var(--text-xs); line-height: 20px; }
-  .roadmap__time { color: var(--muted); font-size: var(--text-xs); white-space: nowrap; }
+  /* 完整路线是 xxd-steps（竖排），组件内部不改；上面的说明文字已留出间距 */
+  .roadmap__pending { margin-inline-start: var(--space-2); }
 
   .fit { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
   .fit ul { margin: 6px 0 0; padding-left: 1.2em; font-size: var(--text-sm); line-height: 24px; }
@@ -251,8 +245,6 @@
   @media (max-width: 560px) {
     .site-top { gap: var(--space-2); }
     .site-brand__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .roadmap li { grid-template-columns: 2em minmax(0, 1fr); }
-    .roadmap__time { grid-column: 2; }
     .contact__body { grid-template-columns: 1fr; padding: var(--space-4); }
     .contact__note { padding-inline: var(--space-4); }
     .contact__qr figcaption { max-width: none; }
