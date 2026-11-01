@@ -1,5 +1,5 @@
 ---
-// 首页（中英文共用）：一张图看懂、配好之后有什么、两种做法、完整路线、适不适合、卡住了找谁
+// 首页（中英文共用）：一张图看懂、配好之后有什么、两种做法、完整路线（xxd-steps 竖排）、适不适合、卡住了找谁
 import Site from "../layouts/Site.astro";
 import Contact from "../components/Contact.astro";
 import { STEPS, stepHref, link, langOf, t } from "../data/nav.js";
@@ -18,7 +18,7 @@ const C = {
     get: [["一条自己的线路", "电脑、手机、路由器都能用。主、备两个节点，一个连不上自动换另一个。"], ["导入就能用", "常用网站和 AI 工具的分流规则已经配好，还防 DNS 泄露。"], ["自己的 AI 接口（CLIProxyAPI）", "把自己的 AI 账号变成一个接口，给各种 AI 工具用；会自动更新。"], ["基本不用管", "证书、规则、AI 接口自动更新，配置每天自动备份；服务器只能用你电脑上的密钥登录。"]],
     routesH: "两种做法，选一种", routesP: "区别只在第 3 步「配置服务器」由谁来敲命令。",
     routes: [["Bot", "让 AI 来配（推荐）", "有能在电脑上执行命令的 AI（比如 Claude Code、Codex）的人：复制一段话发给 AI，它会问你几个问题，然后自己配完、自己检查，大约 10 分钟。"], ["Terminal", "自己照着敲", "没有这类 AI 的人（只能聊天的 AI 不算）：网站会把每一步的命令列出来，复制、粘贴、回车，结果一样，只是慢一些。"]],
-    stepsH: "完整路线", stepsP: "按顺序做。每一步结尾都有检查点，确认做对了再往下。", pending: "编写中",
+    stepsH: "完整路线", stepsP: "按顺序做。每一步结尾都有检查点，确认做对了再往下。", pending: "编写中", dot: " · ", stepsLabel: (n, first) => `完整路线：共 ${n} 步，从第 ${first} 步开始`,
     fitH: "适不适合你", fitYes: "适合", fitNo: "不适合",
     yes: ["经常出差或住在国外，需要稳定用 AI 工具", "想要一条只属于自己和家人的线路", "愿意花一个小时，跟着步骤做一遍"],
     no: ["想分享给朋友、对外出售：这套方案只给自己用", "希望去哪儿都一次连上、从不折腾：有的地方得换个网络或换个 IP", "完全不想自己动手：可以先收藏，找懂的人陪你做"],
@@ -36,7 +36,7 @@ const C = {
     get: [["Your own line", "Works on computers, phones and routers. Main and backup nodes — if one fails, it switches automatically."], ["Ready on import", "Routing rules for common sites and AI tools are already set up, with DNS-leak protection."], ["Your own AI API (CLIProxyAPI)", "Turns your own AI accounts into one API for all kinds of AI tools; updates itself."], ["Practically maintenance-free", "Certificate, rules and AI API update automatically; config is backed up daily; the server only accepts your computer's key."]],
     routesH: "Two ways — pick one", routesP: "The only difference is who types the commands in step 3.",
     routes: [["Bot", "Let AI do it (recommended)", "If you have an AI that can run commands on your computer (such as Claude Code or Codex): paste one message to the AI; it asks a few questions, then configures and checks everything in about 10 minutes."], ["Terminal", "Type it yourself", "No such AI (chat-only AI doesn't count)? Every command is listed — copy, paste, Enter. Same result, just slower."]],
-    stepsH: "The full route", stepsP: "Go in order. Each step ends with a checkpoint so you know it worked before moving on.", pending: "In progress",
+    stepsH: "The full route", stepsP: "Go in order. Each step ends with a checkpoint so you know it worked before moving on.", pending: "In progress", dot: " · ", stepsLabel: (n, first) => `The full route: ${n} steps, starting at step ${first}`,
     fitH: "Is it for you?", fitYes: "Good fit", fitNo: "Not a good fit",
     yes: ["You travel or live abroad and rely on AI tools", "You want a line that belongs only to you and your family", "You're willing to spend an hour following the steps"],
     no: ["You want to share it with friends or sell it — this is for personal use", "You expect it to work everywhere with zero fiddling — in some places you may need to switch networks or get a new IP", "You don't want to touch anything yourself — bookmark it and ask someone to help"],
@@ -88,16 +88,16 @@ const C = {
     <section aria-labelledby="h-steps">
       <h2 id="h-steps">{C.stepsH}</h2>
       <p>{C.stepsP}</p>
-      <ol class="roadmap">
+      <ol class="xxd-steps roadmap" data-vertical start={STEPS[0].n} aria-label={C.stepsLabel(STEPS.length, STEPS[0].n)}>
         {STEPS.map((s) => (
-          <li>
-            <span class="roadmap__n">{s.n}</span>
-            <span>
-              <span class="roadmap__title">{s.ready ? <a href={stepHref(s, lang)}>{t(s, "title", lang)}</a> : t(s, "title", lang)}</span>
-              {!s.ready && <span class="xxd-badge" style="margin-left:8px">{C.pending}</span>}
-              <span class="roadmap__sum">{t(s, "sum", lang)}</span>
+          <li class="xxd-steps__item">
+            <span class="xxd-steps__mark" aria-hidden="true">{s.n}</span>
+            <span class="xxd-steps__text">
+              {s.ready
+                ? <a class="xxd-steps__title xxd-steps__link" href={stepHref(s, lang)}>{t(s, "title", lang)}</a>
+                : <span class="xxd-steps__title">{t(s, "title", lang)}<span class="xxd-badge roadmap__pending">{C.pending}</span></span>}
+              <span class="xxd-steps__desc">{t(s, "minutes", lang)}{C.dot}{t(s, "sum", lang)}</span>
             </span>
-            <span class="roadmap__time">{t(s, "minutes", lang)}</span>
           </li>
         ))}
       </ol>
