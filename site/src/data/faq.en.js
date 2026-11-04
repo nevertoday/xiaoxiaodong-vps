@@ -13,5 +13,6 @@ export const FAQ_EN = [
     ["Why don't you like residential IPs (home broadband)?", "A real residential IP can't be had at that price; that market is murky. It also means one more node in the chain, and one more risk, one you can't control at all. The only thing you can control is buying the best service and keeping your money clean. Add another node and too much is out of your hands."],
     ["Should I consider an anti-detect (fingerprint) browser?", "No need at all. For preventing leaks and for everyday use, this setup doesn't depend on anything like that, and that market is murky too."],
     ["Can I use it on my phone?", "My advice: use it only when buying an AI service or doing KYC, and not at any other time."],
+    ["Why do you have so many Max accounts?", "I'm building an aircraft carrier. And plenty of people use AI far more, and far more deeply, than I do; mine is just a small start to get the conversation going."],
   ]},
 ];
