@@ -16,9 +16,9 @@ export const t = (x, key, lang) => (lang === "en" && x.en && x.en[key] !== undef
 
 export const STEPS = [
   { n: 0, slug: "0-prepare", title: "准备", minutes: "读 10 分钟", ready: true, sum: "需要什么、花多少钱、要多久", en: { title: "Get ready", minutes: "10-minute read", sum: "What you need, what it costs, how long it takes" } },
-  { n: 1, slug: "1-buy-server", title: "买服务器", minutes: "20–30 分钟", ready: true, sum: "选商家和套餐，系统选 Ubuntu，记下 IP 和密码", en: { title: "Buy a server", minutes: "20–30 minutes", sum: "Pick a provider and plan, choose Ubuntu, note the IP and password" } },
-  { n: 2, slug: "2-ai-assistant", title: "准备 AI 助手", minutes: "15 分钟", ready: true, sum: "测你的 AI 能否执行命令，不能就装 Claude Code 或 Codex；没有也能走手动路线", en: { title: "Set up an AI assistant", minutes: "15 minutes", sum: "Test whether your AI can run commands; if not, install Claude Code or Codex — or take the manual route" } },
-  { n: 3, slug: "3-deploy", title: "配置服务器", minutes: "约 10 分钟", ready: true, sum: "让 AI 来配，或者自己照着敲命令", en: { title: "Configure the server", minutes: "About 10 minutes", sum: "Let AI do it, or type the commands yourself" } },
+  { n: 1, slug: "1-ai-assistant", title: "在电脑上装 Codex", minutes: "10 分钟", ready: true, sum: "在你自己的电脑上装 Codex，登录后测一句；没有 ChatGPT 账号也能走手动路线", en: { title: "Set up an AI assistant", minutes: "15 minutes", sum: "Test whether your AI can run commands; if not, install Claude Code or Codex — or take the manual route" } },
+  { n: 2, slug: "2-buy-server", title: "买服务器", minutes: "20–30 分钟", ready: true, sum: "选商家和套餐，系统选 Ubuntu，记下 IP 和密码；服务器上什么都不用装", en: { title: "Buy a server", minutes: "20–30 minutes", sum: "Pick a provider and plan, choose Ubuntu, note the IP and password" } },
+  { n: 3, slug: "3-deploy", title: "配置服务器", minutes: "约 10 分钟", ready: true, sum: "把信息发给电脑上的 AI，它远程配好；或者自己照着敲命令", en: { title: "Configure the server", minutes: "About 10 minutes", sum: "Let AI do it, or type the commands yourself" } },
   { n: 4, slug: "4-clients", title: "装客户端", minutes: "10 分钟", ready: true, sum: "电脑 Clash Verge、iPhone Shadowrocket、安卓、路由器", en: { title: "Install the apps", minutes: "10 minutes", sum: "Clash Verge on computers, Shadowrocket on iPhone, Android, routers" } },
   { n: 5, slug: "5-verify", title: "检查通没通", minutes: "5 分钟", ready: true, sum: "看出口 IP，查 DNS 和 WebRTC 泄露", en: { title: "Check it works", minutes: "5 minutes", sum: "Check your exit IP, DNS leaks and WebRTC leaks" } },
   { n: 6, slug: "6-ai-api", title: "用自己的 AI 接口", minutes: "15 分钟", ready: true, sum: "CLIProxyAPI 是什么、怎么加账号、怎么接到工具里", en: { title: "Use your own AI API", minutes: "15 minutes", sum: "What CLIProxyAPI is, adding accounts, connecting tools" } },
@@ -50,8 +50,6 @@ export const HOWTO = [
     { slug: "refund-rebuy", title: "退掉服务器、重新买一台", en: { title: "Refund a server and buy a new one" } },
   ]},
   { group: "AI 工具", en: { group: "AI tools" }, items: [
-    { slug: "windows-wsl", title: "Windows 安装 WSL", en: { title: "Install WSL on Windows" } },
-    { slug: "install-claude-code", title: "安装 Claude Code", en: { title: "Install Claude Code" } },
     { slug: "install-codex", title: "安装 Codex", en: { title: "Install Codex" } },
     { slug: "install-skill", title: "安装 xiaoxiaodong-vps skill", en: { title: "Install the xiaoxiaodong-vps skill" } },
     { slug: "ai-health-check", title: "让 AI 给服务器体检", en: { title: "Have AI health-check your server" } },
@@ -101,7 +99,7 @@ export const GLOSSARY = {
   订阅: { tip: "一个网址，客户端打开它就能拿到节点和分流规则，以后会自动更新。", wiki: "subscription", en: "A URL your app opens to fetch the nodes and routing rules. It updates itself later." },
   节点: { tip: "你的电脑连到服务器的那条加密通道。", wiki: "proxy", en: "The encrypted tunnel from your device to your server." },
   终端: { tip: "一个只能打字的窗口，用来输入命令。Mac 叫「终端」，Windows 有 PowerShell。", wiki: "ssh", en: "A text-only window for typing commands. On Mac it is Terminal; on Windows, PowerShell or WSL." },
-  WSL: { tip: "Windows 里自带的一套 Linux 环境。这套方案的脚本要在它里面运行。", wiki: "vps", en: "A Linux environment built into Windows. This setup's scripts run inside it." },
+  WSL: { tip: "Windows 里自带的一套 Linux 环境。这套教程用不到它；已经在用的照常用就行。", wiki: "vps", en: "A Linux environment built into Windows. This setup's scripts run inside it." },
   证书: { tip: "证明「这个网站确实是它自称的那个」的电子文件。有了它，浏览器才显示安全的小锁。", wiki: "https", en: "An electronic document proving a site is who it claims to be. It is what gives browsers the padlock." },
   分流: { tip: "按规则决定每个网站怎么走：国内的直接访问，国外和 AI 工具走你的服务器。", wiki: "routing", en: "Rules that decide how each site is reached: Chinese sites go direct; foreign sites and AI tools go through your server." },
   虚拟网卡: { tip: "TUN 模式：让电脑上所有软件的流量都先经过 Clash，包括浏览器的 WebRTC。", wiki: "tun", en: "TUN mode: every app's traffic passes through Clash first — including the browser's WebRTC." },

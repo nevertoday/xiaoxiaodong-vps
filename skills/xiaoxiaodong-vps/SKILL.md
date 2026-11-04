@@ -43,7 +43,11 @@ description: 按小小东 VPS 方案，把一台全新的 Debian / Ubuntu VPS �
 
 **密码的处理：**
 
-- 最好让用户自己在终端输入：Claude Code 里让用户输入 `! bash <本skill目录>/scripts/local/connect.sh --alias 名称 --host IP --password-prompt`（Codex 等工具同理，让用户在自己的终端运行），密码不会进入对话。
+- 最好让用户自己输入，密码不进入对话。按你所在的环境选一种：
+  - **桌面版应用**（Codex、Claude 桌面版等，用户面前没有终端）：直接运行 `connect.sh … --password-dialog`。电脑上会弹出系统密码框（Mac 是系统对话框，Windows 是 PowerShell 窗口），先告诉用户「马上会弹出一个密码框，请输入服务器的 root 密码」。用户取消或 10 分钟没输入，脚本会停下，再跑一次即可。
+  - **Claude Code 终端版**：让用户输入 `! bash <本skill目录>/scripts/local/connect.sh --alias 名称 --host IP --password-prompt`。
+  - **其他终端里的工具**：让用户在自己的终端运行同一条 `--password-prompt` 命令；或者直接用 `--password-dialog`。
+  - 不要让用户去打开终端、装 WSL 或登录服务器来输入密码，这些都不需要。
 - 如果用户已经把密码发在对话里：先把它写进一个只有本人可读的临时文件，再用 `--password-file`；脚本用完会自动删除该文件。不要把密码直接写在 `connect.sh` 的命令行参数里。
 
   ```bash
@@ -58,13 +62,23 @@ description: 按小小东 VPS 方案，把一台全新的 Debian / Ubuntu VPS �
 
 ## 第二步：建立 `ssh 名称` 免密登录
 
-本目录记为 `$SKILL`（本 SKILL.md 所在目录；如果是从下载的项目里读到本文件，就是 `项目目录/skills/xiaoxiaodong-vps`）。本机需要 `bash`、`ssh`（OpenSSH 8.4+）、`unzip`；Windows 请在 WSL 里运行。
+本目录记为 `$SKILL`（本 SKILL.md 所在目录；如果是从下载的项目里读到本文件，就是 `项目目录/skills/xiaoxiaodong-vps`）。本机需要 `bash` 和 `ssh`（OpenSSH 8.4+）。所有命令都在**用户自己的电脑**上运行，不要让用户登录服务器去装任何东西。
+
+**Windows：** 这些由你自己检查、自己补，不要让用户判断或手动安装：
+
+1. 运行 `bash --version`。能用（Git Bash 或 WSL 都行）就直接用它跑脚本。
+2. 不能用：运行 `winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements` 装 Git for Windows（自带 bash 和新版 ssh；Windows 可能弹一次「是否允许」，请用户点「是」），装好后用 `"C:\Program Files\Git\bin\bash.exe"` 运行下面的命令。没有 winget 时，请用户从 https://git-scm.com/download/win 下载安装，一路默认。
+3. 不要建议用户装 WSL。用户已经在 WSL 里的话照常用。
+4. 在 Git Bash 里，`ssh -V` 应当显示 OpenSSH 8.4 以上（Git 自带的版本）；如果显示的是 Windows 自带的旧版，说明 PATH 顺序不对，用 Git 目录里的 `usr/bin/ssh.exe`。
 
 ```bash
 # 密钥文件（OpenSSH 私钥或服务商给的 zip）
 bash "$SKILL/scripts/local/connect.sh" --alias 名称 --host IP --port 端口 --user 用户名 --key 密钥路径
 
-# 初始密码（密码文件用完自动删除）
+# 初始密码：弹出系统密码框，让用户自己输入（桌面版应用用这个）
+bash "$SKILL/scripts/local/connect.sh" --alias 名称 --host IP --port 端口 --user 用户名 --password-dialog
+
+# 初始密码：用户已经发在对话里时，先写进临时文件（用完自动删除）
 bash "$SKILL/scripts/local/connect.sh" --alias 名称 --host IP --port 端口 --user 用户名 --password-file 文件路径
 ```
 

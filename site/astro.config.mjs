@@ -12,4 +12,17 @@ export default defineConfig({
   trailingSlash: "always",
   integrations: [mdx()],
   build: { format: "directory" },
+  // 11-04 第 1、2 步对调（先在电脑上装 AI，再买服务器），旧网址跳到新网址
+  redirects: {
+    "/guide/1-buy-server": "/guide/2-buy-server/",
+    "/guide/2-ai-assistant": "/guide/1-ai-assistant/",
+    "/en/guide/1-buy-server": "/en/guide/2-buy-server/",
+    "/en/guide/2-ai-assistant": "/en/guide/1-ai-assistant/",
+    // 不再推荐 WSL：原来的安装页跳到「在电脑上装 AI」
+    "/howto/windows-wsl": "/guide/1-ai-assistant/",
+    "/en/howto/windows-wsl": "/en/guide/1-ai-assistant/",
+    // 配置只推荐 Codex：Claude Code 安装页跳到 Codex
+    "/howto/install-claude-code": "/howto/install-codex/",
+    "/en/howto/install-claude-code": "/en/howto/install-codex/",
+  },
 });

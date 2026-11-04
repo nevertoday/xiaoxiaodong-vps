@@ -1,8 +1,8 @@
 ---
 layout: ../../layouts/Guide.astro
-step: 1
+step: 2
 need: 邮箱、付款方式
-description: 在服务商那里租一台服务器，拿到 IP、root 密码和 SSH 端口。
+description: 在服务商那里租一台服务器，记下 IP、root 密码和 SSH 端口（搬瓦工再记 VEID 和 API Key）。服务器上什么都不用装。
 ---
 import Callout from "../../components/Callout.astro";
 import Term from "../../components/Term.astro";
@@ -12,7 +12,11 @@ import Shot from "../../components/Shot.astro";
 
 ## 这一步做什么
 
-在服务商那里租一台服务器。做完后，你手里会有三样东西：**服务器 IP、root 密码、SSH 端口**。下一步就靠它们登录服务器。
+在服务商那里租一台服务器。做完后，你手里会有三样东西：**服务器 IP、root 密码、SSH 端口**。下一步把它们发给你电脑上的 AI，由它远程配置。
+
+<Callout type="warn" title="买完不用登录服务器">
+服务器上什么都不用装，商家后台的网页终端（VNC、Root shell 之类）也不用打开。只要把下面的信息记下来。
+</Callout>
 
 ## 选哪家
 
@@ -61,22 +65,23 @@ import Shot from "../../components/Shot.astro";
 
 更详细的过程见 How-to：[在搬瓦工买服务器](/howto/buy-bandwagonhost/)、[在 DMIT 买服务器](/howto/buy-dmit/)。系统选错了看 [后台重装系统为 Ubuntu](/howto/reinstall-os/)。
 
-## 记下三样东西
+## 记下这几样
 
-在开通邮件或商家后台里找到这三样，抄到一个只有你能看到的地方：
+在开通邮件或商家后台里找到下面几样，抄到一个只有你能看到的地方：
 
 | 记下来 | 长什么样 | 说明 |
 |---|---|---|
 | 服务器 IP | 四组数字，比如 `203.0.113.10` | 服务器的门牌号 |
 | <Term k="root" /> 密码 | 一串字母和数字 | 管理员密码。有的商家给的是密钥文件，那就记下文件放在哪 |
 | <Term k="SSH" /> <Term k="端口" text="端口" /> | 多数是 `22`，有的商家是别的数字 | 远程登录用的「房间号」 |
+| 搬瓦工才有：VEID 和 API Key | VEID 是一串数字；API Key 以 `private_` 开头 | 在 KiwiVM 左侧菜单的「API」页，[怎么找](/howto/traffic-and-ip/)。有了它，客户端显示的流量和后台一致。别家没有，跳过 |
 
 <Callout type="ok">
-商家后台里这台服务器的状态是「运行中」（Running），并且你已经记下了 IP、root 密码、SSH 端口。
+商家后台里这台服务器的状态是「运行中」（Running），并且你已经记下了 IP、root 密码、SSH 端口（搬瓦工还有 VEID 和 API Key）。
 </Callout>
 
 <Callout type="no">
-不要把这三样发到群里、发给陌生人，也不要截图分享。下一步配置好以后，服务器会改成只能用你电脑上的密钥登录，密码就不能用来远程登录了。
+不要把这些发到群里、发给陌生人，也不要截图分享。下一步配置好以后，服务器会改成只能用你电脑上的密钥登录，密码就不能用来远程登录了。
 </Callout>
 
 ## 卡住了？
@@ -93,11 +98,15 @@ import Shot from "../../components/Shot.astro";
 <Q q="SSH 端口不是 22，有关系吗？">
 没关系，记下来，下一步告诉 AI（或者填进命令里）就行。
 </Q>
+<Q q="买完要不要先登录服务器，装点什么？">
+不用。服务器上的东西全部由下一步你电脑上的 AI 远程装好。AI 应用、客户端也都不装在服务器上。
+</Q>
 
-<Checkpoint id="step1" items={[
+<Checkpoint id="step-buy" items={[
   "商家后台显示服务器在运行",
   "系统是 Ubuntu 22.04 以上，或 Debian 12 以上",
   "我记下了服务器 IP",
   "我记下了 root 密码（或者密钥文件放在哪）",
   "我记下了 SSH 端口",
+  "（搬瓦工）我记下了 VEID 和 API Key",
 ]} />

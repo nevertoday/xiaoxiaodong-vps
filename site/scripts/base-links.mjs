@@ -9,11 +9,18 @@ const walk = (dir) => readdirSync(dir).flatMap((f) => (statSync(join(dir, f)).is
 let n = 0;
 for (const file of walk("dist").filter((f) => f.endsWith(".html"))) {
   const html = readFileSync(file, "utf8");
-  const out = html.replace(/(href|src)="\/(?!\/)([^"]*)"/g, (m, attr, rest) => {
-    if (("/" + rest).startsWith(base + "/")) return m;
-    n++;
-    return `${attr}="${base}/${rest}"`;
-  });
+  const out = html
+    .replace(/(href|src)="\/(?!\/)([^"]*)"/g, (m, attr, rest) => {
+      if (("/" + rest).startsWith(base + "/")) return m;
+      n++;
+      return `${attr}="${base}/${rest}"`;
+    })
+    // astro.config.mjs 里 redirects 生成的跳转页（meta refresh）不带前缀，也补上
+    .replace(/content="0;url=\/(?!\/)([^"]*)"/g, (m, rest) => {
+      if (("/" + rest).startsWith(base + "/")) return m;
+      n++;
+      return `content="0;url=${base}/${rest}"`;
+    });
   if (out !== html) writeFileSync(file, out);
 }
 console.log(`✓ 已给 ${n} 个站内链接补上前缀 ${base}`);

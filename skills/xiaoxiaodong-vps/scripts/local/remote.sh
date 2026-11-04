@@ -23,8 +23,16 @@ case "$CMD" in
     LANG_CODE="zh"
     [ "${1:-}" = "--lang" ] && LANG_CODE="${2:?--lang 需要语言代码}"
     umask 077
-    # 放在桌面方便找到；没有桌面目录（如 Linux 服务器、WSL）时放在主目录
-    dir="$HOME/Desktop"; [ -d "$dir" ] || dir="$HOME"
+    # 放在桌面方便找到。Windows（Git Bash / WSL）问系统要真正的桌面位置（可能被 OneDrive 挪走了）；都找不到时放在主目录
+    dir="$HOME/Desktop"
+    if command -v powershell.exe >/dev/null 2>&1; then
+      win=$(powershell.exe -NoProfile -Command "[Environment]::GetFolderPath('Desktop')" 2>/dev/null | tr -d '\r')
+      if [ -n "$win" ]; then
+        if command -v cygpath >/dev/null 2>&1; then d=$(cygpath -u "$win"); elif command -v wslpath >/dev/null 2>&1; then d=$(wslpath -u "$win"); else d=""; fi
+        [ -n "$d" ] && [ -d "$d" ] && dir="$d"
+      fi
+    fi
+    [ -d "$dir" ] || dir="$HOME"
     if [ "$LANG_CODE" = zh ]; then out="$dir/我的服务器-${ALIAS}-订阅和账号.md"; else out="$dir/my-server-${ALIAS}-subscriptions-and-accounts-${LANG_CODE}.md"; fi
     tmp=$(mktemp "$dir/.xxd-vps-$ALIAS.XXXXXX")
     if ! ssh -o BatchMode=yes "$ALIAS" "$SUDO python3 $REMOTE/server/xxd-vps.py export --lang $(printf '%q' "$LANG_CODE")" > "$tmp" || [ ! -s "$tmp" ]; then

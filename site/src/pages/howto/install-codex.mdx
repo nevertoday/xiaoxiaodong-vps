@@ -3,8 +3,8 @@ layout: ../../layouts/HowTo.astro
 slug: install-codex
 time: 约 5 分钟
 for: 有 ChatGPT 付费账号的人
-step: 2
-description: 安装 OpenAI 的 AI 编程助手 Codex，并用 ChatGPT 账号登录。
+step: 1
+description: 在你自己的电脑上安装 OpenAI 的 AI 编程助手 Codex（命令行版），并用 ChatGPT 账号登录。
 ---
 import Callout from "../../components/Callout.astro";
 import Term from "../../components/Term.astro";
@@ -17,13 +17,16 @@ import Cmd from "../../components/Cmd.astro";
 
 - ChatGPT 的付费账号（Plus、Pro、Business、Edu、Enterprise 等），也可以用 API Key；
 - 在 OpenAI 支持的国家和地区使用；
-- Windows：先装好 [WSL](/howto/windows-wsl/)。
+
+<Callout type="tip" title="不习惯终端？Windows 用户？">
+用 Codex 桌面版就行：Windows 在微软商店搜 Codex 安装，Mac 到官网下载，见 [第 1 步「在电脑上装 AI」](/guide/1-ai-assistant/)。这一页是给习惯在 Mac 终端里用命令行的人的。
+</Callout>
 
 ## 1. 安装
 
-打开终端（Windows：WSL 里的 Ubuntu），粘贴这条命令，回车：
+在**你自己电脑**的终端里（不是服务器上）粘贴这条命令，回车：
 
-<Copy id="cx" lang="bash" title="安装 Codex（Mac、Linux、WSL）" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
+<Copy id="cx" lang="bash" title="安装 Codex（Mac）" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
 
 Mac 用 Homebrew 的也可以运行 <Cmd c="brew install --cask codex" />。装好后**关掉终端，重新打开**，检查：
 
@@ -42,6 +45,6 @@ Mac 用 Homebrew 的也可以运行 <Cmd c="brew install --cask codex" />。装�
 <Q q="提示 codex: command not found？">
 重新打开终端再试。还不行，到 [Codex 官方仓库](https://github.com/openai/codex) 看最新的安装说明。
 </Q>
-<Q q="在服务器或没有浏览器的环境里怎么登录？">
-登录界面里有设备码（device code）方式：在别的设备的浏览器里输入页面给出的代码即可。
+<Q q="浏览器没有自动打开？">
+登录界面里有设备码（device code）方式：在浏览器里打开它给的网址，输入页面给出的代码即可。
 </Q>

@@ -1,0 +1,88 @@
+---
+layout: ../../layouts/Guide.astro
+step: 1
+need: 你自己的电脑；ChatGPT 的付费账号（走手动路线不用）
+description: 在你自己的电脑上装 Codex，登录后测一句。没有 ChatGPT 账号也能走手动路线。
+---
+import Callout from "../../components/Callout.astro";
+import Checkpoint from "../../components/Checkpoint.astro";
+import Q from "../../components/Q.astro";
+import Tabs from "../../components/Tabs.astro";
+import Copy from "../../components/Copy.astro";
+
+## 这一步做什么
+
+在**你自己的电脑上**装 Codex（OpenAI 出的 AI 应用，用 ChatGPT 账号登录）。第 3 步配置服务器时，你只跟它说话，它在你的电脑上运行命令，远程把服务器配好。
+
+<Callout type="warn" title="这一步和服务器无关">
+你现在还没有服务器，也不需要。Codex 装在你自己的电脑上，以后也不用登录服务器去装任何东西。
+</Callout>
+
+## 已经有 AI 工具的，先测一下
+
+把这句话发给它：
+
+<Copy id="ai-test" title="发给 AI 的测试" code="请在我的电脑上运行 whoami，告诉我结果。" />
+
+- **它真的运行了，回答出一个用户名**：能用，直接去下一步。
+- **它让你自己去运行，或者说做不到**：它只能聊天（网页版、手机 App 里的聊天都是这样），替你配不了。按下面装 Codex。
+
+## 装 Codex
+
+Codex 是普通的桌面应用，像装微信一样下载、安装、登录。需要 ChatGPT 的 Plus、Pro、Business 等付费账号。
+
+<Callout type="warn">
+ChatGPT 要在 OpenAI 支持的国家和地区使用。如果你现在还用不了，就先走手动路线，配好以后再装 Codex 也不迟。
+</Callout>
+
+<Tabs id="ai" label="你的电脑" items={[["win", "Windows"], ["mac", "Mac"]]}>
+<div slot="win">
+
+1. **下载安装**：打开「Microsoft Store」（微软商店），搜索 **Codex**，点「安装」。
+2. **登录**：打开 Codex，选用 ChatGPT 账号登录（Sign in with ChatGPT），在浏览器里登录并授权。
+3. **选一个文件夹**：第一次用会让你选一个工作文件夹。在桌面新建一个文件夹（比如叫 `vps`），选它就行。
+
+</div>
+<div slot="mac">
+
+1. **下载安装**：到 [Codex 官网](https://openai.com/codex/) 下载 Mac 版，拖进「应用程序」。
+2. **登录**：打开 Codex，选用 ChatGPT 账号登录（Sign in with ChatGPT），在浏览器里登录并授权。
+3. **选一个文件夹**：第一次用会让你选一个工作文件夹。在桌面新建一个文件夹（比如叫 `vps`），选它就行。
+
+</div>
+</Tabs>
+
+装好以后，把上面那句测试发给它。Codex 第一次运行命令前，会请你点「允许」或「批准」，这是正常的，点允许就行。
+
+<Callout type="ok">
+它真的运行了 `whoami`，回答出一个用户名。
+</Callout>
+
+## 不用 AI 的：这一步跳过
+
+不打算用 AI，或者没有 ChatGPT 账号，直接去下一步买服务器，第 3 步选「自己照着敲」。
+
+## 可选：装成 skill
+
+经常配服务器的话，可以把这套方案装成 Codex 的 skill，以后一句「用 xiaoxiaodong-vps 帮我配置新买的服务器」就行。第一次用不装也没关系，第 3 步的那段话会让 AI 自己去下载方案。见 [安装 xiaoxiaodong-vps skill](/howto/install-skill/)。
+
+## 卡住了？
+
+<Q q="测试时它让我自己去运行命令？">
+你用的是只能聊天的 AI（网页版或手机 App）。按上面装 Codex，在 Codex 里再测一次。
+</Q>
+<Q q="Windows 的微软商店里搜不到 Codex，或者商店打不开？">
+到 [Codex 官网](https://openai.com/codex/) 下载安装包，双击安装。
+</Q>
+<Q q="配置时 Codex 说要装 Git，弹出「是否允许」？">
+点「是」。Windows 上配置脚本要用到 Git 自带的工具，Codex 会自己装好，装在你的电脑上，不是服务器上。
+</Q>
+<Q q="Mac 上习惯用终端，想装命令行版？">
+也可以，效果一样，见 [安装 Codex](/howto/install-codex/)。
+</Q>
+
+<Checkpoint id="step-ai" items={[
+  "我在自己的电脑上装好了 Codex，并且登录了",
+  "测试时它真的运行了 whoami，回答出一个用户名",
+  "（手动路线）我知道第 3 步要选「自己照着敲」",
+]} />

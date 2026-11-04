@@ -4,12 +4,13 @@
 #   connect.sh --alias bwg --host 1.2.3.4 [--port 22] [--user root] --key ~/Downloads/key.zip
 #   connect.sh --alias bwg --host 1.2.3.4 --password-file /私密目录/pw      # 用完即删除该文件
 #   connect.sh --alias bwg --host 1.2.3.4 --password-prompt                 # 在终端里自己输入密码
+#   connect.sh --alias bwg --host 1.2.3.4 --password-dialog                 # 弹出系统密码框（桌面版 AI 应用没有终端时用）
 #
 # 密钥统一放在 ~/.ssh/xxd-vps/<名称>/，在 ~/.ssh/config 最前面写入 Host 段（ssh 以第一次出现的值为准，
 # 放在最前面才不会被已有的 `Host *` 覆盖）。脚本不会打印密码或私钥内容。
 set -euo pipefail
 
-ALIAS="" HOST="" PORT=22 USER_NAME=root KEY="" PWFILE="" PWPROMPT=0
+ALIAS="" HOST="" PORT=22 USER_NAME=root KEY="" PWFILE="" PWPROMPT=0 PWDIALOG=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --alias) ALIAS="$2"; shift 2 ;;
@@ -19,6 +20,7 @@ while [ $# -gt 0 ]; do
     --key) KEY="$2"; shift 2 ;;
     --password-file) PWFILE="$2"; shift 2 ;;
     --password-prompt) PWPROMPT=1; shift ;;
+    --password-dialog) PWDIALOG=1; shift ;;
     *) echo "未知参数：$1" >&2; exit 2 ;;
   esac
 done
@@ -29,8 +31,8 @@ say() { echo "[connect] $*"; }
 [[ "$ALIAS" =~ ^[A-Za-z][A-Za-z0-9.-]{0,30}$ ]] || fail "--alias 只能用字母、数字、点和连字符，并以字母开头"
 [[ "$HOST" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]] || fail "--host 必须是服务器的 IPv4 地址"
 [[ "$PORT" =~ ^[0-9]+$ ]] || fail "--port 必须是数字"
-modes=0; [ -n "$KEY" ] && modes=$((modes+1)); [ -n "$PWFILE" ] && modes=$((modes+1)); [ "$PWPROMPT" = 1 ] && modes=$((modes+1))
-[ "$modes" = 1 ] || fail "--key、--password-file、--password-prompt 必须且只能选一个"
+modes=0; [ -n "$KEY" ] && modes=$((modes+1)); [ -n "$PWFILE" ] && modes=$((modes+1)); [ "$PWPROMPT" = 1 ] && modes=$((modes+1)); [ "$PWDIALOG" = 1 ] && modes=$((modes+1))
+[ "$modes" = 1 ] || fail "--key、--password-file、--password-prompt、--password-dialog 必须且只能选一个"
 
 CONFIG="$HOME/.ssh/config"
 DIR="$HOME/.ssh/xxd-vps/$ALIAS"
@@ -53,6 +55,39 @@ TMP=$(mktemp -d)
 cleanup() { rm -rf "$TMP"; [ -n "$PWFILE" ] && rm -f "$PWFILE"; return 0; }
 trap cleanup EXIT
 
+# 弹出系统自带的密码框，密码只写到标准输出（由调用方重定向进权限 600 的临时文件），不进命令行参数和对话
+ask_password_dialog() {
+  local msg="请输入服务器 $1 的 root 密码（商家开通邮件或后台里那个）。"
+  if [ "$(uname -s)" = Darwin ]; then
+    # 取消时 osascript 返回非零；末尾的换行去掉
+    local out
+    out=$(osascript -e 'on run argv' \
+      -e 'text returned of (display dialog (item 1 of argv) default answer "" with hidden answer with title "小小东 VPS" buttons {"取消", "确定"} default button "确定" cancel button "取消" giving up after (item 2 of argv as integer))' \
+      -e 'end run' "$msg" "${XXD_PW_TIMEOUT:-600}" 2>/dev/null) || return 1
+    [ -n "$out" ] || return 1
+    printf '%s' "$out"
+  elif command -v powershell.exe >/dev/null 2>&1; then
+    # Windows（Git Bash 或 WSL）：用 Windows 自带 PowerShell 弹一个带掩码的输入框
+    WSLENV="${WSLENV:+$WSLENV:}XXD_MSG" XXD_MSG="$msg" powershell.exe -NoProfile -STA -Command '
+      Add-Type -AssemblyName System.Windows.Forms
+      [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
+      $f = New-Object Windows.Forms.Form -Property @{ Text = "小小东 VPS"; Width = 420; Height = 170; StartPosition = "CenterScreen"; TopMost = $true; FormBorderStyle = "FixedDialog"; MaximizeBox = $false; MinimizeBox = $false }
+      $l = New-Object Windows.Forms.Label -Property @{ Text = $env:XXD_MSG; Left = 12; Top = 12; Width = 380; Height = 34 }
+      $t = New-Object Windows.Forms.TextBox -Property @{ Left = 12; Top = 50; Width = 380; UseSystemPasswordChar = $true }
+      $ok = New-Object Windows.Forms.Button -Property @{ Text = "确定"; Left = 236; Top = 84; Width = 75; DialogResult = "OK" }
+      $no = New-Object Windows.Forms.Button -Property @{ Text = "取消"; Left = 317; Top = 84; Width = 75; DialogResult = "Cancel" }
+      $f.Controls.AddRange(@($l, $t, $ok, $no)); $f.AcceptButton = $ok; $f.CancelButton = $no
+      if ($f.ShowDialog() -ne "OK" -or $t.Text -eq "") { exit 1 }
+      [Console]::Out.Write($t.Text)' 2>/dev/null
+  elif command -v zenity >/dev/null 2>&1; then
+    local out; out=$(zenity --password --title="小小东 VPS" 2>/dev/null) || return 1
+    [ -n "$out" ] || return 1
+    printf '%s' "$out"
+  else
+    return 1
+  fi
+}
+
 is_private_key() { head -c 64 "$1" 2>/dev/null | grep -q -- '-----BEGIN .*PRIVATE KEY-----'; }
 
 if [ -n "$KEY" ]; then
@@ -60,7 +95,15 @@ if [ -n "$KEY" ]; then
   [ -f "$KEY" ] || fail "找不到密钥文件：${KEY}（macOS 若拦截“下载”文件夹，请先把文件复制到桌面）"
   src="$KEY"
   if [[ "$KEY" == *.zip ]]; then
-    unzip -q -o "$KEY" -d "$TMP/zip" || fail "解压失败：$KEY"
+    if command -v unzip >/dev/null 2>&1; then
+      unzip -q -o "$KEY" -d "$TMP/zip" || fail "解压失败：$KEY"
+    elif command -v powershell.exe >/dev/null 2>&1 && command -v cygpath >/dev/null 2>&1; then
+      # Windows 的 Git Bash 可能没有 unzip，改用系统自带的 PowerShell 解压
+      mkdir -p "$TMP/zip"
+      powershell.exe -NoProfile -Command "Expand-Archive -Force -LiteralPath '$(cygpath -w "$KEY")' -DestinationPath '$(cygpath -w "$TMP/zip")'" >/dev/null || fail "解压失败：$KEY"
+    else
+      fail "本机没有 unzip，请先把压缩包解压，再把里面的私钥文件路径给我"
+    fi
     found=()
     while IFS= read -r -d '' f; do is_private_key "$f" && found+=("$f"); done < <(find "$TMP/zip" -type f ! -name '*.pub' -print0)
     [ "${#found[@]}" = 1 ] || fail "压缩包里应当正好有一把私钥，实际找到 ${#found[@]} 把"
@@ -80,6 +123,10 @@ else
     PWFILE="$TMP/pw"
     printf '服务器 root 密码（输入时不显示）：' >&2; IFS= read -rs pw; echo >&2
     printf '%s' "$pw" > "$PWFILE"; unset pw
+  fi
+  if [ "$PWDIALOG" = 1 ]; then
+    PWFILE="$TMP/pw"
+    ask_password_dialog "$HOST" > "$PWFILE" || fail "密码框被取消，或者这台电脑弹不出密码框（可以改用 --password-prompt 在终端里输入）"
   fi
   [ -s "$PWFILE" ] || fail "密码文件为空"
   chmod 600 "$PWFILE"
