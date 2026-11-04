@@ -191,6 +191,7 @@
   .contact h2 { margin: 0 0 8px; }
   /* 首页和常见问题页一个样（以前首页被 .home h2 + p 盖成了小号灰字，常见问题页是正文字号，两边不一致） */
   .contact .contact__text p { margin: 0; color: var(--muted); font-size: var(--text-sm); line-height: 20px; }
+  .contact .contact__text .contact__ask { margin-top: 4px; }
   .contact__btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-3); }
   .contact__note { margin: 0; padding-inline: var(--space-6); }
   .contact__qr { margin: 0; text-align: center; }
@@ -199,6 +200,11 @@
   .contact__qr img { width: 160px; margin: 0 auto; }
   .contact__qr figcaption { max-width: 180px; margin-top: 8px; color: var(--muted); font-size: var(--text-xs); line-height: 18px; }
   .contact__mobile { display: none; }
+  /* 能悬停的设备上二维码平时淡一点，鼠标移上去才恢复；手机没有悬停，保持原样方便长按保存 */
+  @media (hover: hover) {
+    .contact__qr img { opacity: .4; transition: opacity var(--motion-panel) ease; }
+    .contact__qr:hover img { opacity: 1; }
+  }
   /* 每页末尾：微信二维码是 xxd 的说明浮层（Popover），定位、阴影、点外面关闭都由它管 */
   .feedback__qr { min-width: 0; }
   .feedback__qr img { width: 148px; }
