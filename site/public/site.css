@@ -228,6 +228,12 @@
   .feedback__qr { min-width: 0; }
   .feedback__qr img { width: 148px; }
   .feedback__qr .contact__mobile { max-width: 148px; margin-top: 6px; font-size: var(--text-xs); line-height: 18px; }
+  /* 侧栏最后的「常见问题」：字用警示色，后面一个小圆点，每隔一会儿向外泛一圈涟漪（像「有新消息」），提醒大家常见问题先看这里。只动 transform / opacity；减少动效时只留静止的点 */
+  .site-nav__faq { color: var(--warning-text); }
+  .site-nav__ping { position: relative; flex: none; width: 6px; height: 6px; margin-left: -4px; border-radius: var(--r-pill); background: var(--warning-solid); }
+  .site-nav__ping::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--warning-solid); animation: site-ping 2.6s ease-out infinite; }
+  @keyframes site-ping { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(3.2); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .site-nav__ping::after { animation: none; opacity: 0; } }
   /* 点开微信二维码时先提醒看常见问题（反馈卡和每页末尾的浮层都有） */
   .feedback__faq { display: block; max-width: 148px; margin-bottom: 8px; color: var(--muted); font-size: var(--text-xs); line-height: 18px; }
   .feedback__faq a, .contact .contact__text .contact__ask a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
