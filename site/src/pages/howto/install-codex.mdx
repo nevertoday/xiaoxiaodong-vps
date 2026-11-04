@@ -4,7 +4,7 @@ slug: install-codex
 time: 约 5 分钟
 for: 有 ChatGPT 付费账号的人
 step: 1
-description: 在你自己的电脑上安装 OpenAI 的 AI 编程助手 Codex（命令行版），并用 ChatGPT 账号登录。
+description: 给习惯用终端的人：在你自己的电脑上安装命令行版 Codex，并用 ChatGPT 账号登录。
 ---
 import Callout from "../../components/Callout.astro";
 import Term from "../../components/Term.astro";
@@ -18,15 +18,30 @@ import Cmd from "../../components/Cmd.astro";
 - ChatGPT 的付费账号（Plus、Pro、Business、Edu、Enterprise 等），也可以用 API Key；
 - 在 OpenAI 支持的国家和地区使用；
 
-<Callout type="tip" title="不习惯终端？Windows 用户？">
-用 Codex 桌面版就行：Windows 在微软商店搜 Codex 安装，Mac 到官网下载，见 [第 1 步「在电脑上装 AI」](/guide/1-ai-assistant/)。这一页是给习惯在 Mac 终端里用命令行的人的。
+<Callout type="tip" title="不习惯终端？">
+用 Codex 桌面版就行：Windows 在微软商店搜 Codex 安装，Mac 到官网下载，见 [第 1 步「在电脑上装 Codex」](/guide/1-ai-assistant/)。
 </Callout>
+
+**已经装好命令行 Codex 的，不用再装**：在终端里运行 `codex`，直接去 [第 3 步](/guide/3-deploy/) 把那段话粘贴给它。
 
 ## 1. 安装
 
-在**你自己电脑**的终端里（不是服务器上）粘贴这条命令，回车：
+在**你自己电脑**的终端里（不是服务器上）运行：
 
-<Copy id="cx" lang="bash" title="安装 Codex（Mac）" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
+<Tabs id="cx-os" label="你的电脑" items={[["mac", "Mac / Linux"], ["win", "Windows"]]}>
+<div slot="mac">
+
+<Copy id="cx" lang="bash" title="安装 Codex（Mac、Linux）" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
+
+</div>
+<div slot="win">
+
+需要先装好 [Node.js](https://nodejs.org/)。然后在 PowerShell 里运行：
+
+<Copy id="cx-win" lang="bash" title="安装 Codex（Windows PowerShell）" code="npm install -g @openai/codex" />
+
+</div>
+</Tabs>
 
 Mac 用 Homebrew 的也可以运行 <Cmd c="brew install --cask codex" />。装好后**关掉终端，重新打开**，检查：
 

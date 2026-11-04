@@ -50,7 +50,7 @@ export const HOWTO = [
     { slug: "refund-rebuy", title: "退掉服务器、重新买一台", en: { title: "Refund a server and buy a new one" } },
   ]},
   { group: "AI 工具", en: { group: "AI tools" }, items: [
-    { slug: "install-codex", title: "安装 Codex", en: { title: "Install Codex" } },
+    { slug: "install-codex", title: "安装 Codex 命令行版", en: { title: "Install the Codex CLI" } },
     { slug: "install-skill", title: "安装 xiaoxiaodong-vps skill", en: { title: "Install the xiaoxiaodong-vps skill" } },
     { slug: "ai-health-check", title: "让 AI 给服务器体检", en: { title: "Have AI health-check your server" } },
   ]},

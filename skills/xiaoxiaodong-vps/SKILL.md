@@ -44,9 +44,8 @@ description: 按小小东 VPS 方案，把一台全新的 Debian / Ubuntu VPS �
 **密码的处理：**
 
 - 最好让用户自己输入，密码不进入对话。按你所在的环境选一种：
-  - **桌面版应用**（Codex、Claude 桌面版等，用户面前没有终端）：直接运行 `connect.sh … --password-dialog`。电脑上会弹出系统密码框（Mac 是系统对话框，Windows 是 PowerShell 窗口），先告诉用户「马上会弹出一个密码框，请输入服务器的 root 密码」。用户取消或 10 分钟没输入，脚本会停下，再跑一次即可。
-  - **Claude Code 终端版**：让用户输入 `! bash <本skill目录>/scripts/local/connect.sh --alias 名称 --host IP --password-prompt`。
-  - **其他终端里的工具**：让用户在自己的终端运行同一条 `--password-prompt` 命令；或者直接用 `--password-dialog`。
+  - **默认（桌面版和命令行版 Codex 等都适用）**：直接运行 `connect.sh … --password-dialog`。电脑上会弹出系统密码框（Mac 是系统对话框，Windows 是 PowerShell 窗口，Linux 桌面用 zenity），先告诉用户「马上会弹出一个密码框，请输入服务器的 root 密码」。用户取消或 10 分钟没输入，脚本会停下，再跑一次即可。
+  - **弹不出窗口时**（没有图形界面，比如 ssh 连着的 Linux）：让用户在自己的终端运行 `bash <本skill目录>/scripts/local/connect.sh --alias 名称 --host IP --password-prompt`；Claude Code 里在这条命令前加 `! ` 让用户在输入框里运行。
   - 不要让用户去打开终端、装 WSL 或登录服务器来输入密码，这些都不需要。
 - 如果用户已经把密码发在对话里：先把它写进一个只有本人可读的临时文件，再用 `--password-file`；脚本用完会自动删除该文件。不要把密码直接写在 `connect.sh` 的命令行参数里。
 
