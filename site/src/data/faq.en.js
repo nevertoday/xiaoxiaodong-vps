@@ -15,5 +15,7 @@ export const FAQ_EN = [
     ["Can I use it on my phone?", "My advice: use it only when buying an AI service or doing KYC, and not at any other time."],
     ["Why do you have so many Max accounts?", "I'm building an aircraft carrier. And plenty of people use AI far more, and far more deeply, than I do; mine is just a small start to get the conversation going."],
     ["After signing up, how long should I wait before subscribing?", "It doesn't really matter. My own habit is to chat a little first, look around the site and change a few settings. At the earliest that's about 10 minutes; usually I buy after around 3 hours."],
+    ["Which payment method do you like for subscriptions?", "Mostly a Singapore bank card, paying directly on the website, or a Visa card linked to Google Play."],
+    ["Why not pay through Apple?", "Purely personal preference: we have history, and it once charged me over US$100. It's also a hassle: a new account has a 72-hour wait before payments can go through, and I can't wait that long."],
   ]},
 ];
