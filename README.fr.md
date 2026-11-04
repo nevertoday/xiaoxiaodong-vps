@@ -42,6 +42,8 @@ L'~~[offre 1 To](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billin
 
 [DMIT](https://www.dmit.io/aff.php?aff=23544) fait aussi partie de mes préférés, mais il est malheureusement en rupture de stock. Inutile d'attendre.
 
+**N'achetez que chez ces deux-là.** BandwagonHost et DMIT sont les deux seuls hébergeurs que je valide aujourd'hui, après de nombreux tests. Beaucoup d'autres serveurs n'ont pas de routes optimisées pour la Chine, sont instables ou se coupent souvent, et les utiliser pour des services d'IA peut même causer des problèmes sur votre compte. Ne choisissez pas un autre hébergeur vous-même : achetez via les liens ci-dessus.
+
 > Ce sont tous mes liens de parrainage. Je peux toucher une commission si vous achetez par leur biais, et je consacrerai ce revenu à des actions caritatives. Prix et disponibilité selon les sites officiels.
 
 Choisissez **Ubuntu 24.04** comme système. Une fois le serveur prêt, notez trois informations dans le panneau : **IP du serveur, mot de passe root (ou fichier de clé) et port SSH**. Chez BandwagonHost, notez aussi le **VEID et l'API Key** (page « API » du menu de gauche de KiwiVM, [comment les trouver](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)) pour que le trafic affiché dans vos applications corresponde au panneau.

@@ -42,6 +42,8 @@ El ~~[plan de 1 TB](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&bil
 
 [DMIT](https://www.dmit.io/aff.php?aff=23544) es otro que me encanta usar, pero por desgracia ahora está agotado. No hace falta esperar.
 
+**Compra solo en estos dos.** BandwagonHost y DMIT son los únicos dos proveedores en los que confío ahora mismo, después de muchas pruebas. Muchos otros servidores no tienen rutas optimizadas para China, son inestables o se cortan a menudo, y usarlos con servicios de IA puede incluso causar problemas en tu cuenta. No elijas otro proveedor por tu cuenta: compra con los enlaces de arriba.
+
 > Todos son enlaces de referido míos. Puede que reciba una comisión si compras a través de ellos, y destinaré ese dinero a labores benéficas. Precios y disponibilidad según las webs oficiales.
 
 Elige **Ubuntu 24.04** como sistema. Cuando el servidor esté listo, apunta tres datos del panel: **IP del servidor, contraseña de root (o archivo de clave) y puerto SSH**. Si es BandwagonHost, apunta también el **VEID y la API Key** (página «API» del menú izquierdo de KiwiVM, [cómo encontrarlos](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)) para que el tráfico que muestran las apps coincida con el panel.
