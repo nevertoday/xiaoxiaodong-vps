@@ -42,7 +42,7 @@ El ~~[plan de 1 TB](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&bil
 
 [DMIT](https://www.dmit.io/aff.php?aff=23544) es otro que me encanta usar, pero por desgracia ahora está agotado. No hace falta esperar.
 
-**Compra solo en estos dos.** BandwagonHost y DMIT son los únicos dos proveedores en los que confío ahora mismo, después de muchas pruebas. Muchos otros servidores no tienen rutas optimizadas para China, son inestables o se cortan a menudo, y usarlos con servicios de IA puede incluso causar problemas en tu cuenta. No elijas otro proveedor por tu cuenta: compra con los enlaces de arriba.
+**¿Por qué solo recomiendo estos dos?** BandwagonHost y DMIT son los dos con los que me quedé después de muchas pruebas, y los únicos que hoy puedo recomendar con tranquilidad. El plan del enlace de arriba es, además, el único plan de entrada que tienen disponible ahora mismo. Muchos otros proveedores parecen buenos al principio, pero tienen muchas trampas: funcionan los días normales y, cuando la situación se complica, no aguantan; la conexión se cae o no llega a conectar, y con servicios de IA eso puede incluso poner en riesgo tu cuenta. Me he llevado tantos disgustos con esto que ya estoy cansado, así que te recomiendo comprar aquí y ahorrarte los rodeos que yo tuve que dar.
 
 > Todos son enlaces de referido míos. Puede que reciba una comisión si compras a través de ellos, y destinaré ese dinero a labores benéficas. Precios y disponibilidad según las webs oficiales.
 

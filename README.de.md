@@ -42,7 +42,7 @@ Der bisher empfohlene ~~[1-TB-Tarif](https://bandwagonhost.com/aff.php?aff=83651
 
 [DMIT](https://www.dmit.io/aff.php?aff=23544) nutze ich ebenfalls sehr gern, aber es ist im Moment leider ausverkauft. Warten lohnt sich nicht.
 
-**Kaufen Sie nur bei diesen beiden.** BandwagonHost und DMIT sind nach vielen Tests die einzigen zwei Anbieter, denen ich derzeit vertraue. Viele andere Server haben keine für China optimierten Routen, sind instabil oder brechen oft ab, und bei KI-Diensten kann das sogar Ihrem Konto Probleme bereiten. Suchen Sie sich keinen anderen Anbieter aus, sondern kaufen Sie über die Links oben.
+**Warum empfehle ich nur diese beiden?** BandwagonHost und DMIT sind die zwei, bei denen ich nach vielen Tests geblieben bin, und die einzigen, die ich derzeit guten Gewissens empfehlen kann. Der Tarif im Link oben ist außerdem der einzige Einstiegstarif, den die beiden gerade auf Lager haben. Viele andere Anbieter wirken anfangs gut, haben aber viele Haken: An normalen Tagen läuft es, doch wenn es angespannt wird, halten sie nicht durch – die Verbindung bricht ab oder kommt gar nicht erst zustande, und bei KI-Diensten kann das sogar Ihr Konto gefährden. Ich habe mich damit so oft herumgeärgert, dass ich es ehrlich gesagt leid bin. Kaufen Sie deshalb am besten direkt hier und sparen Sie sich die Umwege, die ich gegangen bin.
 
 > Alle Links hier sind meine Empfehlungslinks. Wenn Sie darüber kaufen, erhalte ich unter Umständen eine Provision; diese Einnahmen verwende ich für wohltätige Zwecke. Preise und Verfügbarkeit laut den offiziellen Websites.
 

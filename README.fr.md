@@ -42,7 +42,7 @@ L'~~[offre 1 To](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billin
 
 [DMIT](https://www.dmit.io/aff.php?aff=23544) fait aussi partie de mes préférés, mais il est malheureusement en rupture de stock. Inutile d'attendre.
 
-**N'achetez que chez ces deux-là.** BandwagonHost et DMIT sont les deux seuls hébergeurs que je valide aujourd'hui, après de nombreux tests. Beaucoup d'autres serveurs n'ont pas de routes optimisées pour la Chine, sont instables ou se coupent souvent, et les utiliser pour des services d'IA peut même causer des problèmes sur votre compte. Ne choisissez pas un autre hébergeur vous-même : achetez via les liens ci-dessus.
+**Pourquoi seulement ces deux-là ?** BandwagonHost et DMIT sont les deux que j'ai gardés après de nombreux tests, et les seuls que je peux recommander sereinement aujourd'hui. L'offre du lien ci-dessus est aussi la seule offre d'entrée de gamme encore disponible chez eux en ce moment. Beaucoup d'autres hébergeurs ont l'air bien au départ, mais cachent de nombreux pièges : ils tiennent les jours ordinaires, puis lâchent quand la situation se tend ; la connexion coupe ou ne passe plus du tout, et avec les services d'IA, cela peut même mettre votre compte en danger. Je me suis fait avoir tellement de fois que j'en suis lassé, alors je vous conseille simplement d'acheter ici et de vous épargner les détours que j'ai faits.
 
 > Ce sont tous mes liens de parrainage. Je peux toucher une commission si vous achetez par leur biais, et je consacrerai ce revenu à des actions caritatives. Prix et disponibilité selon les sites officiels.
 
