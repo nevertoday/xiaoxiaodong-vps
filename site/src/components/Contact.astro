@@ -1,5 +1,5 @@
 ---
-// 反馈与建议：首页、常见问题末尾的卡片（xxd 分层卡片 LayerCard）。主体：说明 + 请把问题汇总一次发，GitHub、X 私信两个按钮，小小东微信并列（二维码平时淡显，悬停恢复）；
+// 反馈与建议：首页、常见问题末尾的卡片（xxd 分层卡片 LayerCard）。主体：说明 + 请把问题汇总一次发，GitHub、X 私信两个按钮，小小东微信并列（二维码不加白底，跟随主题单色显示）；
 // 下面洗色的一条：发截图前先打码
 import { langOf } from "../data/nav.js";
 const en = langOf(Astro.url.pathname) === "en";
@@ -11,7 +11,7 @@ const T = en
   ? {
       h: "Feedback and suggestions",
       p: "Have a suggestion, or found a step that's unclear or doesn't work as written? Let me know and I'll add it to the guide.",
-      ask: "If you have questions, please send them all in one message: which step you're on and the exact error. My time is limited, so please don't send them one at a time. Thanks!",
+      ask: "If you have questions, please gather them into one message rather than asking one by one. Thanks!",
       btn: "Give feedback on GitHub",
       x: "Message me on X",
       cap: "Or add me on WeChat",
@@ -22,7 +22,7 @@ const T = en
   : {
       h: "反馈与建议",
       p: "对项目有建议，或者发现哪一步没写清楚、照做不成功，欢迎告诉我，我会补进教程。",
-      ask: "有问题请汇总好一次发我，写清做到哪一步、报错是什么。我时间有限，别一条条问，谢谢理解。",
+      ask: "有问题尽量先整理好一起发，别逐个问，谢谢。",
       btn: "到 GitHub 反馈",
       x: "在 X 上私信我",
       cap: "也可以加我微信反馈",

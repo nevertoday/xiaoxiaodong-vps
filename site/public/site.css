@@ -200,11 +200,10 @@
   .contact__qr img { width: 160px; margin: 0 auto; }
   .contact__qr figcaption { max-width: 180px; margin-top: 8px; color: var(--muted); font-size: var(--text-xs); line-height: 18px; }
   .contact__mobile { display: none; }
-  /* 能悬停的设备上二维码平时淡一点，鼠标移上去才恢复；手机没有悬停，保持原样方便长按保存 */
-  @media (hover: hover) {
-    .contact__qr img { opacity: .4; transition: opacity var(--motion-panel) ease; }
-    .contact__qr:hover img { opacity: 1; }
-  }
+  /* 反馈卡的二维码不要白底块：亮色用正片叠底，白底融进卡片；暗色反相再滤色，变成浅色码点、底色跟卡片一样。
+     图片本身没改，手机长按保存的还是原图 */
+  .contact__qr img { padding: 0; border: 0; background: none; mix-blend-mode: multiply; }
+  :root[data-theme="dark"] .contact__qr img { filter: invert(1); mix-blend-mode: screen; }
   /* 每页末尾：微信二维码是 xxd 的说明浮层（Popover），定位、阴影、点外面关闭都由它管 */
   .feedback__qr { min-width: 0; }
   .feedback__qr img { width: 148px; }
