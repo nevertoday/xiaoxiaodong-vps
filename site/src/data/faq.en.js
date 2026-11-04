@@ -10,5 +10,7 @@ export const FAQ_EN = [
     ["How should I get a paid plan, and when should I upgrade?", "I always start with the US$20 plan, then go by how much I actually use: whenever I run out of quota, I simply upgrade one level, until I'm on the top plan."],
     ["Is there a right schedule for using AI tools, or times I shouldn't use them?", "No schedule to follow and no off-limits hours: use them whenever and however you like. As long as you stay within the platform's policies and terms of use, you can use them freely and with confidence."],
     ["Does the score on the test site matter?", "The score isn't the main thing; what matters most is that neither of the two leaks happens. For the score, my bar is 71: above 71 is fine; if it isn't, refund the server and buy another one that meets the bar."],
+    ["Why don't you like residential IPs (home broadband)?", "A real residential IP can't be had at that price; that market is murky. It also means one more node in the chain, and one more risk, one you can't control at all. The only thing you can control is buying the best service and keeping your money clean. Add another node and too much is out of your hands."],
+    ["Should I consider an anti-detect (fingerprint) browser?", "No need at all. For preventing leaks and for everyday use, this setup doesn't depend on anything like that, and that market is murky too."],
   ]},
 ];
