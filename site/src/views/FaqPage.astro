@@ -15,8 +15,8 @@ const ISSUES = "https://github.com/nevertoday/xiaoxiaodong-vps/issues";
   <article class="xxd-prose">
     <h1>{en ? "FAQ" : "常见问题"}</h1>
     {en
-      ? <p>Grouped by topic; click a question to see the answer. Can't find yours? Open one on <a href={ISSUES}>GitHub</a>, or press <kbd class="xxd-kbd">⌘K</kbd> to search the whole site.</p>
-      : <p>按话题分组，点开看答案。没找到你的问题？到 <a href={ISSUES}>GitHub</a> 提一个，或者按 <kbd class="xxd-kbd">⌘K</kbd> 搜索全站。</p>}
+      ? <p>Questions people have actually asked me, with my answers; more are added over time. Can't find yours? Open one on <a href={ISSUES}>GitHub</a>, or press <kbd class="xxd-kbd">⌘K</kbd> to search the whole site.</p>
+      : <p>大家问过我的问题和我的回答，会陆续补充。没找到你的问题？到 <a href={ISSUES}>GitHub</a> 提一个，或者按 <kbd class="xxd-kbd">⌘K</kbd> 搜索全站。</p>}
     {groups.map((g) => (
       <>
         <h2 id={g.id}>{g.title}</h2>
