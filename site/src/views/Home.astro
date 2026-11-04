@@ -10,14 +10,21 @@ const C = {
     h1: "出差到上网不方便的地方，也能正常用常用网站和 AI 工具",
     lead: "做法：自己租一台海外服务器，让 AI 按这套方案配好，手机和电脑导入订阅就能用。线路只给你和家人用，不和陌生人共享。跟着下面 8 步做，第一次大约一个小时。",
     start: "从第 0 步开始", faq: "先看常见问题",
-    flowH: "一张图看懂", flowP: "整套东西只有三块：你的设备、你的服务器、你要访问的网站。",
-    flow: [["Laptop", "你的设备", "电脑、手机、路由器装一个客户端，导入「订阅」。"], ["Server", "你的服务器", "在美国等地租的一台 VPS。AI 帮你装好节点、证书和自己的 AI 接口。"], ["Globe", "网站和 AI 工具", "ChatGPT、Claude、Gemini、谷歌等；看到的是服务器的 IP。"]],
-    arrows: ["加密通道", "替你访问"],
-    flowNote: "客户端里的「分流规则」决定哪些走服务器：国内网站直接访问、不绕路；国外网站和 AI 工具走你的服务器。",
+    flowH: "一张图看懂", flowP: "日常上网时，整套东西只有这几块。客户端会按「分流规则」自己判断每个网站怎么走，你不用管。",
+    fm: {
+      dev: ["Laptop", "你的设备", "电脑、手机、路由器装一个客户端，导入「订阅」。"],
+      srv: ["Server", "你的服务器", "在美国等地租的一台 VPS，只给你自己用。"],
+      web: ["Globe", "国外网站和 AI 工具", "ChatGPT、Claude、Gemini、谷歌等；它们看到的是服务器的 IP。"],
+      cn: ["House", "国内网站", "淘宝、微信、B 站等；照常直接访问，速度不受影响。"],
+      c1: "加密通道", c2: "替你访问", c3: "国内网站：从你的设备直接访问，不经过服务器",
+    },
+    howH: "比如打开 ChatGPT 时：",
+    how: ["客户端按分流规则判断：这是国外的 AI 网站，要走你的服务器。", "请求经过加密通道发到服务器，路上的人看不到内容。", "服务器替你打开 ChatGPT，ChatGPT 看到的是服务器的 IP，不是你的。"],
+    setupNote: "你电脑上的 Codex 只在第 3 步配置时用一次：它远程把服务器装好。之后日常上网用不到它，服务器上你也什么都不用装。",
     getH: "配好之后你有什么",
     get: [["一条自己的线路", "电脑、手机、路由器都能用。主、备两个节点，一个连不上自动换另一个。"], ["导入就能用", "常用网站和 AI 工具的分流规则已经配好，还防 DNS 泄露。"], ["自己的 AI 接口（CLIProxyAPI）", "把自己的 AI 账号变成一个接口，给各种 AI 工具用；会自动更新。"], ["基本不用管", "证书、规则、AI 接口自动更新，配置每天自动备份；服务器只能用你电脑上的密钥登录。"]],
     routesH: "两种做法，选一种", routesP: "区别只在第 3 步「配置服务器」由谁来敲命令。",
-    routes: [["Bot", "让 AI 来配（推荐）", "有能在电脑上执行命令的 AI（比如 Claude Code、Codex）的人：复制一段话发给 AI，它会问你几个问题，然后自己配完、自己检查，大约 10 分钟。"], ["Terminal", "自己照着敲", "没有这类 AI 的人（只能聊天的 AI 不算）：网站会把每一步的命令列出来，复制、粘贴、回车，结果一样，只是慢一些。"]],
+    routes: [["Bot", "让 AI 来配（推荐）", "在电脑上装了 Codex 的人：复制一段话发给它，它会问你几个问题，然后自己配完、自己检查，大约 10 分钟。"], ["Terminal", "自己照着敲", "没有这类 AI 的人（只能聊天的 AI 不算）：网站会把每一步的命令列出来，复制、粘贴、回车，结果一样，只是慢一些。"]],
     stepsH: "完整路线", stepsP: "按顺序做。每一步结尾都有检查点，确认做对了再往下。", pending: "编写中", dot: " · ", stepsLabel: (n, first) => `完整路线：共 ${n} 步，从第 ${first} 步开始`,
     fitH: "适不适合你", fitYes: "适合", fitNo: "不适合",
     yes: ["经常出差或住在国外，需要稳定用 AI 工具", "想要一条只属于自己和家人的线路", "愿意花一个小时，跟着步骤做一遍"],
@@ -28,14 +35,21 @@ const C = {
     h1: "Keep using your usual websites and AI tools, even where the internet is restricted",
     lead: "How: rent your own overseas server, let AI configure it with this setup, then import a subscription on your phone and computer. The line is just for you and your family — no strangers. Follow the 8 steps below; the first time takes about an hour.",
     start: "Start at step 0", faq: "Read the FAQ first",
-    flowH: "The big picture", flowP: "There are only three parts: your devices, your server, and the sites you want to reach.",
-    flow: [["Laptop", "Your devices", "Install an app on your computer, phone or router and import the \"subscription\"."], ["Server", "Your server", "A VPS you rent in the US or elsewhere. AI installs the nodes, certificate and your own AI API on it."], ["Globe", "Websites and AI tools", "ChatGPT, Claude, Gemini, Google… They see the server's IP."]],
-    arrows: ["Encrypted tunnel", "Visits for you"],
-    flowNote: "Routing rules in the app decide what goes through the server: Chinese sites go direct, with no detour; foreign sites and AI tools go through your server.",
+    flowH: "The big picture", flowP: "In everyday use there are only these parts. The app decides by its routing rules how each site goes — you don't have to.",
+    fm: {
+      dev: ["Laptop", "Your devices", "Install an app on your computer, phone or router and import the \"subscription\"."],
+      srv: ["Server", "Your server", "A VPS you rent in the US or elsewhere, used only by you."],
+      web: ["Globe", "Foreign sites and AI tools", "ChatGPT, Claude, Gemini, Google… They see the server's IP."],
+      cn: ["House", "Chinese sites", "Taobao, WeChat, Bilibili… reached directly as usual, at full speed."],
+      c1: "Encrypted tunnel", c2: "Visits for you", c3: "Chinese sites: straight from your device, not through the server",
+    },
+    howH: "For example, when you open ChatGPT:",
+    how: ["The app checks its routing rules: a foreign AI site, so it goes through your server.", "The request travels through the encrypted tunnel to the server; nobody along the way can read it.", "The server opens ChatGPT for you, so ChatGPT sees the server's IP, not yours."],
+    setupNote: "Codex on your computer is used only once, in step 3: it sets up the server remotely. You don't need it for everyday browsing, and you never install anything on the server yourself.",
     getH: "What you get",
     get: [["Your own line", "Works on computers, phones and routers. Main and backup nodes — if one fails, it switches automatically."], ["Ready on import", "Routing rules for common sites and AI tools are already set up, with DNS-leak protection."], ["Your own AI API (CLIProxyAPI)", "Turns your own AI accounts into one API for all kinds of AI tools; updates itself."], ["Practically maintenance-free", "Certificate, rules and AI API update automatically; config is backed up daily; the server only accepts your computer's key."]],
     routesH: "Two ways — pick one", routesP: "The only difference is who types the commands in step 3.",
-    routes: [["Bot", "Let AI do it (recommended)", "If you have an AI that can run commands on your computer (such as Claude Code or Codex): paste one message to the AI; it asks a few questions, then configures and checks everything in about 10 minutes."], ["Terminal", "Type it yourself", "No such AI (chat-only AI doesn't count)? Every command is listed — copy, paste, Enter. Same result, just slower."]],
+    routes: [["Bot", "Let AI do it (recommended)", "If you have Codex on your computer: paste one message to it; it asks a few questions, then configures and checks everything in about 10 minutes."], ["Terminal", "Type it yourself", "No such AI (chat-only AI doesn't count)? Every command is listed — copy, paste, Enter. Same result, just slower."]],
     stepsH: "The full route", stepsP: "Go in order. Each step ends with a checkpoint so you know it worked before moving on.", pending: "In progress", dot: " · ", stepsLabel: (n, first) => `The full route: ${n} steps, starting at step ${first}`,
     fitH: "Is it for you?", fitYes: "Good fit", fitNo: "Not a good fit",
     yes: ["You travel or live abroad and rely on AI tools", "You want a line that belongs only to you and your family", "You're willing to spend an hour following the steps"],
@@ -55,19 +69,24 @@ const C = {
     <section aria-labelledby="h-flow">
       <h2 id="h-flow">{C.flowH}</h2>
       <p>{C.flowP}</p>
-      <div class="flow">
-        {C.flow.map(([icon, title, desc], i) => (
-          <>
-            {i > 0 && <div class="flow__arrow" aria-hidden="true"><i data-xxd-icon="ArrowRight" data-size="16"></i>{C.arrows[i - 1]}</div>}
-            <div class="flow__box" data-mine={i === 1 ? "" : undefined}>
-              <i class="flow__icon" data-xxd-icon={icon} data-size="20"></i>
-              <p class="flow__title">{title}</p>
-              <p class="flow__desc">{desc}</p>
-            </div>
-          </>
+      <div class="fm">
+        {["dev", "srv", "web", "cn"].map((k) => (
+          <div class={`fm__box fm--${k}`} data-mine={k === "srv" ? "" : undefined}>
+            <i class="fm__icon" data-xxd-icon={C.fm[k][0]} data-size="20"></i>
+            <p class="fm__title">{C.fm[k][1]}</p>
+            <p class="fm__desc">{C.fm[k][2]}</p>
+          </div>
+        ))}
+        {["c1", "c2", "c3"].map((k) => (
+          <div class={`fm__conn fm--${k}`}>
+            <span class="fm__label">{C.fm[k]}</span>
+            <span class="fm__track" aria-hidden="true"><span class="fm__dot"></span><i class="fm__head" data-xxd-icon="ChevronRight" data-size="14"></i></span>
+          </div>
         ))}
       </div>
-      <p class="flow__note">{C.flowNote}</p>
+      <p class="fm__how-h">{C.howH}</p>
+      <ol class="fm__how">{C.how.map((x) => <li>{x}</li>)}</ol>
+      <p class="fm__note"><i data-xxd-icon="Info" data-size="14"></i>{C.setupNote}</p>
     </section>
 
     <section aria-labelledby="h-get">

@@ -75,18 +75,38 @@
   .home h2 { margin: 0 0 var(--space-3); font: var(--weight-strong) var(--text-lg) / 1.4 var(--font-title); }
   .home h2 + p { margin: -6px 0 var(--space-4); color: var(--muted); font-size: var(--text-sm); line-height: 20px; }
 
-  /* 一张图看懂：三个格子 + 箭头；窄屏竖排 */
-  .flow {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: stretch; gap: var(--space-2);
+  /* 一张图看懂：国外网站走「设备 → 服务器 → 网站」，国内网站从设备直接去；小点沿线跑一圈表示流向（只动 transform / opacity，减少动效时静止）。窄屏竖排 */
+  .fm {
+    display: grid; gap: var(--space-2);
+    grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr) 96px minmax(0, 1fr);
+    grid-template-areas: "dev c1 srv c2 web" "dev c3 c3 c3 cn";
   }
-  .flow__box { padding: var(--space-4); border: 1px solid var(--line-strong); }
-  .flow__box[data-mine] { background: var(--wash); }
-  .flow__icon { display: block; margin-bottom: var(--space-2); color: var(--ink); }
-  .flow__title { margin: 0; font: var(--weight-strong) var(--text-base) / 1.5 var(--font-body); }
-  .flow__desc { margin: 4px 0 0; color: var(--muted); font-size: var(--text-xs); line-height: 20px; }
-  .flow__arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--muted); font-size: var(--text-2xs); }
-  .flow__note { margin: var(--space-3) 0 0; color: var(--muted); font-size: var(--text-xs); line-height: 20px; }
+  .fm--dev { grid-area: dev; } .fm--srv { grid-area: srv; } .fm--web { grid-area: web; } .fm--cn { grid-area: cn; }
+  .fm--c1 { grid-area: c1; } .fm--c2 { grid-area: c2; } .fm--c3 { grid-area: c3; }
+  .fm__box { padding: var(--space-4); border: 1px solid var(--line-strong); }
+  .fm__box[data-mine] { background: var(--wash); }
+  .fm__icon { display: block; margin-bottom: var(--space-2); color: var(--ink); }
+  .fm__title { margin: 0; font: var(--weight-strong) var(--text-base) / 1.5 var(--font-body); }
+  .fm__desc { margin: 4px 0 0; color: var(--muted); font-size: var(--text-xs); line-height: 20px; }
+  .fm__conn { display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; color: var(--muted); font-size: var(--text-2xs); line-height: 16px; text-align: center; }
+  .fm__track { position: relative; display: block; height: 14px; container-type: inline-size; }
+  .fm__track::before { content: ""; position: absolute; left: 0; right: 7px; top: 50%; border-top: 1px solid var(--line-strong); }
+  .fm__head { position: absolute; right: -3px; top: 0; color: var(--muted); }
+  .fm__dot { position: absolute; left: 0; top: 4px; width: 6px; height: 6px; border-radius: var(--r-pill); background: var(--ink); opacity: 0; animation: fm-x 4.8s linear infinite; }
+  .fm--c2 .fm__dot { animation-delay: 1.2s; }
+  .fm--c3 .fm__dot { animation-delay: 2.6s; animation-duration: 4.8s; }
+  @keyframes fm-x {
+    0% { transform: translateX(0); opacity: 0; }
+    3% { opacity: 1; }
+    22% { opacity: 1; }
+    25% { transform: translateX(calc(100cqw - 10px)); opacity: 0; }
+    100% { transform: translateX(calc(100cqw - 10px)); opacity: 0; }
+  }
+  .fm__how-h { margin: var(--space-4) 0 4px; font-size: var(--text-sm); line-height: 20px; }
+  .fm__how { margin: 0; padding-left: 1.4em; color: var(--muted); font-size: var(--text-sm); line-height: 22px; }
+  .fm__note { display: flex; gap: 6px; align-items: flex-start; margin: var(--space-3) 0 0; color: var(--muted); font-size: var(--text-xs); line-height: 20px; }
+  .fm__note > i { flex: none; margin-top: 3px; }
+  @media (prefers-reduced-motion: reduce) { .fm__dot { animation: none; opacity: 0; } }
 
   .routes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
   .route { padding: var(--space-4); border: 1px solid var(--line); }
@@ -240,9 +260,23 @@
     .site-search:hover { background: var(--gray-3); }
     .site-tools .site-search { margin-right: 0; }
     .site-top { padding-left: var(--space-4); }
-    .flow { grid-template-columns: 1fr; }
-    .flow__arrow { flex-direction: row; padding: 2px 0; }
-    .flow__arrow > :first-child { transform: rotate(90deg); }
+    /* 一张图看懂竖排：设备 → 服务器 → 国外网站一列往下，国内网站放最后，那条线写明「从你的设备直接访问」 */
+    .fm { grid-template-columns: 1fr; grid-template-areas: "dev" "c1" "srv" "c2" "web" "c3" "cn"; }
+    .fm__conn { flex-direction: row; justify-content: flex-start; align-items: center; gap: var(--space-2); padding: 0 0 0 var(--space-4); text-align: left; }
+    .fm__track { order: -1; flex: none; width: 14px; height: 36px; container-type: size; }
+    .fm__track::before { left: 50%; right: auto; top: 0; bottom: 7px; border-top: 0; border-left: 1px solid var(--line-strong); }
+    .fm__head { right: auto; left: 0; top: auto; bottom: -3px; transform: rotate(90deg); }
+    .fm__dot { left: 4px; top: 0; animation-name: fm-y; }
+    /* 国内网站是另一条路：竖排时不接在国外网站下面画线，空一段、只留文字说明 */
+    .fm--c3 { margin-top: var(--space-3); padding-left: 0; }
+    .fm--c3 .fm__track { display: none; }
+    @keyframes fm-y {
+      0% { transform: translateY(0); opacity: 0; }
+      3% { opacity: 1; }
+      22% { opacity: 1; }
+      25% { transform: translateY(calc(100cqh - 10px)); opacity: 0; }
+      100% { transform: translateY(calc(100cqh - 10px)); opacity: 0; }
+    }
     .routes, .fit, .prevnext { grid-template-columns: 1fr; }
     .prevnext [data-dir="next"] { grid-column: auto; }
     .pending-list { columns: 1; }

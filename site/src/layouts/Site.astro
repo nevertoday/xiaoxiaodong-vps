@@ -21,12 +21,12 @@ const UI = {
   zh: { html: "zh-CN", brand: "小小东 VPS 教程", desc: "从买服务器到用上自己的线路和 AI 接口：一步一步、看得懂、照着做就会。", skip: "跳到正文", menu: "打开目录", search: "搜索教程",
     searchPh: "搜步骤、How-to、名词、问题……", searchEmpty: "没找到，换个词试试", theme: "主题", light: "亮色", dark: "暗色", system: "跟随系统", accent: "主题色", look: "外观", repo: "GitHub 仓库",
     navLabel: "网站目录", start: "开始", home: "首页：一张图看懂", main: "主线教程（按顺序做）", pending: "编写中", ref: "查资料", howto: "How-to：具体怎么做",
-    wiki: "Wiki：这是什么", faq: "常见问题", toc: "本页", tocLabel: "本页目录", hintMain: "主线教程", hintFaq: "常见问题", switchTo: "English", switchLabel: "Switch to English",
+    wiki: "Wiki：这是什么", faq: "常见问题", faqBadge: "必看", toc: "本页", tocLabel: "本页目录", hintMain: "主线教程", hintFaq: "常见问题", switchTo: "English", switchLabel: "Switch to English",
     foot: '这套方案只给自己和家人用，请遵守当地法律和各网站、AI 工具的使用规定。内容开源（MIT），源码和问题反馈在 <a href="https://github.com/nevertoday/xiaoxiaodong-vps">GitHub</a>。' },
   en: { html: "en", brand: "XXD VPS Guide", desc: "From buying a server to using your own line and AI API — step by step, easy to follow.", skip: "Skip to content", menu: "Open menu", search: "Search the guide",
     searchPh: "Search steps, how-tos, terms, questions…", searchEmpty: "Nothing found — try another word", theme: "Theme", light: "Light", dark: "Dark", system: "System", accent: "Theme color", look: "Appearance", repo: "GitHub repository",
     navLabel: "Site navigation", start: "Start", home: "Home: the big picture", main: "Main guide (in order)", pending: "In progress", ref: "Reference", howto: "How-to: how exactly",
-    wiki: "Wiki: what is it", faq: "FAQ", toc: "On this page", tocLabel: "On this page", hintMain: "Main guide", hintFaq: "FAQ", switchTo: "中文", switchLabel: "切换到中文",
+    wiki: "Wiki: what is it", faq: "FAQ", faqBadge: "Read first", toc: "On this page", tocLabel: "On this page", hintMain: "Main guide", hintFaq: "FAQ", switchTo: "中文", switchLabel: "切换到中文",
     foot: 'This setup is for you and your family only. Follow local laws and each site\'s and AI tool\'s terms of use. Open source (MIT) — code and feedback on <a href="https://github.com/nevertoday/xiaoxiaodong-vps">GitHub</a>.' },
 };
 const lang = langOf(Astro.url.pathname);
@@ -130,7 +130,7 @@ const GITHUB_MARK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="curre
               );
             })}
             <a class="xxd-sidebar__item" href={link("/wiki/", lang)} aria-current={cur(link("/wiki/", lang)) ? "page" : undefined}><span>{L.wiki}</span></a>
-            <a class="xxd-sidebar__item" href={link("/faq/", lang)} aria-current={cur(link("/faq/", lang)) ? "page" : undefined}><span>{L.faq}</span></a>
+            <a class="xxd-sidebar__item site-nav__faq" href={link("/faq/", lang)} aria-current={cur(link("/faq/", lang)) ? "page" : undefined}><span>{L.faq}</span><span class="xxd-badge" data-tone="warning">{L.faqBadge}</span></a>
           </section>
         </div>
       </nav>
