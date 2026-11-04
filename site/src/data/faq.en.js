@@ -12,5 +12,6 @@ export const FAQ_EN = [
     ["Does the score on the test site matter?", "The score isn't the main thing; what matters most is that neither of the two leaks happens. For the score, my bar is 71: above 71 is fine; if it isn't, refund the server and buy another one that meets the bar."],
     ["Why don't you like residential IPs (home broadband)?", "A real residential IP can't be had at that price; that market is murky. It also means one more node in the chain, and one more risk, one you can't control at all. The only thing you can control is buying the best service and keeping your money clean. Add another node and too much is out of your hands."],
     ["Should I consider an anti-detect (fingerprint) browser?", "No need at all. For preventing leaks and for everyday use, this setup doesn't depend on anything like that, and that market is murky too."],
+    ["Can I use it on my phone?", "My advice: use it only when buying an AI service or doing KYC, and not at any other time."],
   ]},
 ];
