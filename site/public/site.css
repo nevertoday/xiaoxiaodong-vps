@@ -228,6 +228,9 @@
   .feedback__qr { min-width: 0; }
   .feedback__qr img { width: 148px; }
   .feedback__qr .contact__mobile { max-width: 148px; margin-top: 6px; font-size: var(--text-xs); line-height: 18px; }
+  /* 点开微信二维码时先提醒看常见问题（反馈卡和每页末尾的浮层都有） */
+  .feedback__faq { display: block; max-width: 148px; margin-bottom: 8px; color: var(--muted); font-size: var(--text-xs); line-height: 18px; }
+  .feedback__faq a, .contact .contact__text .contact__ask a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
 
   /* 正文里一点就复制的命令（Cmd.astro）：命令长时照常换行，不撑出横向滚动 */
   .cmd { display: inline; text-align: left; white-space: normal; }

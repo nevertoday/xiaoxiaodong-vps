@@ -1,6 +1,6 @@
 ---
 // 页面末尾的反馈入口：在 GitHub 上新建一条带模板的反馈（真人试用时，卡住的地方都会汇总到这里），也可以 X 私信或加小小东微信（二维码用 xxd 的说明浮层 Popover）
-import { langOf } from "../data/nav.js";
+import { langOf, link } from "../data/nav.js";
 interface Props { page: string }
 const en = langOf(Astro.url.pathname) === "en";
 const site = Astro.site ? Astro.site.href.replace(/\/$/, "") : "";
@@ -19,6 +19,7 @@ const QR = "https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png";
     <a class="xxd-link" href={href} rel="noopener">{en ? "Tell me on GitHub" : "到 GitHub 告诉我"}</a>{en ? ", " : "、"}<a class="xxd-link" href="https://x.com/xiaoxiaodong" rel="noopener">{en ? "message me on X" : "在 X 上私信我"}</a>{en ? ", or " : "，或者"}<button class="xxd-link" type="button" data-xxd-popover="feedback-wx" data-placement="top-start">{en ? "add me on WeChat" : "加我微信"}</button>
   </div>
   <div class="xxd-popover feedback__qr" id="feedback-wx" popover>
+    <span class="feedback__faq">{en ? "Before asking, check the " : "问之前先看看"}<a href={link("/faq/", en ? "en" : "zh")}>{en ? "FAQ" : "常见问题"}</a>{en ? "." : "，大家问过的都在那里。"}</span>
     <img src={QR} width="148" height="152" alt={en ? "Xiaoxiaodong's WeChat QR code" : "小小东的微信二维码"} loading="lazy" decoding="async" />
     <span class="contact__mobile">{en ? "On a phone: long-press to save, then scan it from your photos in WeChat." : "手机上：长按保存图片，再用微信扫一扫从相册识别。"}</span>
   </div>

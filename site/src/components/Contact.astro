@@ -1,8 +1,10 @@
 ---
 // 反馈与建议：首页、常见问题末尾的卡片（xxd 分层卡片 LayerCard）。主体：说明 + 请把问题汇总一次发，GitHub、X 私信两个按钮，小小东微信并列（二维码不加白底，跟随主题单色显示）；
 // 下面洗色的一条：发截图前先打码
-import { langOf } from "../data/nav.js";
-const en = langOf(Astro.url.pathname) === "en";
+import { langOf, link } from "../data/nav.js";
+const lang = langOf(Astro.url.pathname);
+const en = lang === "en";
+const onFaq = Astro.url.pathname.replace(/\/$/, "").endsWith("/faq");
 const QR = "https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png";
 const ISSUE = "https://github.com/nevertoday/xiaoxiaodong-vps/issues/new";
 const X = "https://x.com/xiaoxiaodong";
@@ -11,6 +13,7 @@ const T = en
   ? {
       h: "Feedback and suggestions",
       p: "Have a suggestion, or found a step that's unclear or doesn't work as written? Let me know and I'll add it to the guide.",
+      faq: ["Before asking, check the ", "FAQ", ": the questions people have asked are all there."],
       ask: "If you have questions, please gather them into one message rather than asking one by one. Thanks!",
       btn: "Give feedback on GitHub",
       x: "Message me on X",
@@ -22,6 +25,7 @@ const T = en
   : {
       h: "反馈与建议",
       p: "对项目有建议，或者发现哪一步没写清楚、照做不成功，欢迎告诉我，我会补进教程。",
+      faq: ["问之前先看看", "常见问题", "，大家问过的都在那里。"],
       ask: "有问题尽量先整理好一起发，别逐个问，谢谢。",
       btn: "到 GitHub 反馈",
       x: "在 X 上私信我",
@@ -36,6 +40,7 @@ const T = en
     <div class="contact__text">
       <h2 id="h-contact">{T.h}</h2>
       <p>{T.p}</p>
+      {!onFaq && <p class="contact__ask">{T.faq[0]}<a href={link("/faq/", lang)}>{T.faq[1]}</a>{T.faq[2]}</p>}
       <p class="contact__ask">{T.ask}</p>
       <div class="contact__btns">
         <a class="xxd-btn" href={ISSUE} rel="noopener">{T.btn}<i data-xxd-icon="ArrowRight" data-size="16"></i></a>
