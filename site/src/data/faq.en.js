@@ -9,5 +9,6 @@ export const FAQ_EN = [
     ["I have several top-tier accounts. How do I switch between them?", "I just sign out of one and sign in to the other, the normal way. I don't use third-party switching tools: they may be immature or cause problems, and drag the account down with them."],
     ["How should I get a paid plan, and when should I upgrade?", "I always start with the US$20 plan, then go by how much I actually use: whenever I run out of quota, I simply upgrade one level, until I'm on the top plan."],
     ["Is there a right schedule for using AI tools, or times I shouldn't use them?", "No schedule to follow and no off-limits hours: use them whenever and however you like. As long as you stay within the platform's policies and terms of use, you can use them freely and with confidence."],
+    ["Does the score on the test site matter?", "I mainly look at the two leak checks, not the score. For the score, my bar is 71: above 71 is fine; if it isn't, refund the server and buy another one that meets the bar."],
   ]},
 ];
