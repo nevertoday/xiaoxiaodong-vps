@@ -21,14 +21,25 @@ You only need these three to begin; you'll pick up the rest as you go.
 - **<Term k="节点" text="Node" />**: the encrypted tunnel from your computer to that server. Websites see the server's IP, not yours.
 - **<Term k="订阅" text="Subscription" />**: a URL. Your app opens it to get the nodes and the rules for "which sites go through the server", and keeps them updated.
 
+## First: your computer and the server
+
+The whole guide involves just two machines, and the split is simple:
+
+| | What it is | What you do |
+|---|---|---|
+| **Your computer** | The Windows or Mac you use every day | Install Codex and talk to it; at the end, install the apps you browse with |
+| **The server** | The computer you rent in a data center abroad | Buy it and note down its IP and password. That's all |
+
+**You don't install anything on the server, and you don't log in to it.** The AI on your computer sets everything up there remotely.
+
 ## What you need
 
 | Item | Used for | If you don't have it |
 |---|---|---|
-| A computer (Windows or Mac) | Configuring the server, installing apps | Required. Windows needs WSL first — see [Install WSL on Windows](/en/howto/windows-wsl/) |
+| A computer (Windows or Mac) | Installing Codex and the apps | Required. Configuring the server also happens here, done by Codex |
 | A way to pay on overseas websites | Buying the server | The recommended BandwagonHost accepts **Alipay** (支付宝); for other providers go by the checkout page — see [Paying on overseas websites](/en/howto/payment/) |
 | An email address that receives mail reliably | Provider account, server-ready email | Gmail is recommended — see [Create a Google account](/en/howto/gmail/) |
-| An AI tool that can run commands on your computer (recommended) | Letting AI configure the server for you | Chat-only AI doesn't count — step 2 has a quick test. Not required: in step 3 you can type the commands yourself |
+| Codex (recommended; needs a paid ChatGPT plan) | Letting AI configure the server for you | Step 1 shows how to install it; chat-only AI doesn't count. Not required: in step 3 you can type the commands yourself |
 | A non-China Apple ID (iPhone only) | Downloading Shadowrocket | It's not in the China App Store — see [Create a non-China Apple ID](/en/howto/apple-id/) |
 
 ## Roughly what it costs
@@ -36,7 +47,7 @@ You only need these three to begin; you'll pick up the rest as you go.
 - **Server**: the only required cost, paid quarterly or yearly; check the provider's site for prices. 1 vCPU and 1 GB RAM are enough.
 - **Computer app**: Clash Verge Rev, free.
 - **iPhone app**: Shadowrocket, a one-off purchase of about US$3 on the US App Store (check the store page).
-- **AI tool** (optional): Claude Code needs a paid Claude plan; Codex needs a paid ChatGPT plan. Skip the AI route and you skip this cost.
+- **Codex** (optional): needs a paid ChatGPT plan. Skip the AI route and you skip this cost.
 - **Certificate, rules, AI API software**: all free. No domain needed.
 
 ## How long it takes
@@ -49,8 +60,8 @@ Many tools are hard to reach where the internet is restricted — AI tools, app 
 
 ## Two routes — pick one now
 
-- **Let AI do it (recommended)**: you have an AI tool that can run commands on your computer, such as Claude Code or Codex. In step 3 you paste one message to it and it does the rest.
-- **Type it yourself**: you don't have such a tool. Step 3 lists every command — copy, paste, Enter.
+- **Let AI do it (recommended)**: in step 1 you install Codex on your computer. In step 3 you paste one message to it and it does the rest.
+- **Type it yourself**: you don't have a ChatGPT plan. Step 3 lists every command — copy, paste, Enter, in your own computer's terminal.
 
 Chat-only AI (chat in a web page or a phone app) can't do it for you: it can't run commands, so it just walks you through typing them one by one, which is the manual route anyway.
 
@@ -74,6 +85,7 @@ Airports share a pool of servers among many people — cheap and easy. Your own 
 
 <Checkpoint id="step0" items={[
   "I have a Windows or Mac computer",
+  "I know nothing needs installing on the server — everything happens on my own computer",
   "I checked the provider's payment options and can pay",
   "I have an email address that receives mail reliably",
   "I've chosen a route: let AI do it, or type it myself",

@@ -4,7 +4,7 @@ slug: install-codex
 time: About 5 minutes
 for: People with a paid ChatGPT plan
 step: 1
-description: Install OpenAI’s AI coding assistant Codex and sign in with your ChatGPT account.
+description: "For people comfortable with a terminal: install the Codex command line on your own computer and sign in with your ChatGPT account."
 ---
 import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
@@ -17,14 +17,32 @@ import Cmd from "../../../components/Cmd.astro";
 ## What you need
 
 - A paid ChatGPT plan (Plus, Pro, Business, Edu, Enterprise…), or an API key;
-- to be in a country or region OpenAI supports;
-- Windows: [WSL](/en/howto/windows-wsl/) installed first.
+- to be in a country or region OpenAI supports.
+
+<Callout type="tip" title="Not comfortable with a terminal?">
+Use the Codex desktop app instead: on Windows, install it from the Microsoft Store; on a Mac, download it from the website. See [step 1, "Install Codex on your computer"](/en/guide/1-ai-assistant/).
+</Callout>
+
+**Already have the Codex CLI? No need to reinstall**: run `codex` in your terminal and go straight to [step 3](/en/guide/3-deploy/) to paste in the message.
 
 ## 1. Install
 
-Open the terminal (Windows: Ubuntu in WSL), paste this command and press Enter:
+Run this in **your own computer's** terminal (not on the server):
 
-<Copy id="cx" lang="bash" title="Install Codex (Mac, Linux, WSL)" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
+<Tabs id="cx-os" label="Your computer" items={[["mac", "Mac / Linux"], ["win", "Windows"]]}>
+<div slot="mac">
+
+<Copy id="cx" lang="bash" title="Install Codex (Mac, Linux)" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
+
+</div>
+<div slot="win">
+
+Install [Node.js](https://nodejs.org/) first, then run this in PowerShell:
+
+<Copy id="cx-win" lang="bash" title="Install Codex (Windows PowerShell)" code="npm install -g @openai/codex" />
+
+</div>
+</Tabs>
 
 With Homebrew on a Mac you can also run <Cmd c="brew install --cask codex" />. After installing, **close the terminal and open it again**, and check:
 
@@ -43,6 +61,6 @@ The terminal shows the Codex chat interface, ready for a question.
 <Q q="codex: command not found?">
 Reopen the terminal and try again. Still failing? See the latest instructions in the [official Codex repository](https://github.com/openai/codex).
 </Q>
-<Q q="How do I sign in on a server or without a browser?">
-The sign-in screen offers a device-code option: enter the code it shows in a browser on another device.
+<Q q="The browser didn't open?">
+The sign-in screen offers a device-code option: open the address it gives in a browser and enter the code shown.
 </Q>

@@ -33,7 +33,7 @@ export const FAQ_EN = [
     ["I can't find Shadowrocket on the China App Store.", "It isn't listed there. Download it from another region's App Store (for example the US) with a non-China Apple ID — see the how-to \"Create a non-China Apple ID\"."],
   ]},
   { id: "tech", title: "Technical", items: [
-    ["Can I do everything manually, without AI?", "Yes. Step 3 has a \"Type it yourself\" route with every command listed. Your computer needs bash: built in on Mac and Linux; on Windows install WSL first."],
+    ["Can I do everything manually, without AI?", "Yes. Step 3 has a \"Type it yourself\" route with every command listed. The commands run in your own computer's terminal: on a Mac use the built-in Terminal; on Windows install Git for Windows and use its Git Bash."],
     ["Can I install other things on the server?", "Yes, but avoid the ports this setup uses (22, 80, 443, 2443, 2096, 8318, 53998) and allow the new service's port in the firewall. Ask AI first whether it might conflict."],
     ["Why don't 3x-ui and Xray auto-update?", "A newer Xray once stopped Shadowrocket from connecting, so the versions are pinned and only upgraded after checking compatibility with every app. CLIProxyAPI, certificates and rules do update automatically."],
   ]},

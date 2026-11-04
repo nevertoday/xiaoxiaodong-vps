@@ -2,7 +2,7 @@
 layout: ../../../layouts/Guide.astro
 step: 2
 need: Email, a payment method
-description: Rent a server from a provider and get its IP, root password and SSH port.
+description: Rent a server from a provider and note its IP, root password and SSH port (plus VEID and API key on BandwagonHost). Nothing needs installing on the server.
 ---
 import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
@@ -12,7 +12,11 @@ import Shot from "../../../components/Shot.astro";
 
 ## What this step is
 
-Rent a server from a provider. When you're done you'll have three things: **the server IP, the root password and the SSH port**. The next steps use them to log in.
+Rent a server from a provider. When you're done you'll have three things: **the server IP, the root password and the SSH port**. In the next step you give them to the AI on your computer, which configures the server remotely.
+
+<Callout type="warn" title="No need to log in after buying">
+Nothing needs installing on the server, and you don't need the provider's web console (VNC, Root shell and the like) either. Just note down the details below.
+</Callout>
 
 ## Which provider
 
@@ -61,7 +65,7 @@ The most common mistake is choosing CentOS or another old system. This setup won
 
 More detail in the how-tos: [Buy from BandwagonHost](/en/howto/buy-bandwagonhost/), [Buy from DMIT](/en/howto/buy-dmit/). Picked the wrong OS? See [Reinstall the OS as Ubuntu](/en/howto/reinstall-os/).
 
-## Write down three things
+## Write these down
 
 Find these in the email or the provider's dashboard and keep them somewhere only you can see:
 
@@ -70,13 +74,14 @@ Find these in the email or the provider's dashboard and keep them somewhere only
 | Server IP | Four groups of numbers, e.g. `203.0.113.10` | The server's address |
 | <Term k="root" /> password | A string of letters and numbers | The admin password. Some providers give a key file instead — note where it is |
 | <Term k="SSH" /> <Term k="端口" text="port" /> | Usually `22`, sometimes another number | The "room number" for remote login |
+| BandwagonHost only: VEID and API key | The VEID is a number; the API key starts with `private_` | On the "API" page in KiwiVM's left menu — [where to find it](/en/howto/traffic-and-ip/). With it, the traffic your apps show matches the dashboard. Other providers don't have this; skip it |
 
 <Callout type="ok">
-The server shows as "Running" in the provider's dashboard, and you've written down its IP, root password and SSH port.
+The server shows as "Running" in the provider's dashboard, and you've written down its IP, root password and SSH port (plus VEID and API key on BandwagonHost).
 </Callout>
 
 <Callout type="no">
-Don't post these three in group chats, send them to strangers or share screenshots. After the next steps, the server will only accept your computer's key, and the password will no longer work for remote login.
+Don't post these in group chats, send them to strangers or share screenshots. After the next steps, the server will only accept your computer's key, and the password will no longer work for remote login.
 </Callout>
 
 ## Stuck?
@@ -91,7 +96,10 @@ Check spam first. Then log in to the provider and look for "My Services" — the
 Find "Reinstall OS" in the provider's dashboard and choose Ubuntu 24.04. Reinstalling wipes the server — nothing to lose on a new machine. Use the new root password afterwards.
 </Q>
 <Q q="My SSH port isn't 22. Does it matter?">
-No. Note it down and tell the AI (or put it in the command) in the next steps.
+No. Note it down and tell the AI (or put it in the command) in the next step.
+</Q>
+<Q q="Should I log in to the server first and install something?">
+No. Everything on the server is installed remotely by the AI on your computer in the next step. The AI app and the browsing apps don't go on the server either.
 </Q>
 
 <Checkpoint id="step-buy" items={[
@@ -100,4 +108,5 @@ No. Note it down and tell the AI (or put it in the command) in the next steps.
   "I wrote down the server IP",
   "I wrote down the root password (or where the key file is)",
   "I wrote down the SSH port",
+  "(BandwagonHost) I wrote down the VEID and API key",
 ]} />

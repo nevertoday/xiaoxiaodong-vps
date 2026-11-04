@@ -1,11 +1,10 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 1
-need: A computer; for the AI route, a paid Claude or ChatGPT plan
-description: Test whether your AI can run commands; if it can, go straight to step 3, otherwise install Claude Code or Codex. No AI account? Take the manual route.
+need: Your own computer; a paid ChatGPT plan (not needed for the manual route)
+description: Install Codex on your own computer, sign in and send one test message. No ChatGPT plan? The manual route works too.
 ---
 import Callout from "../../../components/Callout.astro";
-import Term from "../../../components/Term.astro";
 import Checkpoint from "../../../components/Checkpoint.astro";
 import Q from "../../../components/Q.astro";
 import Tabs from "../../../components/Tabs.astro";
@@ -13,110 +12,79 @@ import Copy from "../../../components/Copy.astro";
 
 ## What this step is
 
-Prepare the tools for the next step: a <Term k="终端" text="terminal" /> to type commands into, and — on the AI route — an AI assistant that runs commands for you.
+Install Codex (OpenAI's AI app; you sign in with your ChatGPT account) **on your own computer**. When you configure the server in step 3, you just talk to it: it runs commands on your computer and sets the server up remotely.
 
-Whichever route you take, **you need to be able to open a terminal**: the manual route types commands there, and the AI route may ask you to type the server password there once.
+<Callout type="warn" title="This step has nothing to do with the server">
+You don't have a server yet, and you don't need one. Codex lives on your own computer, and you'll never need to log in to the server to install anything.
+</Callout>
 
-## Test first: can your AI run commands?
+## Beginner or experienced?
 
-If you already have an AI tool, tell it:
+- **Beginners**: install the Codex desktop app — like installing any other app, no terminal involved. See "Install Codex" below.
+- **Experienced users**: use the Codex command line. Already installed? Run `codex` in your terminal and just talk to it — in step 3, paste the message in. Not installed yet? See [Install the Codex CLI](/en/howto/install-codex/).
+
+## Already have an AI tool? Test it first
+
+Send it this:
 
 <Copy id="ai-test" title="Test message for the AI" code="Please run whoami on my computer and tell me the result." />
 
-- **It actually runs it and answers with a user name**: it works. Once you can open a terminal (first thing below), skip "install an AI assistant" and go straight to step 3.
-- **It tells you to run it yourself, or says it can't**: it's chat-only and can't do this for you. Install Claude Code or Codex below, or take the manual route.
+- **It actually ran it and answered with a username**: it works — go straight to the next step.
+- **It asks you to run it yourself, or says it can't**: it can only chat (chat in a web page or a phone app works this way), so it can't set things up for you. Install Codex as below.
 
-On Windows, also have it run `uname -a`: the answer must include `Linux`, meaning it works inside <Term k="WSL" /> (the setup's scripts only run there). If not, install one inside WSL as below.
+## Install Codex (beginners)
 
-## First: open a terminal
-
-<Tabs id="term" label="Your computer" items={[["mac", "Mac"], ["win", "Windows"]]}>
-<div slot="mac">
-
-Mac has Terminal built in: press <kbd class="xxd-kbd">⌘</kbd> + <kbd class="xxd-kbd">Space</kbd>, type "Terminal" and press Enter. A window appears with a line ending in `%` or `$` — that's the terminal.
-
-</div>
-<div slot="win">
-
-This setup's scripts run in Linux, so Windows first needs its built-in Linux environment, <Term k="WSL" />. About 10 minutes and one restart.
-
-Follow [Install WSL on Windows](/en/howto/windows-wsl/), then come back. **From now on, "terminal" on Windows means the Ubuntu window inside WSL.**
-
-</div>
-</Tabs>
-
-<Callout type="tip" title="Using the terminal">
-Paste a command, press Enter and wait. A fresh `$` or `%` line means the command has finished. When you paste or type a password, nothing appears on screen — that's normal.
-</Callout>
-
-## Manual route: you're done here
-
-If you won't use AI, the terminal is all you need. Go to the next step and choose "Type it yourself".
-
-## No AI that runs commands yet: install one
-
-Pick one — whichever you have an account for:
-
-| | Claude Code | Codex |
-|---|---|---|
-| From | Anthropic (Claude) | OpenAI (ChatGPT) |
-| Account needed | Claude Pro, Max, Team, Enterprise or Console (not the free plan) | A paid ChatGPT plan such as Plus, Pro, Business, Edu or Enterprise |
+Codex is an ordinary desktop app: download, install, sign in. It needs a paid ChatGPT plan such as Plus, Pro or Business.
 
 <Callout type="warn">
-These AI services must be used in the countries and regions they support. If you can't use one yet, take the manual route now and install an AI assistant later.
+ChatGPT is only available in the countries and regions OpenAI supports. If you can't use it yet, take the manual route for now and install Codex later.
 </Callout>
 
-<Tabs id="ai" label="Pick an AI assistant" items={[["claude", "Claude Code"], ["codex", "Codex"]]}>
-<div slot="claude">
+<Tabs id="ai" label="Your computer" items={[["win", "Windows"], ["mac", "Mac"]]}>
+<div slot="win">
 
-Paste this into the terminal and press Enter (same command on Mac and in WSL):
-
-<Copy id="cc-install" lang="bash" title="Install Claude Code" code="curl -fsSL https://claude.ai/install.sh | bash" />
-
-When it finishes, **close the terminal and open it again**, then check — a version number means it worked:
-
-<Copy id="cc-ver" lang="bash" title="Check" code="claude --version" />
-
-Then type `claude`, press Enter and log in to your Claude account in the browser when prompted. Details: [Install Claude Code](/en/howto/install-claude-code/).
+1. **Install**: open the **Microsoft Store**, search for **Codex** and click "Install".
+2. **Sign in**: open Codex, choose "Sign in with ChatGPT", then sign in and authorize in the browser.
+3. **Pick a folder**: the first time, it asks for a working folder. Create one on your desktop (for example `vps`) and pick it.
 
 </div>
-<div slot="codex">
+<div slot="mac">
 
-Paste this into the terminal and press Enter (same command on Mac and in WSL):
-
-<Copy id="cx-install" lang="bash" title="Install Codex" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
-
-When it finishes, **close the terminal and open it again**, then check — a version number means it worked:
-
-<Copy id="cx-ver" lang="bash" title="Check" code="codex --version" />
-
-Then type `codex`, press Enter, choose "Sign in with ChatGPT" and log in in the browser. Details: [Install Codex](/en/howto/install-codex/).
+1. **Install**: download the Mac version from the [Codex website](https://openai.com/codex/) and drag it into Applications.
+2. **Sign in**: open Codex, choose "Sign in with ChatGPT", then sign in and authorize in the browser.
+3. **Pick a folder**: the first time, it asks for a working folder. Create one on your desktop (for example `vps`) and pick it.
 
 </div>
 </Tabs>
 
+Once it's installed, send it the test message above. Before running its first command, Codex asks you to click "Allow" or "Approve" — that's normal, allow it.
+
 <Callout type="ok">
-Typing `claude` or `codex` opens the AI assistant, you're logged in, and you can chat with it.
+It actually ran `whoami` and answered with a username.
 </Callout>
+
+## Not using AI: skip this step
+
+Not planning to use AI, or no ChatGPT plan? Go straight to the next step and buy a server, then choose "Type it yourself" in step 3.
 
 ## Optional: install it as a skill
 
-If you'll set up servers often, install this setup as an AI skill; afterwards one sentence — "use xiaoxiaodong-vps to set up my new server" — is enough. Not needed the first time: the message in the next step tells the AI to download the setup itself. See [Install the xiaoxiaodong-vps skill](/en/howto/install-skill/).
+If you set up servers often, install this setup as a Codex skill; afterwards one sentence — "use xiaoxiaodong-vps to configure my new server" — is enough. You don't need it the first time: the message in step 3 has the AI download the setup itself. See [Install the xiaoxiaodong-vps skill](/en/howto/install-skill/).
 
 ## Stuck?
 
-<Q q="It says command not found?">
-Close and reopen the terminal after installing so the new command is found. Still failing? See the matching how-to.
+<Q q="During the test it told me to run the command myself?">
+You're using a chat-only AI (a web page or phone app). Install Codex as above and test again inside Codex.
 </Q>
-<Q q="The browser didn't open for login?">
-The terminal prints a URL — copy it into a browser, log in, then return to the terminal.
+<Q q="Can't find Codex in the Microsoft Store, or the Store won't open?">
+Download the installer from the [Codex website](https://openai.com/codex/) and double-click it.
 </Q>
-<Q q="Can I skip WSL on Windows and use PowerShell?">
-The AI assistants themselves run on Windows, but this setup's scripts need Linux tools like bash and ssh, which are easiest in WSL — so the guide uses WSL throughout.
+<Q q="While configuring, Codex wants to install Git and Windows asks “Allow?”">
+Click "Yes". On Windows the setup scripts need tools that come with Git; Codex installs them itself — on your computer, not on the server.
 </Q>
 
 <Checkpoint id="step-ai" items={[
-  "I can open a terminal (Windows: Ubuntu in WSL)",
-  "(AI route) My AI passed the test above: it actually ran whoami",
-  "(Manual route) I know to choose “Type it yourself” in the next step",
+  "Codex is installed on my own computer and I'm signed in",
+  "In the test it actually ran whoami and answered with a username",
+  "(Manual route) I know to choose \"Type it yourself\" in step 3",
 ]} />

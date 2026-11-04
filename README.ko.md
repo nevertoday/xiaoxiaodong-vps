@@ -6,7 +6,7 @@
 
 단계별 튜토리얼 웹사이트(영어·중국어): <https://vps.xiaoxiaodong.ai/en/> (중국어판: <https://vps.xiaoxiaodong.ai>, 미러: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
-방법은 간단합니다. 해외 서버를 한 대 직접 사서, 이 프로젝트대로 AI에게 설정을 맡기고, 휴대폰과 컴퓨터에 구독을 가져오면 됩니다. 회선은 나만 쓰고, 모르는 사람과 공유하지 않습니다.
+방법은 간단합니다. 내 컴퓨터에 Codex를 설치하고, 해외 서버를 한 대 사서, 이 프로젝트대로 Codex가 원격으로 설정하게 한 뒤, 휴대폰과 컴퓨터에 구독을 가져오면 됩니다. **서버에는 아무것도 설치하지 않고, 서버에 로그인할 필요도 없습니다.** 회선은 나만 쓰고, 모르는 사람과 공유하지 않습니다.
 
 ## 설정이 끝나면
 
@@ -17,9 +17,18 @@
 - **보안**: 서버는 내 컴퓨터의 키로만 로그인할 수 있고, 정식 HTTPS 인증서를 써서 "안전하지 않음" 경고가 뜨지 않습니다.
 - **관리가 거의 필요 없음**: 인증서, 규칙, CLIProxyAPI가 스스로 업데이트되고, 설정은 매일 자동 백업됩니다.
 
-## 세 단계로 시작
+## 네 단계로 시작
 
-### 1. 서버 구매
+### 1. 컴퓨터에 Codex 설치
+
+Codex는 OpenAI의 AI 앱으로, 유료 ChatGPT 요금제로 로그인합니다. 서버가 아니라 **내 컴퓨터**에 설치합니다.
+
+- **처음이라면**: 데스크톱 앱을 설치하세요. Windows는 Microsoft Store에서 **Codex**를 검색해 설치하고, Mac은 [Codex 웹사이트](https://openai.com/codex/)에서 내려받으세요. 앱을 열고 ChatGPT 계정으로 로그인하면 됩니다.
+- **익숙한 분이라면**: [Codex](https://github.com/openai/codex) 명령줄 버전을 쓰세요. 이미 설치했다면 터미널에서 `codex`를 실행하고 그대로 대화하면 됩니다.
+
+ChatGPT 요금제가 없다면 [튜토리얼 웹사이트](https://vps.xiaoxiaodong.ai/en/guide/3-deploy/) 3단계의 "Type it yourself"(직접 입력) 방법을 따르세요.
+
+### 2. 서버 구매
 
 지금은 **BandwagonHost**를 바로 사는 것을 추천합니다. 저도 계속 쓰고 있습니다.
 
@@ -35,11 +44,13 @@
 
 > 모두 제 추천 링크입니다. 이 링크로 구매하면 제가 수수료를 받을 수 있으며, 그 수입은 자선 활동에 쓰겠습니다. 가격과 재고는 공식 사이트 기준입니다.
 
-운영체제는 **Ubuntu 24.04**를 선택하세요. 개통되면 관리 화면에서 세 가지를 적어 두세요: **서버 IP, root 비밀번호(또는 키 파일), SSH 포트**.
+운영체제는 **Ubuntu 24.04**를 선택하세요. 개통되면 관리 화면에서 세 가지를 적어 두세요: **서버 IP, root 비밀번호(또는 키 파일), SSH 포트**. BandwagonHost라면 **VEID와 API Key**도 적어 두세요(KiwiVM 왼쪽 메뉴의 「API」 페이지, [찾는 방법](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). 그래야 클라이언트에 표시되는 트래픽이 관리 화면과 일치합니다.
 
-### 2. AI에게 설정 맡기기
+구매한 뒤에는 서버에 로그인하거나 무언가를 설치할 필요가 없습니다. 다음 단계는 Codex가 맡습니다.
 
-컴퓨터에서 명령을 실행할 수 있는 AI 도구를 여세요. 예: [Codex](https://github.com/openai/codex), [Claude Code](https://claude.com/claude-code) (Windows는 WSL 안에서 사용). 아래 문구를 복사해 채운 뒤 보내세요.
+### 3. Codex에게 설정 맡기기
+
+1단계에서 설치한 Codex를 여세요(내 컴퓨터에서 명령을 실행할 수 있는 다른 AI 도구도 됩니다). 아래 문구를 복사해 채운 뒤 보내세요.
 
 ```text
 「XXD VPS」 방식으로 새로 산 서버를 설정해 주세요.
@@ -51,21 +62,22 @@
 
 내 서버:
 - IP:
-- 로그인 방식: 초기 비밀번호 (터미널에 제가 직접 입력하게 해 주세요)
+- 로그인 방식: 초기 비밀번호 (제가 직접 입력하게 해 주세요. 채팅으로 보내라고 하지 마세요)
 - SSH 사용자와 포트: 기본값
 - 앞으로 로그인할 때 쓸 이름: bwg
+- BandwagonHost VEID와 API Key (공식 트래픽 사용량용. BandwagonHost가 아니면 이 줄을 지우세요):
 ```
 
-바꿀 곳은 세 군데뿐입니다.
+채울 곳은 다음과 같습니다.
 
 - **IP**: 관리 화면에 보이는 서버 IP.
 - **로그인 방식**: 업체가 키 파일을 줬다면 `키 파일: 파일 경로`로 바꾸세요 (zip도 됩니다).
 - **이름**: `bwg`를 원하는 이름으로 바꾸세요. 이후 `ssh 그이름`만 입력하면 서버에 로그인됩니다.
-- **BandwagonHost라면(추천)**: 마지막에 `- BandwagonHost VEID와 API Key: …` 한 줄을 추가하세요(KiwiVM 왼쪽 메뉴의 「API」 페이지, [찾는 방법](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). 클라이언트의 트래픽 한도·사용량·초기화일을 BandwagonHost 관리 화면에서 바로 읽어 와 1TB·2TB 요금제 모두 맞게 표시됩니다. 넣지 않아도 쓸 수 있으며, 그때는 매월 1000GB 기준으로 표시됩니다.
+- **BandwagonHost**: 마지막 줄에 VEID와 API Key를 채우세요. 클라이언트의 트래픽 한도·사용량·초기화일을 BandwagonHost 관리 화면에서 바로 읽어 와 1TB·2TB 요금제 모두 맞게 표시됩니다. **BandwagonHost가 아니면 그 줄을 지우세요.** 그때는 매월 1000GB 기준으로 표시됩니다.
 
 사용자와 포트가 root / 22가 아니라면 "기본값"을 실제 값으로 바꾸세요.
 
-그다음 AI가 끝낼 때까지 기다리면 됩니다. 보통 10~20분 걸립니다. 중간에 터미널에 서버 비밀번호를 한 번 입력해 달라고 할 텐데, **비밀번호를 채팅에 붙여 넣지 마세요.** 설정이 끝나면 비밀번호 로그인이 꺼지고, 이 컴퓨터에서만 로그인할 수 있습니다.
+그다음 AI가 끝낼 때까지 기다리면 됩니다. 보통 10~20분 걸립니다. 중간에 컴퓨터에 비밀번호 입력 창이 뜨면 서버 비밀번호를 한 번 입력하세요. **비밀번호를 채팅에 붙여 넣지 마세요.** 설정이 끝나면 비밀번호 로그인이 꺼지고, 이 컴퓨터에서만 로그인할 수 있습니다.
 
 AI가 프로젝트를 내려받지 못하면 직접 [ZIP을 내려받아](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) 압축을 풀고, 위 문구에 "프로젝트는 이미 여기 있습니다: 폴더 경로"라고 한 줄 추가하세요.
 
@@ -91,7 +103,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 </details>
 
-### 3. 구독 가져오기
+### 4. 구독 가져오기
 
 - **컴퓨터 (Clash Verge Rev 권장)**: [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)를 설치하고 Clash 구독 주소를 가져온 뒤, **규칙(Rule)** 모드를 고르고 **TUN 모드**(가상 네트워크 어댑터, 안내가 나오면 서비스 설치)를 켜세요. 시스템 프록시만 켜면 브라우저의 WebRTC로 실제 IP가 드러날 수 있습니다. [WebRTC 유출 해결 가이드](./docs/Clash-Verge-WebRTC泄露修复手册.md)(중국어, AI 도우미가 단계별로 따라 할 수 있게 작성됨)를 참고하세요.
 - **iPhone**: Shadowrocket에서 Shadowrocket 구독 주소를 가져오세요.

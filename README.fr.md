@@ -6,7 +6,7 @@ Vous partez dans un pays où internet est difficile d'accès ? Continuez à util
 
 Site du tutoriel pas à pas (en anglais et en chinois) : <https://vps.xiaoxiaodong.ai/en/> (version chinoise : <https://vps.xiaoxiaodong.ai> ; miroir : <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
-Le principe : vous achetez votre propre serveur à l'étranger, une IA le configure avec ce projet, puis vous importez un abonnement sur votre téléphone et votre ordinateur. La connexion est à vous seul, sans la partager avec des inconnus.
+Le principe : vous installez Codex sur votre propre ordinateur, vous achetez un serveur à l'étranger, Codex le configure à distance avec ce projet, puis vous importez un abonnement sur votre téléphone et votre ordinateur. **Vous n'installez rien sur le serveur et vous n'avez pas à vous y connecter.** La connexion est à vous seul, sans la partager avec des inconnus.
 
 ## Ce que vous obtenez
 
@@ -17,9 +17,18 @@ Le principe : vous achetez votre propre serveur à l'étranger, une IA le config
 - **Sécurisé** : le serveur n'accepte que la clé de votre ordinateur et utilise un vrai certificat HTTPS, donc pas d'avertissement « non sécurisé » dans le navigateur.
 - **Presque aucun entretien** : certificats, règles et CLIProxyAPI se mettent à jour tout seuls, et la configuration est sauvegardée chaque jour.
 
-## Trois étapes
+## Quatre étapes
 
-### 1. Achetez un serveur
+### 1. Installez Codex sur votre ordinateur
+
+Codex est l'application d'IA d'OpenAI ; on s'y connecte avec une offre ChatGPT payante. Elle s'installe sur **votre propre ordinateur**, pas sur le serveur.
+
+- **Débutants** : installez l'application de bureau. Sous Windows, cherchez **Codex** dans le Microsoft Store et installez-la ; sur Mac, téléchargez-la sur le [site de Codex](https://openai.com/codex/). Ouvrez-la et connectez-vous avec votre compte ChatGPT.
+- **Utilisateurs avertis** : utilisez [Codex](https://github.com/openai/codex) en ligne de commande. Déjà installé ? Lancez `codex` dans votre terminal et parlez-lui directement.
+
+Pas d'offre ChatGPT ? L'étape 3 du [site du tutoriel](https://vps.xiaoxiaodong.ai/en/guide/3-deploy/) propose une voie « Type it yourself » (tout saisir vous-même).
+
+### 2. Achetez un serveur
 
 En ce moment, prenez **BandwagonHost** ; c'est celui que j'utilise moi-même.
 
@@ -35,11 +44,13 @@ L'~~[offre 1 To](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billin
 
 > Ce sont tous mes liens de parrainage. Je peux toucher une commission si vous achetez par leur biais, et je consacrerai ce revenu à des actions caritatives. Prix et disponibilité selon les sites officiels.
 
-Choisissez **Ubuntu 24.04** comme système. Une fois le serveur prêt, notez trois informations dans le panneau : **IP du serveur, mot de passe root (ou fichier de clé) et port SSH**.
+Choisissez **Ubuntu 24.04** comme système. Une fois le serveur prêt, notez trois informations dans le panneau : **IP du serveur, mot de passe root (ou fichier de clé) et port SSH**. Chez BandwagonHost, notez aussi le **VEID et l'API Key** (page « API » du menu de gauche de KiwiVM, [comment les trouver](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)) pour que le trafic affiché dans vos applications corresponde au panneau.
 
-### 2. Laissez une IA le configurer
+Après l'achat, vous ne vous connectez pas au serveur et vous n'y installez rien : l'étape suivante, c'est le travail de Codex.
 
-Ouvrez un outil d'IA capable d'exécuter des commandes sur votre ordinateur, comme [Codex](https://github.com/openai/codex) ou [Claude Code](https://claude.com/claude-code) (sous Windows, utilisez-le dans WSL). Copiez le texte ci-dessous, complétez-le et envoyez-le :
+### 3. Laissez Codex le configurer
+
+Ouvrez Codex, installé à l'étape 1 (tout autre outil d'IA capable d'exécuter des commandes sur votre ordinateur convient aussi). Copiez le texte ci-dessous, complétez-le et envoyez-le :
 
 ```text
 Merci de configurer mon nouveau serveur selon le plan « XXD VPS ».
@@ -52,21 +63,22 @@ Parlez-moi en français, s'il vous plaît.
 
 Mon serveur :
 - IP :
-- Connexion : mot de passe initial (laissez-moi le saisir moi-même dans le terminal)
+- Connexion : mot de passe initial (laissez-moi le saisir moi-même ; ne me demandez pas de l'envoyer dans la discussion)
 - Utilisateur et port SSH : par défaut
 - Nom que je veux utiliser pour me connecter : bwg
+- VEID et API Key BandwagonHost (pour la consommation officielle de trafic ; supprimez cette ligne si ce n'est pas BandwagonHost) :
 ```
 
-Il n'y a que trois choses à changer :
+Ce qu'il faut remplir :
 
 - **IP** : l'IP du serveur indiquée dans le panneau.
 - **Connexion** : si votre fournisseur vous a donné un fichier de clé, remplacez par `fichier de clé : chemin du fichier` (un zip convient).
 - **Nom** : remplacez `bwg` par le nom de votre choix. Ensuite, il suffit de taper `ssh ce-nom` pour entrer sur le serveur.
-- **BandwagonHost (recommandé)** : ajoutez à la fin la ligne `- VEID et API Key BandwagonHost : …` (page « API » du menu de gauche de KiwiVM, [comment les trouver](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). Vos applications liront alors le quota, la consommation et le jour de remise à zéro directement chez BandwagonHost : l'affichage est juste pour l'offre 1 To comme pour 2 To. Sans eux, ça marche aussi ; l'usage est alors affiché sur 1000 Go par mois.
+- **BandwagonHost** : renseignez le VEID et l'API Key sur la dernière ligne. Vos applications liront alors le quota, la consommation et le jour de remise à zéro directement chez BandwagonHost : l'affichage est juste pour l'offre 1 To comme pour 2 To. **Pas chez BandwagonHost ? Supprimez cette ligne** ; l'usage est alors affiché sur 1000 Go par mois.
 
 Si l'utilisateur et le port ne sont pas root / 22, remplacez « par défaut » par les vraies valeurs.
 
-Attendez ensuite que l'IA termine, en général 10 à 20 minutes. À un moment, elle vous demandera de saisir le mot de passe du serveur dans le terminal. **Ne collez jamais le mot de passe dans la discussion.** Une fois terminé, la connexion par mot de passe est désactivée et seul cet ordinateur peut se connecter.
+Attendez ensuite que l'IA termine, en général 10 à 20 minutes. À un moment, une fenêtre de mot de passe s'ouvre sur votre ordinateur : saisissez-y une fois le mot de passe du serveur. **Ne collez jamais le mot de passe dans la discussion.** Une fois terminé, la connexion par mot de passe est désactivée et seul cet ordinateur peut se connecter.
 
 Si l'IA n'arrive pas à télécharger le projet, [téléchargez le ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) vous-même, décompressez-le et ajoutez une ligne au texte : « Le projet se trouve déjà ici : chemin du dossier ».
 
@@ -92,7 +104,7 @@ Ensuite, il suffit de dire à l'IA « utilise xiaoxiaodong-vps pour configurer m
 
 </details>
 
-### 3. Importez l'abonnement
+### 4. Importez l'abonnement
 
 - **Ordinateur (recommandé : Clash Verge Rev)** : installez [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), importez l'URL d'abonnement Clash, choisissez le mode **Règles (Rule)** et activez le **mode TUN** (carte réseau virtuelle ; installez le service si on vous le demande). Avec le seul proxy système, le WebRTC du navigateur peut révéler votre vraie IP : voir le [guide de correction des fuites WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (en chinois, rédigé pour qu'un assistant IA puisse le suivre pas à pas).
 - **iPhone** : importez l'URL d'abonnement Shadowrocket dans Shadowrocket.

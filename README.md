@@ -6,7 +6,7 @@
 
 **图文教程网站：<https://vps.xiaoxiaodong.ai>**（从买服务器到用上，一步一步讲；还有 How-to、名词解释和常见问题。打不开时用备用地址 <https://nevertoday.github.io/xiaoxiaodong-vps/>。英文版：<https://vps.xiaoxiaodong.ai/en/>）
 
-做法很简单：自己买一台海外服务器，让 AI 按这套方案配好，手机和电脑导入订阅就能用。线路只给你自己用，不和陌生人共享。
+做法很简单：在自己电脑上装好 Codex，买一台海外服务器，让 Codex 按这套方案远程配好，手机和电脑导入订阅就能用。**服务器上你什么都不用装，也不用登录它。** 线路只给你自己用，不和陌生人共享。
 
 ## 配好之后你有什么
 
@@ -17,9 +17,18 @@
 - **安全**：服务器只能用你电脑上的密钥登录；用正规 HTTPS 证书，打开不会报"不安全"。
 - **基本不用管**：证书、规则、CLIProxyAPI 自动更新，配置每天自动备份。
 
-## 三步用起来
+## 四步用起来
 
-### 1. 买一台服务器
+### 1. 在电脑上装 Codex
+
+Codex 是 OpenAI 出的 AI 应用，用 ChatGPT 付费账号登录。装在**你自己的电脑上**，不是服务器上。
+
+- **新手**：装桌面版。Windows 在「Microsoft Store」（微软商店）搜 **Codex** 安装；Mac 到 [Codex 官网](https://openai.com/codex/) 下载。打开后用 ChatGPT 账号登录。
+- **老手**：用命令行版 [Codex](https://github.com/openai/codex)。已经装好的，在终端里运行 `codex`，直接对话就行。
+
+没有 ChatGPT 账号也能做，[教程网站](https://vps.xiaoxiaodong.ai/guide/3-deploy/) 第 3 步有「自己照着敲」的路线。
+
+### 2. 买一台服务器
 
 现在推荐直接买**搬瓦工**，我自己一直在用。
 
@@ -35,11 +44,13 @@
 
 > 这些都是我的邀请链接，通过它们购买我可能获得佣金，这部分收入我会用于慈善相关工作。价格和库存以官网为准。
 
-系统选 **Ubuntu 24.04**。开通后在后台记下三样东西：**服务器 IP、root 密码（或密钥文件）、SSH 端口**。
+系统选 **Ubuntu 24.04**。开通后在后台记下三样东西：**服务器 IP、root 密码（或密钥文件）、SSH 端口**。搬瓦工再记下 **VEID 和 API Key**（在 KiwiVM 左侧菜单的「API」页，[怎么找](https://vps.xiaoxiaodong.ai/howto/traffic-and-ip/)），客户端显示的流量就和后台一致。
 
-### 2. 让 AI 配置
+买完不用登录服务器，也不用在上面装任何东西，下一步交给 Codex。
 
-在电脑上打开能执行命令的 AI 工具，比如 [Codex](https://github.com/openai/codex) 或 [Claude Code](https://claude.com/claude-code)（Windows 请在 WSL 里用）。复制下面这段话，填好后发给它：
+### 3. 让 Codex 配置
+
+打开第 1 步装好的 Codex（其他能在电脑上执行命令的 AI 工具也行）。复制下面这段话，填好后发给它：
 
 ```text
 请按「小小东 VPS」方案配置我新买的服务器。
@@ -51,21 +62,22 @@
 
 我的服务器：
 - IP：
-- 登录方式：初始密码（请让我在终端里自己输入）
+- 登录方式：初始密码（请让我自己输入，不要让我发在聊天里）
 - SSH 用户名和端口：默认
 - 以后想用这个名字登录：bwg
+- 搬瓦工 VEID 和 API Key（用来读官方流量，不是搬瓦工就删掉这行）：
 ```
 
-要改的只有三处：
+要改的地方：
 
 - **IP**：填后台看到的服务器 IP。
 - **登录方式**：如果服务商给的是密钥文件，改成 `密钥文件：文件路径`（zip 也行）。
 - **名字**：`bwg` 换成你想要的名字，以后输入 `ssh 这个名字` 就能登录服务器。
-- **搬瓦工（建议加上）**：在那段话最后加一行 `- 搬瓦工 VEID 和 API Key：…`（在 KiwiVM 左侧菜单的「API」页，[怎么找](https://vps.xiaoxiaodong.ai/howto/traffic-and-ip/)）。这样客户端里的流量额度、已用量、重置日直接读搬瓦工后台，1T、2T 套餐都对得上；不加也能用，默认按每月 1000G 显示。
+- **搬瓦工**：最后一行填 VEID 和 API Key。客户端里的流量额度、已用量、重置日直接读搬瓦工后台，1T、2T 套餐都对得上。**不是搬瓦工的，删掉这一行**，默认按每月 1000G 显示。
 
 用户名和端口不是 root / 22 的，把"默认"改成实际值。
 
-接下来等 AI 跑完，一般十几分钟。中间它会请你在终端里输入一次服务器密码，**密码不要发在聊天里**。配好后服务器会关掉密码登录，以后只能从你这台电脑登录。
+接下来等 AI 跑完，一般十几分钟。中间电脑上会弹出一个密码框，在里面输入一次服务器密码，**密码不要发在聊天里**。配好后服务器会关掉密码登录，以后只能从你这台电脑登录。
 
 AI 下载不了项目时，手动[下载 ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) 解压，然后在那段话里加一句"项目已经在：文件夹路径"。
 
@@ -91,7 +103,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 </details>
 
-### 3. 导入订阅
+### 4. 导入订阅
 
 - **电脑（首推 Clash Verge Rev）**：安装 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)，导入 Clash 订阅地址，选 **规则模式**，打开 **虚拟网卡模式**（TUN，第一次会提示安装服务，按提示装上）。只开系统代理时，浏览器的 WebRTC 会暴露你的真实 IP，详见 [WebRTC 泄露修复手册](./docs/Clash-Verge-WebRTC泄露修复手册.md)（可以直接交给 AI 助手照做）。
 - **iPhone**：在 Shadowrocket 里导入 Shadowrocket 订阅地址。

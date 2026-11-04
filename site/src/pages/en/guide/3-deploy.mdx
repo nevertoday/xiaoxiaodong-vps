@@ -1,8 +1,8 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 3
-need: Server IP, root password, SSH port; an open terminal
-description: Let AI configure the server with this setup, or type the commands yourself. You'll end up with a login-info file on your desktop.
+need: Codex from step 1; the server details from step 2
+description: Give the server details to the AI on your computer and it configures the server remotely — or type the commands yourself. You'll end up with a login-info file on your desktop.
 ---
 import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
@@ -14,7 +14,7 @@ import Cmd from "../../../components/Cmd.astro";
 
 ## What this step is
 
-Configure the server you bought in step 1: install the nodes, get a <Term k="证书" text="certificate" />, install the AI API and harden security. Both routes do exactly the same thing; only who types differs.
+Configure the server you bought in step 2: install the nodes, get a <Term k="证书" text="certificate" />, install the AI API and harden security. Everything happens on your own computer; you never log in to the server. Both routes do exactly the same thing; only who types differs.
 
 Afterwards:
 
@@ -28,7 +28,7 @@ Afterwards:
 
 ### 1. Send this message to the AI
 
-Open your AI tool (`claude` or `codex` in the terminal, or a desktop or editor AI — anything that passed the test in step 2), copy the message below, **fill in the IP and name**, and send it:
+Open Codex from step 1 (desktop app or `codex` in the terminal; any other AI tool that passed the test in step 1 works too), copy the message below, **fill in your details**, and send it:
 
 <Copy id="prompt" title="Message for the AI" code={`Please configure my new server with the "xiaoxiaodong VPS" setup.
 
@@ -40,28 +40,29 @@ Please talk to me in English and save the login file in English.
 
 My server:
 - IP:
-- Login: initial password (please let me type it in the terminal myself)
+- Login: initial password (let me type it myself; don't ask me to send it in the chat)
 - SSH user and port: default
-- Name I want to use to log in: bwg`} />
+- Name I want to use to log in: bwg
+- BandwagonHost VEID and API Key (for official traffic usage; delete this line if it isn't BandwagonHost):`} />
 
 What to change:
 
-- **IP**: the server IP from step 1.
+- **IP**: the server IP from step 2.
 - **Login**: if the provider gave you a key file, change it to `key file: path` (a zip works too).
 - **SSH user and port**: if they aren't root and 22, replace "default" with the real values.
 - **Name**: replace `bwg` with your chosen name.
-- **BandwagonHost (recommended)**: add a line at the end, `- BandwagonHost VEID and API Key: …` (on the API page in KiwiVM's left menu — [how to find them](/en/howto/traffic-and-ip/)). Your apps then read the traffic quota, usage and reset day straight from BandwagonHost, so 1 TB and 2 TB plans both show correctly. It works without them too; usage is then shown against 1000 GB a month.
+- **BandwagonHost**: fill in the VEID and API key on the last line (on the API page in KiwiVM's left menu — [how to find them](/en/howto/traffic-and-ip/)). Your apps then read the traffic quota, usage and reset day straight from BandwagonHost, so 1 TB and 2 TB plans both show correctly. **Not on BandwagonHost? Delete that line**; usage is then shown against 1000 GB a month.
 
-### 2. Type the password once when asked
+### 2. Type the password once in the pop-up box
 
-The AI will ask you to **type** the server's root password in the terminal yourself (nothing shows while typing — that's normal). If you're not using Claude Code, the AI gives you a command: run it in the terminal you opened in step 2, type the password when asked, then go back and tell the AI it's done.
+The AI first tells you a password box is about to appear, then a small window pops up on your computer. Type the server's root password (only dots show — that's normal) and click OK. The password goes straight to the setup script and never enters the chat history.
 
-<Callout type="tip" title="A command starting with !">
-In Claude Code, the AI may ask you to enter a command that starts with `!`. Paste the whole line into Claude Code's input box and press Enter; it then prompts for the password in the terminal. `!` means "you run this command yourself", so the password never passes through the AI.
+<Callout type="tip" title="Using the Codex command line?">
+The password box pops up there too. If your computer can't show windows (for example a Linux machine you're connected to remotely), the AI gives you a command: run it in the terminal, type the password when asked, then go back and tell it you're done.
 </Callout>
 
 <Callout type="no">
-Don't paste the password into the chat. The AI gives you a command so you type it into the terminal, keeping it out of the chat history.
+Don't paste the password into the chat — wait for the password box.
 </Callout>
 
 ### 3. Wait for it to finish
@@ -76,8 +77,17 @@ If the AI can't download the project, [download the ZIP](https://github.com/neve
 <div slot="manual">
 
 <Callout type="tip">
-This route is for people without an AI that can run commands. If you have a tool like Claude Code or Codex, use "Let AI do it" instead of typing.
+This route is for people without an AI that can run commands. If you've installed Codex, use "Let AI do it" instead of typing.
 </Callout>
+
+### 0. Open a terminal
+
+All the commands below run in **your own computer's** terminal, not on the server.
+
+- **Mac**: press <kbd class="xxd-kbd">⌘</kbd> + <kbd class="xxd-kbd">Space</kbd>, type "Terminal" and press Enter.
+- **Windows**: first download Git for Windows from [git-scm.com](https://git-scm.com/download/win), double-click it and click "Next" through the defaults. Then open **Git Bash** from the Start menu — that window is your "terminal" from here on.
+
+Copy a command in, press Enter and wait for it to finish. A new line ending in `$` or `%` means it's done. Nothing shows on screen while you type a password — that's normal.
 
 Each block below: copy → paste into the terminal → Enter → wait for it to finish, then the next. **Replace `your-IP` and `bwg` with your own.**
 
@@ -145,8 +155,7 @@ The last lines show `验收：34/34 通过` (verification: 34/34 passed — ever
 
 Where the login-info file is:
 
-- **Mac**: on your desktop.
-- **Windows (WSL)**: WSL has no desktop, so it's in your Ubuntu home folder. Type `explorer.exe .` in the terminal to open that folder in File Explorer.
+- On your computer's **desktop** (both Mac and Windows).
 
 The file contains: the Clash subscription URL, the Shadowrocket subscription URL, the 3x-ui panel login and the CLIProxyAPI address and keys. **You'll need the subscription URL in the next step.**
 

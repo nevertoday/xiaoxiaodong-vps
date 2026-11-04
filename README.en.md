@@ -6,7 +6,7 @@ Travelling to a country where the internet is hard to use? Keep using the websit
 
 Step-by-step tutorial website: <https://vps.xiaoxiaodong.ai/en/> (Chinese version: <https://vps.xiaoxiaodong.ai>; mirror: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
-How it works: buy your own overseas server, let an AI set it up with this project, then import a subscription on your phone and computer. The connection is yours alone, not shared with strangers.
+How it works: install Codex on your own computer, buy an overseas server, let Codex set it up remotely with this project, then import a subscription on your phone and computer. **You don't install anything on the server, and you don't log in to it.** The connection is yours alone, not shared with strangers.
 
 ## What you get
 
@@ -17,9 +17,18 @@ How it works: buy your own overseas server, let an AI set it up with this projec
 - **Secure**: the server only accepts the key on your computer, and uses a proper HTTPS certificate, so browsers never warn "not secure".
 - **Almost no upkeep**: certificates, rules and CLIProxyAPI update themselves, and the configuration is backed up every day.
 
-## Three steps
+## Four steps
 
-### 1. Buy a server
+### 1. Install Codex on your computer
+
+Codex is OpenAI's AI app; you sign in with a paid ChatGPT plan. It goes on **your own computer**, not on the server.
+
+- **Beginners**: install the desktop app. On Windows, search for **Codex** in the Microsoft Store and install it; on a Mac, download it from the [Codex website](https://openai.com/codex/). Open it and sign in with your ChatGPT account.
+- **Experienced users**: use the [Codex](https://github.com/openai/codex) command line. Already installed? Run `codex` in your terminal and just talk to it.
+
+No ChatGPT plan? Step 3 on the [tutorial website](https://vps.xiaoxiaodong.ai/en/guide/3-deploy/) has a "Type it yourself" route.
+
+### 2. Buy a server
 
 Right now, go with **BandwagonHost** — it's what I use myself.
 
@@ -35,11 +44,13 @@ The ~~[1 TB plan](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billi
 
 > These are all my referral links. I may earn a commission if you buy through them, and I will use that income for charitable work. Prices and stock are as shown on the official sites.
 
-Choose **Ubuntu 24.04** as the system. Once the server is ready, write down three things from the control panel: **server IP, root password (or key file) and SSH port**.
+Choose **Ubuntu 24.04** as the system. Once the server is ready, write down three things from the control panel: **server IP, root password (or key file) and SSH port**. On BandwagonHost, also note the **VEID and API key** (on the API page in KiwiVM's left menu — [how to find them](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)) so the traffic your apps show matches the dashboard.
 
-### 2. Let an AI set it up
+After buying, you don't log in to the server or install anything on it — the next step is Codex's job.
 
-Open an AI tool that can run commands on your computer, such as [Codex](https://github.com/openai/codex) or [Claude Code](https://claude.com/claude-code) (on Windows, use it inside WSL). Copy the text below, fill it in and send it:
+### 3. Let Codex set it up
+
+Open Codex from step 1 (any other AI tool that can run commands on your computer works too). Copy the text below, fill it in and send it:
 
 ```text
 Please set up my new server using the "XXD VPS" plan.
@@ -52,21 +63,22 @@ Please talk to me in English.
 
 My server:
 - IP:
-- Login: initial password (let me type it into the terminal myself)
+- Login: initial password (let me type it myself; don't ask me to send it in the chat)
 - SSH user and port: default
 - Name I want to log in with: bwg
+- BandwagonHost VEID and API Key (for official traffic usage; delete this line if it isn't BandwagonHost):
 ```
 
-You only need to change three things:
+What to fill in:
 
 - **IP**: the server IP from the control panel.
 - **Login**: if your provider gave you a key file, change it to `key file: path to the file` (a zip is fine).
 - **Name**: replace `bwg` with any name you like. Afterwards, typing `ssh that-name` logs you into the server.
-- **BandwagonHost (recommended)**: add a line at the end, `- BandwagonHost VEID and API Key: …` (on the API page in KiwiVM's left menu — [how to find them](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). Your apps then read the traffic quota, usage and reset day straight from BandwagonHost, so 1 TB and 2 TB plans both show correctly. It works without them too; usage is then shown against 1000 GB a month.
+- **BandwagonHost**: fill in the VEID and API key on the last line. Your apps then read the traffic quota, usage and reset day straight from BandwagonHost, so 1 TB and 2 TB plans both show correctly. **Not on BandwagonHost? Delete that line**; usage is then shown against 1000 GB a month.
 
 If the user and port are not root / 22, replace "default" with the real values.
 
-Then wait for the AI to finish, usually 10–20 minutes. At one point it will ask you to type the server password into the terminal. **Never paste the password into the chat.** When setup is done, password login is turned off and only this computer can log in.
+Then wait for the AI to finish, usually 10–20 minutes. At one point a password box pops up on your computer; type the server password into it once. **Never paste the password into the chat.** When setup is done, password login is turned off and only this computer can log in.
 
 If the AI can't download the project, [download the ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) yourself, unzip it, and add a line to the text above: "The project is already at: folder path".
 
@@ -92,7 +104,7 @@ After that, just tell the AI "use xiaoxiaodong-vps to set up my new server" and 
 
 </details>
 
-### 3. Import the subscription
+### 4. Import the subscription
 
 - **Computer (Clash Verge Rev recommended)**: install [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), import the Clash subscription URL, choose **Rule** mode and turn on **TUN mode** (Virtual Network Interface; install the service when prompted). With System Proxy alone, the browser's WebRTC can reveal your real IP — see the [WebRTC leak fix guide](./docs/Clash-Verge-WebRTC泄露修复手册.md) (in Chinese, written so an AI assistant can follow it step by step).
 - **iPhone**: import the Shadowrocket subscription URL in Shadowrocket.
