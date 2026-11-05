@@ -19,5 +19,6 @@ export const FAQ_EN = [
     ["Why not pay through Apple?", "Purely personal preference: we have history, and it once charged me over US$100. It's also a hassle: a new account has a 72-hour wait before payments can go through, and I can't wait that long."],
     ["What should I watch out for in daily use?", "When you're not feeling confident, check whether either of the two leaks has happened, then check the details: location is turned off and the time zone is Los Angeles. A stable network is already more than half the battle, so relax and use it."],
     ["Is there a group chat?", "I don't have one. I dislike group chats; to me they're a distraction that pulls my focus."],
+    ["Can several people share one AI account?", "If everyone is as careful and thorough as I am, in theory it can work. In practice I never lend my accounts to anyone: one person, one account. The same goes for my server; I never share it either. It isn't worth the trouble."],
   ]},
 ];
