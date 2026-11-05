@@ -21,5 +21,6 @@ export const FAQ_EN = [
     ["Is there a group chat?", "I don't have one. I dislike group chats; to me they're a distraction that pulls my focus."],
     ["Can several people share one AI account?", "If everyone is as careful and thorough as I am, in theory it can work. In practice I never lend my accounts to anyone: one person, one account. The same goes for my server; I never share it either. It isn't worth the trouble."],
     ["Can I use the web version?", "Yes, the web version is fine. The official desktop apps and command-line tools are fine too. But I firmly stay away from other people's flashy products built as wrappers around these services. I don't use them at all and want nothing to do with them."],
+    ["I don't have a US phone number. Can I still sign up for these accounts?", "Yes, you can. A lot of places you assume need a US number actually don't; look it up yourself, it's easy. If you really don't have a suitable number, ask friends or family and you're unblocked right away. I often sign up for a new Gmail account on the spot, set up its security options, and start using it straight away. I do this all the time: to me there's no difference between an old Google account and a new one. Once the security is set up, it's ready for action."],
   ]},
 ];
