@@ -18,5 +18,6 @@ export const FAQ_EN = [
     ["Which payment method do you like for subscriptions?", "Mostly a Singapore bank card, paying directly on the website, or a Visa card linked to Google Play."],
     ["Why not pay through Apple?", "Purely personal preference: we have history, and it once charged me over US$100. It's also a hassle: a new account has a 72-hour wait before payments can go through, and I can't wait that long."],
     ["What should I watch out for in daily use?", "When you're not feeling confident, check whether either of the two leaks has happened, then check the details: location is turned off and the time zone is Los Angeles. A stable network is already more than half the battle, so relax and use it."],
+    ["Is there a group chat?", "I don't have one. I dislike group chats; to me they're a distraction that pulls my focus."],
   ]},
 ];
