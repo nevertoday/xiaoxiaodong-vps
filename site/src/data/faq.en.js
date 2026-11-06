@@ -24,5 +24,6 @@ export const FAQ_EN = [
     ["I don't have a US phone number. Can I still sign up for these accounts?", "Yes, you can. A lot of places you assume need a US number actually don't; look it up yourself, it's easy. If you really don't have a suitable number, ask friends or family and you're unblocked right away. I like signing up with Gmail: I often create a new Gmail account on the spot, set up its security options, and start using it straight away. I do this all the time: to me there's no difference between an old Google account and a new one. Once the security is set up, it's ready for action."],
     ["Can I use Claude through CLIProxyAPI?", "No. Don't, absolutely don't: it breaks the terms of service. ChatGPT is fine, though; OpenAI has said officially that it's allowed."],
     ["Why won't a new Apple account let me buy anything, and make me wait 72 hours?", "All my new Apple accounts have had this policy too. It's a risk-control measure: you have to wait 3 days, and after 3 days it works."],
+    ["Do you use reset cards or the free API credit you're given?", "I use both. I don't much like using the API, though, because its allowance just isn't enough. Reset cards I'll definitely use; they're really handy."],
   ]},
 ];
