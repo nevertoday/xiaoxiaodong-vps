@@ -4,6 +4,8 @@
 
 인터넷 사용이 어려운 나라로 출장을 가도, 평소 쓰던 웹사이트와 AI 도구를 그대로 쓸 수 있습니다.
 
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ko-dark.svg"><img src="docs/readme/button-ko-light.svg" alt="단계별 가이드 열기 · vps.xiaoxiaodong.ai/en"></picture></a>
+
 단계별 튜토리얼 웹사이트(영어·중국어): <https://vps.xiaoxiaodong.ai/en/> (중국어판: <https://vps.xiaoxiaodong.ai>, 미러: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 방법은 간단합니다. 내 컴퓨터에 Codex를 설치하고, 해외 서버를 한 대 사서, 이 프로젝트대로 Codex가 원격으로 설정하게 한 뒤, 휴대폰과 컴퓨터에 구독을 가져오면 됩니다. **서버에는 아무것도 설치하지 않고, 서버에 로그인할 필요도 없습니다.** 회선은 나만 쓰고, 모르는 사람과 공유하지 않습니다.

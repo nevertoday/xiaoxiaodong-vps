@@ -4,6 +4,8 @@
 
 ¿Viajas a un país donde usar internet es complicado? Sigue usando las webs y herramientas de IA de siempre.
 
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-es-dark.svg"><img src="docs/readme/button-es-light.svg" alt="Abrir la guía paso a paso · vps.xiaoxiaodong.ai/en"></picture></a>
+
 Sitio web con el tutorial paso a paso (en inglés y chino): <https://vps.xiaoxiaodong.ai/en/> (versión en chino: <https://vps.xiaoxiaodong.ai>; espejo: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 Cómo funciona: instalas Codex en tu propio ordenador, compras un servidor en el extranjero, dejas que Codex lo configure a distancia con este proyecto e importas una suscripción en tu móvil y tu ordenador. **No instalas nada en el servidor ni tienes que entrar en él.** La conexión es solo tuya; no la compartes con desconocidos.

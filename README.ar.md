@@ -6,6 +6,8 @@
 
 هل تسافر إلى بلد يصعب فيه استخدام الإنترنت؟ يمكنك الاستمرار في استخدام المواقع وأدوات الذكاء الاصطناعي التي تعتمد عليها.
 
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ar-dark.svg"><img src="docs/readme/button-ar-light.svg" alt="افتح الدليل خطوة بخطوة · vps.xiaoxiaodong.ai/en"></picture></a>
+
 موقع شرح خطوة بخطوة (بالإنجليزية والصينية): <https://vps.xiaoxiaodong.ai/en/> (النسخة الصينية: <https://vps.xiaoxiaodong.ai>، نسخة احتياطية: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 الفكرة بسيطة: ثبّت Codex على حاسوبك، واشترِ خادمًا خارجيًا خاصًا بك، ودع Codex يجهّزه عن بُعد وفق هذا المشروع، ثم استورد الاشتراك على هاتفك وحاسوبك. **لن تثبّت أي شيء على الخادم، ولن تحتاج إلى الدخول إليه.** الاتصال لك وحدك، ولا تشاركه مع غرباء.

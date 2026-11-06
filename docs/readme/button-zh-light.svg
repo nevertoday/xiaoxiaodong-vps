@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="241" height="64" viewBox="0 0 241 64" role="img" aria-label="打开图文教程">
+<title>打开图文教程</title>
+<rect width="241" height="64" fill="#111111"/>
+<rect x="20" y="20" width="24" height="24" fill="#ffffff"/><rect x="25" y="25" width="5" height="5" fill="#111111" opacity="1"/><rect x="34" y="25" width="5" height="5" fill="#111111" opacity="0.7"/><rect x="25" y="34" width="5" height="5" fill="#111111" opacity="0.45"/><rect x="34" y="34" width="5" height="5" fill="#111111" opacity="0.22"/>
+<text x="58" y="29.5" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" text-anchor="start">打开图文教程</text>
+<text x="58" y="47" fill="#ffffff" fill-opacity=".62" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" text-anchor="start" direction="ltr" unicode-bidi="embed">vps.xiaoxiaodong.ai</text>
+<path d="M205 32.0h12M211 26.0l6 6-6 6" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="miter"/>
+</svg>

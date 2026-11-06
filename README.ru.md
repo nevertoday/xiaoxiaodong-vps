@@ -4,6 +4,8 @@
 
 Едете в командировку в страну, где интернетом пользоваться сложно? Продолжайте пользоваться привычными сайтами и инструментами ИИ.
 
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ru-dark.svg"><img src="docs/readme/button-ru-light.svg" alt="Открыть пошаговое руководство · vps.xiaoxiaodong.ai/en"></picture></a>
+
 Сайт с пошаговым руководством (на английском и китайском): <https://vps.xiaoxiaodong.ai/en/> (китайская версия: <https://vps.xiaoxiaodong.ai>; зеркало: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 Как это работает: вы ставите Codex на свой компьютер, покупаете зарубежный сервер, Codex удалённо настраивает его по этому проекту, а вы импортируете подписку на телефон и компьютер. **На сервер ничего устанавливать не нужно, и заходить на него тоже не нужно.** Соединение только ваше, вы не делите его с посторонними.

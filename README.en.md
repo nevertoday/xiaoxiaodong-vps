@@ -4,6 +4,8 @@
 
 Travelling to a country where the internet is hard to use? Keep using the websites and AI tools you rely on.
 
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-en-dark.svg"><img src="docs/readme/button-en-light.svg" alt="Open the step-by-step guide · vps.xiaoxiaodong.ai/en"></picture></a>
+
 Step-by-step tutorial website: <https://vps.xiaoxiaodong.ai/en/> (Chinese version: <https://vps.xiaoxiaodong.ai>; mirror: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 How it works: install Codex on your own computer, buy an overseas server, let Codex set it up remotely with this project, then import a subscription on your phone and computer. **You don't install anything on the server, and you don't log in to it.** The connection is yours alone, not shared with strangers.

@@ -4,6 +4,8 @@
 
 Geschäftsreise in ein Land, in dem das Internet schwer nutzbar ist? Nutzen Sie Ihre gewohnten Websites und KI-Tools einfach weiter.
 
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-de-dark.svg"><img src="docs/readme/button-de-light.svg" alt="Schritt-für-Schritt-Anleitung öffnen · vps.xiaoxiaodong.ai/en"></picture></a>
+
 Schritt-für-Schritt-Anleitung als Website (auf Englisch und Chinesisch): <https://vps.xiaoxiaodong.ai/en/> (chinesische Version: <https://vps.xiaoxiaodong.ai>; Spiegel: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 So geht's: Sie installieren Codex auf Ihrem eigenen Computer, kaufen einen Server im Ausland, lassen ihn von Codex mit diesem Projekt aus der Ferne einrichten und importieren ein Abo auf Handy und Computer. **Auf dem Server installieren Sie nichts, und Sie müssen sich dort auch nicht anmelden.** Die Verbindung gehört nur Ihnen und wird nicht mit Fremden geteilt.
