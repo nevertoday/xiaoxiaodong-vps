@@ -1,0 +1,136 @@
+---
+// 最终检查清单 + 安心度。事项在 data/checklist.js；勾选只存在这个浏览器里（xxd-vps-calm，中英文共用）。
+// 安心度 = 点亮的项数 × 10：顶部的数字像里程表一样滚，下面 10 格刻度条一格对应一项，满分时格子合成一整条。
+import Site from "../layouts/Site.astro";
+import { CHECK_GROUPS } from "../data/checklist.js";
+import { langOf, link, t } from "../data/nav.js";
+const lang = langOf(Astro.url.pathname);
+const en = lang === "en";
+const T = en
+  ? { title: "Final checklist", label: "Peace of mind", lead: "Before you start signing up and paying, go through the list once. Tap each thing you've done and watch your peace-of-mind score. Your answers stay in this browser only.",
+      how: "How", left: "Still to do:", reset: "Start over", unit: "out of 100",
+      verdicts: [[100, "All set. Relax and use it."], [80, "Almost there. Fix the last one or two and you're set."], [50, "A few gaps left. Fix them before signing up or paying."], [10, "Not yet. Go back through the guide and fix what's missing."], [0, "Start with the first one and work down."]] }
+  : { title: "最终检查清单", label: "安心度", lead: "开始注册、付款之前，逐项对一遍。做到了就点一下，安心度跟着变。勾选只存在这个浏览器里。",
+      how: "怎么做", left: "还差：", reset: "重来", unit: "满分 100",
+      verdicts: [[100, "全部做到了，放宽心用吧。"], [80, "差一两项，补上就安心了。"], [50, "还有几处没做到，先补上再注册、付款。"], [10, "先别急着用，照着教程把没做到的补上。"], [0, "从第一项开始，逐项对照。"]] };
+const groups = CHECK_GROUPS.map((g) => ({ ...g, title: t(g, "title", lang), items: g.items.map((it) => ({ ...it, text: t(it, "text", lang), short: t(it, "short", lang), hint: t(it, "hint", lang) })) }));
+const flat = groups.flatMap((g) => g.items);
+const headings = groups.map((g) => ({ slug: `c-${g.id}`, text: g.title, depth: 2 }));
+let n = 0;
+---
+<Site title={T.title} headings={headings}>
+  <article class="xxd-prose calm-page" data-calm data-verdicts={JSON.stringify(T.verdicts)}>
+    <h1>{T.title}</h1>
+    <p>{T.lead}</p>
+
+    <section class="calm" aria-label={T.label}>
+      <div class="calm__top">
+        <p class="calm__label">{T.label}</p>
+        <p class="calm__score" aria-hidden="true">
+          <span class="calm__odo" data-odo="h"><span>{[0, 1].map((d) => <i>{d}</i>)}</span></span><span class="calm__odo" data-odo="t"><span>{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((d) => <i>{d}</i>)}</span></span><span class="calm__odo is-on"><span><i>0</i></span></span>
+        </p>
+        <span class="calm__unit">{T.unit}</span>
+        <button class="xxd-btn calm__reset" type="button" data-size="sm" data-variant="ghost" data-calm-reset hidden><i data-xxd-icon="RotateCcw" data-size="14"></i>{T.reset}</button>
+      </div>
+      <div class="calm__bar" aria-hidden="true">
+        {flat.map((it) => <button type="button" tabindex="-1" class="calm__cell" data-cell={it.id} data-tooltip={it.short}></button>)}
+      </div>
+      <p class="calm__verdict" aria-live="polite"><span data-calm-verdict></span></p>
+      <p class="calm__left" hidden><span class="calm__left-label">{T.left}</span>{flat.map((it) => <a href={`#k-${it.id}`} data-left={it.id}>{it.short}</a>)}</p>
+    </section>
+
+    {groups.map((g) => (
+      <>
+        <h2 id={`c-${g.id}`}>{g.title}</h2>
+        <ol class="calm-list">
+          {g.items.map((it) => (
+            <li class="calm-item" id={`k-${it.id}`} data-item={it.id}>
+              <label>
+                <input type="checkbox" class="calm-item__input" value={it.id} />
+                <span class="calm-item__no">{String(++n).padStart(2, "0")}</span>
+                <span class="calm-item__body"><span class="calm-item__text">{it.text}</span>{it.hint && <span class="calm-item__hint">{it.hint}</span>}</span>
+                <span class="calm-item__box" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20"><path d="M5 10.5l3.2 3.2L15 6.8" /></svg></span>
+              </label>
+              {it.href && <a class="calm-item__how" href={link(it.href, lang)}>{T.how}<i data-xxd-icon="ArrowUpRight" data-size="12"></i></a>}
+            </li>
+          ))}
+        </ol>
+      </>
+    ))}
+  </article>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector("[data-calm]");
+      if (!root) return;
+      const KEY = "xxd-vps-calm";
+      const inputs = [...root.querySelectorAll(".calm-item__input")];
+      const cells = new Map([...root.querySelectorAll("[data-cell]")].map((c) => [c.dataset.cell, c]));
+      const lefts = new Map([...root.querySelectorAll("[data-left]")].map((a) => [a.dataset.left, a]));
+      const verdicts = JSON.parse(root.dataset.verdicts);
+      const verdictEl = root.querySelector("[data-calm-verdict]");
+      const leftBox = root.querySelector(".calm__left");
+      const resetBtn = root.querySelector("[data-calm-reset]");
+      const odoH = root.querySelector('[data-odo="h"]'), odoT = root.querySelector('[data-odo="t"]');
+      const calm = root.querySelector(".calm");
+      const label = root.querySelector(".calm__label").textContent;
+      let saved = [];
+      try { saved = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch {}
+      inputs.forEach((el) => { el.checked = saved.includes(el.value); });
+      let last = null;
+      const render = (animate) => {
+        const on = inputs.filter((el) => el.checked).map((el) => el.value);
+        const score = on.length * 10;
+        // 里程表：百位只在 100 时出现，十位在 10 分以上出现；个位永远是 0
+        odoH.classList.toggle("is-on", score === 100);
+        odoT.classList.toggle("is-on", score >= 10);
+        odoH.style.setProperty("--d", score === 100 ? 1 : 0);
+        odoT.style.setProperty("--d", Math.floor(score / 10) % 10);
+        calm.setAttribute("aria-label", `${label} ${score} / 100`);
+        calm.classList.toggle("is-full", score === 100);
+        calm.dataset.band = score === 100 ? "full" : score >= 80 ? "near" : score >= 50 ? "mid" : score > 0 ? "low" : "none";
+        for (const el of inputs) {
+          cells.get(el.value).classList.toggle("is-on", el.checked);
+          lefts.get(el.value).hidden = el.checked;
+          el.closest(".calm-item").classList.toggle("is-on", el.checked);
+        }
+        leftBox.hidden = score === 0 || score === 100;
+        resetBtn.hidden = score === 0;
+        const v = verdicts.find(([min]) => score >= min)[1];
+        if (v !== last) {
+          verdictEl.textContent = v;
+          if (animate) { verdictEl.classList.remove("is-new"); void verdictEl.offsetWidth; verdictEl.classList.add("is-new"); }
+          last = v;
+        }
+        try { localStorage.setItem(KEY, JSON.stringify(on)); } catch {}
+      };
+      inputs.forEach((el) => el.addEventListener("change", () => {
+        render(true);
+        // 刚点亮的那一格闪一下，让人看到这一项落在刻度条的哪里
+        const c = cells.get(el.value);
+        c.classList.remove("is-pop"); void c.offsetWidth; if (el.checked) c.classList.add("is-pop");
+      }));
+      // 刻度条的格子也能点：等于点了对应那一项
+      for (const [id, c] of cells) {
+        const input = inputs.find((el) => el.value === id);
+        c.addEventListener("click", () => { input.checked = !input.checked; input.dispatchEvent(new Event("change")); });
+        const item = input.closest(".calm-item");
+        c.addEventListener("pointerenter", () => item.classList.add("is-hot"));
+        c.addEventListener("pointerleave", () => item.classList.remove("is-hot"));
+        item.addEventListener("pointerenter", () => c.classList.add("is-hot"));
+        item.addEventListener("pointerleave", () => c.classList.remove("is-hot"));
+      }
+      resetBtn.addEventListener("click", () => { inputs.forEach((el) => { el.checked = false; }); render(true); inputs[0].focus(); });
+      // 「还差」里点一个：滚到那一项，并让它闪一下
+      for (const [id, a] of lefts) a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const item = root.querySelector(`[data-item="${id}"]`);
+        item.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+        item.classList.remove("is-flash"); void item.offsetWidth; item.classList.add("is-flash");
+        item.querySelector("input").focus({ preventScroll: true });
+      });
+      render(false);
+      requestAnimationFrame(() => root.classList.add("is-ready"));
+    })();
+  </script>
+</Site>
