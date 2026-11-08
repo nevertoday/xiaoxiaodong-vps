@@ -25,5 +25,6 @@ export const FAQ_EN = [
     ["Can I use Claude through CLIProxyAPI?", "No. Don't, absolutely don't: it breaks the terms of service. ChatGPT is fine, though; OpenAI has said officially that it's allowed."],
     ["Why won't a new Apple account let me buy anything, and make me wait 72 hours?", "All my new Apple accounts have had this policy too. It's a risk-control measure: you have to wait 3 days, and after 3 days it works."],
     ["Do you use reset cards or the free API credit you're given?", "I use both. I don't much like using the API, though, because its allowance just isn't enough. Reset cards I'll definitely use; they're really handy."],
+    ["Do you use the mobile apps?", "Never, no matter what. I only use them to pay and for KYC. With DNS leaks, something is bound to go wrong sooner or later, and it can come back to bite you. What I do use is every official web version, browser extension and desktop app; I use them all with no problems at all."],
   ]},
 ];
