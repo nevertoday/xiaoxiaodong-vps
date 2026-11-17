@@ -48,7 +48,7 @@ Der bisher empfohlene ~~[1-TB-Tarif](https://bandwagonhost.com/aff.php?aff=83651
 
 > Alle Links hier sind meine Empfehlungslinks. Wenn Sie darüber kaufen, erhalte ich unter Umständen eine Provision; diese Einnahmen verwende ich für wohltätige Zwecke. Preise und Verfügbarkeit laut den offiziellen Websites.
 
-Wählen Sie **Ubuntu 24.04** als System. Sobald der Server bereit ist, notieren Sie aus dem Kundenbereich drei Dinge: **Server-IP, root-Passwort (oder Schlüsseldatei) und SSH-Port**. Bei BandwagonHost notieren Sie außerdem **VEID und API Key** (Seite „API“ im linken Menü von KiwiVM, [so finden Sie sie](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)), damit der Verbrauch in Ihren Apps mit dem Kundenbereich übereinstimmt.
+Das System muss **Ubuntu 24.04** sein: Bei BandwagonHost lässt es sich bei der Bestellung nicht auswählen; installieren Sie es daher nach der Bereitstellung einmal in KiwiVM neu ([so geht’s](https://vps.xiaoxiaodong.ai/en/guide/2-buy-server/#switch-the-os-to-ubuntu)) und verwenden Sie danach das neue root-Passwort. Sobald der Server bereit ist, notieren Sie aus dem Kundenbereich drei Dinge: **Server-IP, root-Passwort (oder Schlüsseldatei) und SSH-Port**. Bei BandwagonHost notieren Sie außerdem **VEID und API Key** (Seite „API“ im linken Menü von KiwiVM, [so finden Sie sie](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)), damit der Verbrauch in Ihren Apps mit dem Kundenbereich übereinstimmt.
 
 Nach dem Kauf melden Sie sich nicht am Server an und installieren dort nichts – der nächste Schritt ist Sache von Codex.
 

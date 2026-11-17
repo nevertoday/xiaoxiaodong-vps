@@ -48,7 +48,7 @@ ChatGPT 요금제가 없다면 [튜토리얼 웹사이트](https://vps.xiaoxiaod
 
 > 모두 제 추천 링크입니다. 이 링크로 구매하면 제가 수수료를 받을 수 있으며, 그 수입은 자선 활동에 쓰겠습니다. 가격과 재고는 공식 사이트 기준입니다.
 
-운영체제는 **Ubuntu 24.04**를 선택하세요. 개통되면 관리 화면에서 세 가지를 적어 두세요: **서버 IP, root 비밀번호(또는 키 파일), SSH 포트**. BandwagonHost라면 **VEID와 API Key**도 적어 두세요(KiwiVM 왼쪽 메뉴의 「API」 페이지, [찾는 방법](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). 그래야 클라이언트에 표시되는 트래픽이 관리 화면과 일치합니다.
+운영체제는 **Ubuntu 24.04**여야 합니다. BandwagonHost는 주문할 때 고를 수 없으니 개통 후 KiwiVM에서 한 번 재설치하세요([방법](https://vps.xiaoxiaodong.ai/en/guide/2-buy-server/#switch-the-os-to-ubuntu)). 재설치 후에는 새 root 비밀번호를 사용합니다. 개통되면 관리 화면에서 세 가지를 적어 두세요: **서버 IP, root 비밀번호(또는 키 파일), SSH 포트**. BandwagonHost라면 **VEID와 API Key**도 적어 두세요(KiwiVM 왼쪽 메뉴의 「API」 페이지, [찾는 방법](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). 그래야 클라이언트에 표시되는 트래픽이 관리 화면과 일치합니다.
 
 구매한 뒤에는 서버에 로그인하거나 무언가를 설치할 필요가 없습니다. 다음 단계는 Codex가 맡습니다.
 

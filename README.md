@@ -48,7 +48,7 @@ Codex 是 OpenAI 出的 AI 应用，用 ChatGPT 付费账号登录。装在**你
 
 > 这些都是我的邀请链接，通过它们购买我可能获得佣金，这部分收入我会用于慈善相关工作。价格和库存以官网为准。
 
-系统选 **Ubuntu 24.04**。开通后在后台记下三样东西：**服务器 IP、root 密码（或密钥文件）、SSH 端口**。搬瓦工再记下 **VEID 和 API Key**（在 KiwiVM 左侧菜单的「API」页，[怎么找](https://vps.xiaoxiaodong.ai/howto/traffic-and-ip/)），客户端显示的流量就和后台一致。
+系统要用 **Ubuntu 24.04**：搬瓦工下单时选不了，开通后在 KiwiVM 后台重装一次（[怎么换](https://vps.xiaoxiaodong.ai/guide/2-buy-server/#把系统换成-ubuntu)），重装后用新的 root 密码。然后在后台记下三样东西：**服务器 IP、root 密码（或密钥文件）、SSH 端口**。搬瓦工再记下 **VEID 和 API Key**（在 KiwiVM 左侧菜单的「API」页，[怎么找](https://vps.xiaoxiaodong.ai/howto/traffic-and-ip/)），客户端显示的流量就和后台一致。
 
 买完不用登录服务器，也不用在上面装任何东西，下一步交给 Codex。
 

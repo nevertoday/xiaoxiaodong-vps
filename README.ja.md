@@ -48,7 +48,7 @@ ChatGPT のプランがない場合は、[チュートリアルサイト](https:
 
 > いずれも私の紹介リンクです。リンク経由で購入されると私に紹介料が入る場合があり、その収入は慈善活動に使います。価格と在庫は公式サイトをご確認ください。
 
-OS は **Ubuntu 24.04** を選んでください。開通したら管理画面で 3 つをメモします：**サーバー IP、root パスワード（または鍵ファイル）、SSH ポート**。BandwagonHost の場合は **VEID と API Key** もメモしておきます（KiwiVM 左メニューの「API」ページ、[探し方](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)）。クライアントに表示される転送量が管理画面と一致するようになります。
+OS は **Ubuntu 24.04** が必要です。BandwagonHost は注文時に選べないので、開通後に KiwiVM で一度再インストールしてください（[手順](https://vps.xiaoxiaodong.ai/en/guide/2-buy-server/#switch-the-os-to-ubuntu)）。再インストール後は新しい root パスワードを使います。開通したら管理画面で 3 つをメモします：**サーバー IP、root パスワード（または鍵ファイル）、SSH ポート**。BandwagonHost の場合は **VEID と API Key** もメモしておきます（KiwiVM 左メニューの「API」ページ、[探し方](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)）。クライアントに表示される転送量が管理画面と一致するようになります。
 
 購入後は、サーバーにログインしたり何かをインストールしたりする必要はありません。次のステップは Codex の仕事です。
 
