@@ -2,7 +2,7 @@
 layout: ../../layouts/Guide.astro
 step: 2
 need: 邮箱、付款方式
-description: 在服务商那里租一台服务器，记下 IP、root 密码和 SSH 端口（搬瓦工再记 VEID 和 API Key）。服务器上什么都不用装。
+description: 在服务商那里租一台服务器，在后台把系统换成 Ubuntu，记下 IP、root 密码和 SSH 端口（搬瓦工再记 VEID 和 API Key）。服务器上什么都不用装。
 ---
 import Callout from "../../components/Callout.astro";
 import Term from "../../components/Term.astro";
@@ -12,7 +12,7 @@ import Shot from "../../components/Shot.astro";
 
 ## 这一步做什么
 
-在服务商那里租一台服务器。做完后，你手里会有三样东西：**服务器 IP、root 密码、SSH 端口**。下一步把它们发给你电脑上的 AI，由它远程配置。
+在服务商那里租一台服务器，再在后台把系统换成 Ubuntu。做完后，你手里会有三样东西：**服务器 IP、root 密码、SSH 端口**。下一步把它们发给你电脑上的 AI，由它远程配置。
 
 <Callout type="warn" title="买完不用登录服务器">
 服务器上什么都不用装，商家后台的网页终端（VNC、Root shell 之类）也不用打开。只要把下面的信息记下来。
@@ -49,27 +49,39 @@ import Shot from "../../components/Shot.astro";
 
 | 选项 | 选什么 | 为什么 |
 |---|---|---|
-| 操作系统 | **Ubuntu 24.04** | 方案只支持 <Term k="Ubuntu" /> 22.04 以上和 Debian 12 以上。选错了，要到后台重装 |
+| 操作系统 | **Ubuntu 24.04** | 方案只支持 <Term k="Ubuntu" /> 22.04 以上和 Debian 12 以上。搬瓦工下单时选不了，开通后到后台换，见下面 [把系统换成 Ubuntu](#把系统换成-ubuntu) |
 | 机房位置 | 美国洛杉矶 | 离国内近，主流 AI 服务都支持美国 |
 | 内存 | 1G 就够 | 节点和 AI 接口在 1G 内存的机器上实测运行良好 |
 | 虚拟化 | <Term k="KVM" /> | 能装完整的系统。搬瓦工默认就是 |
 | IP | 独立的 <Term k="公网 IP" />（IPv4） | 不能是 <Term k="NAT" /> 机器，那种只给几个端口，证书和节点装不上 |
 | 流量 | 每月几百 G 到 1T | 个人和家人日常使用足够；推荐的搬瓦工套餐是每月 2T |
 
-<Callout type="warn" title="系统一定要选对">
-最常见的错误是系统选成了 CentOS 或其他旧系统。这套方案装不上，只能到商家后台「重装系统」改成 Ubuntu 24.04。重装以后 root 密码通常会变，要用新的。
-</Callout>
-
 ## 下单的过程
 
-1. 点上面的购买链接，选套餐和付款周期（按季或按年）。
-2. 机房选洛杉矶，系统选 Ubuntu 24.04（有的商家在开通后才让你选系统）。
+1. 点上面的购买链接，选付款周期（按季或按年）。
+2. 机房选洛杉矶。搬瓦工下单页没有选系统的地方，开通后再换（见下一节）。
 3. 用邮箱注册账号，按结账页的提示付款。搬瓦工可以选**支付宝**（Alipay）付款。
 4. 等几分钟到几十分钟，会收到开通邮件，后台的服务列表里也能看到这台服务器。
 
-<Shot src="bwg-order.webp" w={999} h={311} alt="搬瓦工下单页的付款周期和机房选项" caption="下单页：红框是付款周期（Billing Cycle）和机房（Location）两项。价格以官网为准。" />
+<Shot src="bwg-order-2t.webp" w={988} h={523} date="2026-11" alt="搬瓦工下单页：2T 套餐的配置、付款周期和机房选项" caption="下单页：上面是套餐配置（每月 2000 GB 流量、2G 内存），红框是付款周期（Billing Cycle）和机房（Location）。价格以官网为准。" />
 
-更详细的过程见 How-to：[在搬瓦工买服务器](/howto/buy-bandwagonhost/)、[在 DMIT 买服务器](/howto/buy-dmit/)。系统选错了看 [后台重装系统为 Ubuntu](/howto/reinstall-os/)。
+更详细的过程见 How-to：[在搬瓦工买服务器](/howto/buy-bandwagonhost/)、[在 DMIT 买服务器](/howto/buy-dmit/)。
+
+## 把系统换成 Ubuntu
+
+搬瓦工开通时装的是它的默认系统（目前是 AlmaLinux），这套方案用不了，要在后台重装成 Ubuntu。几分钟就好，刚买的机器里什么都没有，放心重装。
+
+1. 登录搬瓦工客户中心，进入 Services → My Services，点这台服务器，再点 **KiwiVM Control Panel**。
+2. KiwiVM 首页（Main controls）的 Operating system 一栏就是当前系统。已经是 Ubuntu 22.04 以上，这一节直接跳过。
+3. 在首页点 **Stop**，把服务器关机。
+4. 点左侧菜单的 **Install new OS**，在列表里选 **Ubuntu 24.04**（名字里带 x86_64 的那一项）。
+5. 勾选「I agree that all existing data on my VPS will be lost」，点 **Reload**。
+6. 等几分钟，页面会显示新的 **root 密码**和 **SSH 端口**，**只显示这一次**，马上抄下来。
+7. 回到 Main controls，状态是 **Running** 就好了；还是停止状态的话，点 **Start**。
+
+IP 不会变。密码没来得及抄，在左侧菜单的 Root password modification 里重新生成一个就行。
+
+DMIT 下单时一般能直接选系统，选了 Ubuntu 24.04 就不用重装；没选对的话，到服务器详情页找「重装系统」（Reinstall）。更多情况见 [后台重装系统为 Ubuntu](/howto/reinstall-os/)。
 
 ## 记下这几样
 
@@ -78,7 +90,7 @@ import Shot from "../../components/Shot.astro";
 | 记下来 | 长什么样 | 说明 |
 |---|---|---|
 | 服务器 IP | 四组数字，比如 `203.0.113.10` | 服务器的门牌号 |
-| <Term k="root" /> 密码 | 一串字母和数字 | 管理员密码。有的商家给的是密钥文件，那就记下文件放在哪 |
+| <Term k="root" /> 密码 | 一串字母和数字 | 管理员密码。重装过系统的，用重装后显示的新密码。有的商家给的是密钥文件，那就记下文件放在哪 |
 | <Term k="SSH" /> <Term k="端口" text="端口" /> | 多数是 `22`，有的商家是别的数字 | 远程登录用的「房间号」 |
 | 搬瓦工才有：VEID 和 API Key | VEID 是一串数字；API Key 以 `private_` 开头 | 在 KiwiVM 左侧菜单的「API」页，[怎么找](/howto/traffic-and-ip/)。有了它，客户端显示的流量和后台一致。别家没有，跳过 |
 
@@ -98,8 +110,8 @@ import Shot from "../../components/Shot.astro";
 <Q q="付款成功了，但一直没收到开通邮件？">
 先看邮箱的垃圾箱。再登录商家后台，找「我的服务」（My Services）之类的列表，IP 和登录信息一般在那里也能看到。新账号偶尔会被人工审核，等一等或者开工单问。
 </Q>
-<Q q="系统选错了，或者我不确定选了什么？">
-到商家后台找「重装系统」（Reinstall OS），选 Ubuntu 24.04。重装会清空服务器，刚买的机器没什么可丢的。重装后用新的 root 密码。
+<Q q="我不确定现在是什么系统？">
+搬瓦工看 KiwiVM 首页的 Operating system 一栏。不是 Ubuntu 22.04 以上（或 Debian 12 以上），就按上面 [把系统换成 Ubuntu](#把系统换成-ubuntu) 重装一次。重装后用新的 root 密码。
 </Q>
 <Q q="SSH 端口不是 22，有关系吗？">
 没关系，记下来，下一步告诉 AI（或者填进命令里）就行。
