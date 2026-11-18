@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="316" viewBox="0 0 480 316" role="img" aria-label="Учитесь по шагам: настройте и проверьте">
+<title>Учитесь по шагам: настройте и проверьте</title>
+<style>
+.track{stroke-dasharray:372;animation:fill 8s linear infinite}
+@keyframes fill{0%{stroke-dashoffset:372;opacity:1}62%{stroke-dashoffset:0}92%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+.arrow{animation:nudge 1.2s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.shine{animation:shine 8s ease-in-out infinite}
+@keyframes shine{0%,62%{transform:translateX(-90px)}76%,100%{transform:translateX(522px)}}
+.ring{transform-box:fill-box;transform-origin:center;animation:ring 2s ease-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.04,1.18);opacity:0}}
+.ok{animation:ok 8s ease infinite}
+@keyframes ok{0%,62%{opacity:0}66%,92%{opacity:1}100%{opacity:0}}
+.vr{transform-box:fill-box;transform-origin:center;animation:vr 8s ease-out infinite}
+@keyframes vr{0%,49.6%{transform:scale(1);opacity:0}50.6%{opacity:.8}63.6%,100%{transform:scale(2.6);opacity:0}}
+.n0{animation:n0 8s steps(1,end) infinite}
+@keyframes n0{0%{fill-opacity:0}0%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l0{animation:l0 8s ease infinite}
+@keyframes l0{0%{opacity:.4}0%{opacity:.4}3%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n1{animation:n1 8s steps(1,end) infinite}
+@keyframes n1{0%{fill-opacity:0}12.4%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l1{animation:l1 8s ease infinite}
+@keyframes l1{0%{opacity:.4}12.3%{opacity:.4}15.4%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n2{animation:n2 8s steps(1,end) infinite}
+@keyframes n2{0%{fill-opacity:0}24.8%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l2{animation:l2 8s ease infinite}
+@keyframes l2{0%{opacity:.4}24.7%{opacity:.4}27.8%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n3{animation:n3 8s steps(1,end) infinite}
+@keyframes n3{0%{fill-opacity:0}37.2%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l3{animation:l3 8s ease infinite}
+@keyframes l3{0%{opacity:.4}37.1%{opacity:.4}40.2%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n4{animation:n4 8s steps(1,end) infinite}
+@keyframes n4{0%{fill-opacity:0}49.6%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l4{animation:l4 8s ease infinite}
+@keyframes l4{0%{opacity:.4}49.5%{opacity:.4}52.6%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n5{animation:n5 8s steps(1,end) infinite}
+@keyframes n5{0%{fill-opacity:0}62%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l5{animation:l5 8s ease infinite}
+@keyframes l5{0%{opacity:.4}61.9%{opacity:.4}65%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.ring,.vr{opacity:0}}
+</style>
+<defs><clipPath id="cc"><rect x="24" y="208" width="432" height="84"/></clipPath>
+<linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#111111" stop-opacity="0"/><stop offset=".5" stop-color="#111111" stop-opacity=".1"/><stop offset="1" stop-color="#111111" stop-opacity="0"/></linearGradient></defs>
+<rect width="480" height="316" fill="#111111"/>
+<text x="24" y="46" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#ffffff" fill-opacity=".62" >Бесплатно · Для новичков · Скриншоты на каждом шаге · ~1 час</text>
+<text x="24" y="82" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="20.3" font-weight="700" fill="#ffffff"  >Учитесь по шагам: настройте и проверьте</text>
+<line x1="54" y1="140" x2="426" y2="140" stroke="#ffffff" stroke-opacity=".22" stroke-width="1.5"/>
+<line class="track" x1="54" y1="140" x2="426" y2="140" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="302.1576" y="104" width="98.88480000000003" height="20" fill="#ffffff" /><path d="M347.6 124l4 5 4-5z" fill="#ffffff" /><text x="351.6" y="117.96" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="10.8" font-weight="700" fill="#111111" text-anchor="middle" >Не пропускайте</text>
+<rect class="n0" x="48" y="134" width="12" height="12" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/><text x="54" y="166" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="500" class="l0" fill="#ffffff"  text-anchor="middle" >Codex</text>
+<rect class="n1" x="122.4" y="134" width="12" height="12" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/><text x="128.4" y="166" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="500" class="l1" fill="#ffffff"  text-anchor="middle" >Сервер</text>
+<rect class="n2" x="196.8" y="134" width="12" height="12" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/><text x="202.8" y="166" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="500" class="l2" fill="#ffffff"  text-anchor="middle" >Настройка</text>
+<rect class="n3" x="271.2" y="134" width="12" height="12" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/><text x="277.2" y="166" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="500" class="l3" fill="#ffffff"  text-anchor="middle" >Импорт</text>
+<rect class="n4" x="345.6" y="134" width="12" height="12" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/><rect class="vr" x="345.6" y="134" width="12" height="12" fill="none" stroke="#ffffff" stroke-width="1.5"/><text x="351.6" y="166" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="700" class="l4" fill="#ffffff"  text-anchor="middle" >Проверка</text>
+<rect class="n5" x="420" y="134" width="12" height="12" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/><path class="ok" d="M422.5 140l2.5 2.5 4.5-5" fill="none" stroke="#111111" stroke-width="1.8" stroke-linejoin="miter"/><text x="426" y="166" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="700" class="l5" fill="#ffffff"  text-anchor="middle" >Готово</text>
+<rect class="ring" x="24" y="208" width="432" height="84" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="24" y="208" width="432" height="84" fill="#ffffff"/>
+<g clip-path="url(#cc)"><rect class="shine" x="-46" y="208" width="70" height="84" fill="url(#sg)"/></g>
+<text x="46" y="246" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="22" font-weight="700" fill="#111111" >Начать обучение</text><text x="46" y="270" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#111111" fill-opacity=".72" >С шага 1</text>
+<g class="arrow"><path d="M406 250h28M425 241l9 9-9 9" fill="none" stroke="#111111" stroke-width="1.75" stroke-linejoin="miter"/></g>
+</svg>

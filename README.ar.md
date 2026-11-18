@@ -6,7 +6,7 @@
 
 هل تسافر إلى بلد يصعب فيه استخدام الإنترنت؟ يمكنك الاستمرار في استخدام المواقع وأدوات الذكاء الاصطناعي التي تعتمد عليها.
 
-<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ar-dark.svg"><img src="docs/readme/button-ar-light.svg" alt="اتبع الدليل خطوة بخطوة · vps.xiaoxiaodong.ai/en"></picture></a>
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="docs/readme/button-ar-narrow-dark.svg"><source media="(max-width: 600px)" srcset="docs/readme/button-ar-narrow-light.svg"><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ar-dark.svg"><img src="docs/readme/button-ar-light.svg" width="100%" alt="تعلّم خطوة بخطوة: أعِدّ ثم تحقّق · ابدأ التعلّم · vps.xiaoxiaodong.ai/en"></picture></a>
 
 موقع شرح خطوة بخطوة (بالإنجليزية والصينية): <https://vps.xiaoxiaodong.ai/en/> (النسخة الصينية: <https://vps.xiaoxiaodong.ai>، نسخة احتياطية: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 

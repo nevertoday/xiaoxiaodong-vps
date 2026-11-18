@@ -4,7 +4,7 @@
 
 Едете в командировку в страну, где интернетом пользоваться сложно? Продолжайте пользоваться привычными сайтами и инструментами ИИ.
 
-<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ru-dark.svg"><img src="docs/readme/button-ru-light.svg" alt="Следуйте шагам руководства · vps.xiaoxiaodong.ai/en"></picture></a>
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="docs/readme/button-ru-narrow-dark.svg"><source media="(max-width: 600px)" srcset="docs/readme/button-ru-narrow-light.svg"><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ru-dark.svg"><img src="docs/readme/button-ru-light.svg" width="100%" alt="Учитесь по шагам: настройте и проверьте · Начать обучение · vps.xiaoxiaodong.ai/en"></picture></a>
 
 Сайт с пошаговым руководством (на английском и китайском): <https://vps.xiaoxiaodong.ai/en/> (китайская версия: <https://vps.xiaoxiaodong.ai>; зеркало: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 

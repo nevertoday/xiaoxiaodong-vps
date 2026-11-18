@@ -4,7 +4,7 @@
 
 Geschäftsreise in ein Land, in dem das Internet schwer nutzbar ist? Nutzen Sie Ihre gewohnten Websites und KI-Tools einfach weiter.
 
-<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-de-dark.svg"><img src="docs/readme/button-de-light.svg" alt="Schritt für Schritt zum Ziel · vps.xiaoxiaodong.ai/en"></picture></a>
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="docs/readme/button-de-narrow-dark.svg"><source media="(max-width: 600px)" srcset="docs/readme/button-de-narrow-light.svg"><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-de-dark.svg"><img src="docs/readme/button-de-light.svg" width="100%" alt="Schritt für Schritt: einrichten, dann prüfen · Jetzt lernen · vps.xiaoxiaodong.ai/en"></picture></a>
 
 Schritt-für-Schritt-Anleitung als Website (auf Englisch und Chinesisch): <https://vps.xiaoxiaodong.ai/en/> (chinesische Version: <https://vps.xiaoxiaodong.ai>; Spiegel: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
