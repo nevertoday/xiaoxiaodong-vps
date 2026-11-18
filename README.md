@@ -4,7 +4,7 @@
 
 出差到上网不方便的国家，也能正常用常用的网站和 AI 工具。
 
-<a href="https://vps.xiaoxiaodong.ai/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-zh-dark.svg"><img src="docs/readme/button-zh-light.svg" alt="打开图文教程 · vps.xiaoxiaodong.ai"></picture></a>
+<a href="https://vps.xiaoxiaodong.ai/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-zh-dark.svg"><img src="docs/readme/button-zh-light.svg" alt="跟着图文教程，一步步用上 · vps.xiaoxiaodong.ai"></picture></a>
 
 **图文教程网站：<https://vps.xiaoxiaodong.ai>**（从买服务器到用上，一步一步讲；还有 How-to、名词解释和常见问题。打不开时用备用地址 <https://nevertoday.github.io/xiaoxiaodong-vps/>。英文版：<https://vps.xiaoxiaodong.ai/en/>）
 

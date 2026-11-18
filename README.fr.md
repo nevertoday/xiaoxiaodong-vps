@@ -4,7 +4,7 @@
 
 Vous partez dans un pays où internet est difficile d'accès ? Continuez à utiliser vos sites et vos outils d'IA habituels.
 
-<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-fr-dark.svg"><img src="docs/readme/button-fr-light.svg" alt="Ouvrir le guide pas à pas · vps.xiaoxiaodong.ai/en"></picture></a>
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-fr-dark.svg"><img src="docs/readme/button-fr-light.svg" alt="Suivez le guide pas à pas · vps.xiaoxiaodong.ai/en"></picture></a>
 
 Site du tutoriel pas à pas (en anglais et en chinois) : <https://vps.xiaoxiaodong.ai/en/> (version chinoise : <https://vps.xiaoxiaodong.ai> ; miroir : <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 

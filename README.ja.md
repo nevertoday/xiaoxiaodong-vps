@@ -4,7 +4,7 @@
 
 ネットが使いにくい国へ出張しても、いつものウェブサイトや AI ツールをそのまま使えます。
 
-<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ja-dark.svg"><img src="docs/readme/button-ja-light.svg" alt="手順ガイドを開く · vps.xiaoxiaodong.ai/en"></picture></a>
+<a href="https://vps.xiaoxiaodong.ai/en/"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/readme/button-ja-dark.svg"><img src="docs/readme/button-ja-light.svg" alt="ガイドに沿って一歩ずつ · vps.xiaoxiaodong.ai/en"></picture></a>
 
 手順を追ったチュートリアルサイト（英語・中国語）：<https://vps.xiaoxiaodong.ai/en/>（中国語版：<https://vps.xiaoxiaodong.ai>、ミラー：<https://nevertoday.github.io/xiaoxiaodong-vps/en/>）
 

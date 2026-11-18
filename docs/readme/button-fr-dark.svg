@@ -1,8 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="324" height="64" viewBox="0 0 324 64" role="img" aria-label="Ouvrir le guide pas à pas">
-<title>Ouvrir le guide pas à pas</title>
-<rect width="324" height="64" fill="#f3f0ea"/>
-<rect x="20" y="20" width="24" height="24" fill="#171612"/><rect x="25" y="25" width="5" height="5" fill="#f3f0ea" opacity="1"/><rect x="34" y="25" width="5" height="5" fill="#f3f0ea" opacity="0.7"/><rect x="25" y="34" width="5" height="5" fill="#f3f0ea" opacity="0.45"/><rect x="34" y="34" width="5" height="5" fill="#f3f0ea" opacity="0.22"/>
-<text x="58" y="29.5" fill="#171612" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" text-anchor="start">Ouvrir le guide pas à pas</text>
-<text x="58" y="47" fill="#171612" fill-opacity=".62" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" text-anchor="start" direction="ltr" unicode-bidi="embed">vps.xiaoxiaodong.ai/en</text>
-<path d="M288 32.0h12M294 26.0l6 6-6 6" fill="none" stroke="#171612" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="miter"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="176" viewBox="0 0 640 176" role="img" aria-label="Suivez le guide pas à pas">
+<title>Suivez le guide pas à pas</title>
+<style>
+.track{stroke-dasharray:358;animation:fill 7s linear infinite}
+@keyframes fill{0%{stroke-dashoffset:358;opacity:1}62%{stroke-dashoffset:0}92%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+.arrow{animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.shine{animation:shine 7s ease-in-out infinite}
+@keyframes shine{0%,62%{transform:translateX(-80px)}76%,100%{transform:translateX(228px)}}
+.ok{animation:ok 7s ease infinite}
+@keyframes ok{0%,62%{opacity:0}66%,92%{opacity:1}100%{opacity:0}}
+.n0{animation:n0 7s steps(1,end) infinite}
+@keyframes n0{0%{fill-opacity:0}0%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l0{animation:l0 7s ease infinite}
+@keyframes l0{0%{opacity:.4}0%{opacity:.4}3%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n1{animation:n1 7s steps(1,end) infinite}
+@keyframes n1{0%{fill-opacity:0}15.5%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l1{animation:l1 7s ease infinite}
+@keyframes l1{0%{opacity:.4}15.4%{opacity:.4}18.5%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n2{animation:n2 7s steps(1,end) infinite}
+@keyframes n2{0%{fill-opacity:0}31%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l2{animation:l2 7s ease infinite}
+@keyframes l2{0%{opacity:.4}30.9%{opacity:.4}34%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n3{animation:n3 7s steps(1,end) infinite}
+@keyframes n3{0%{fill-opacity:0}46.5%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l3{animation:l3 7s ease infinite}
+@keyframes l3{0%{opacity:.4}46.4%{opacity:.4}49.5%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+.n4{animation:n4 7s steps(1,end) infinite}
+@keyframes n4{0%{fill-opacity:0}62%{fill-opacity:1}92%{fill-opacity:1}100%{fill-opacity:0}}
+.l4{animation:l4 7s ease infinite}
+@keyframes l4{0%{opacity:.4}61.9%{opacity:.4}65%{opacity:1}92%{opacity:1}100%{opacity:.4}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<defs><clipPath id="cc"><rect x="464" y="28" width="148" height="120"/></clipPath>
+<linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#f3f0ea" stop-opacity="0"/><stop offset=".5" stop-color="#f3f0ea" stop-opacity=".1"/><stop offset="1" stop-color="#f3f0ea" stop-opacity="0"/></linearGradient></defs>
+<rect width="640" height="176" fill="#f3f0ea"/>
+<text x="28" y="50" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#171612" fill-opacity=".62" text-anchor="start" >Pour débutants · Captures à chaque étape · ~1 heure</text>
+<text x="28" y="84" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#171612" text-anchor="start" >Suivez le guide pas à pas</text>
+<line x1="54" y1="124" x2="412" y2="124" stroke="#171612" stroke-opacity=".22" stroke-width="1.5"/>
+<line class="track" x1="54" y1="124" x2="412" y2="124" stroke="#171612" stroke-width="1.5"/>
+<rect class="n0" x="48" y="118" width="12" height="12" fill="#171612" stroke="#171612" stroke-width="1.5"/><text x="54" y="150" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="10.8" font-weight="500" class="l0" fill="#171612" text-anchor="middle" >Codex</text>
+<rect class="n1" x="137.5" y="118" width="12" height="12" fill="#171612" stroke="#171612" stroke-width="1.5"/><text x="143.5" y="150" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="10.8" font-weight="500" class="l1" fill="#171612" text-anchor="middle" >Serveur</text>
+<rect class="n2" x="227" y="118" width="12" height="12" fill="#171612" stroke="#171612" stroke-width="1.5"/><text x="233" y="150" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="10.8" font-weight="500" class="l2" fill="#171612" text-anchor="middle" >L’IA configure</text>
+<rect class="n3" x="316.5" y="118" width="12" height="12" fill="#171612" stroke="#171612" stroke-width="1.5"/><text x="322.5" y="150" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="10.8" font-weight="500" class="l3" fill="#171612" text-anchor="middle" >Importer</text>
+<rect class="n4" x="406" y="118" width="12" height="12" fill="#171612" stroke="#171612" stroke-width="1.5"/><path class="ok" d="M408.5 124l2.5 2.5 4.5-5" fill="none" stroke="#f3f0ea" stroke-width="1.8" stroke-linejoin="miter"/><text x="412" y="150" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="10.8" font-weight="700" class="l4" fill="#171612" text-anchor="middle" >C’est prêt</text>
+<rect x="464" y="28" width="148" height="120" fill="#171612"/>
+<g clip-path="url(#cc)"><rect class="shine" x="404" y="28" width="60" height="120" fill="url(#sg)"/></g>
+<text x="484" y="80" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#f3f0ea" text-anchor="start" >Commencer</text>
+<text x="484" y="100" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans','Apple SD Gothic Neo','Malgun Gothic','Microsoft YaHei','Noto Sans CJK SC','Noto Sans Arabic','Noto Sans',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#f3f0ea" fill-opacity=".6" text-anchor="start" direction="ltr" unicode-bidi="embed">vps.xiaoxiaodong.ai/en</text>
+<g class="arrow"><path d="M484 122h22M499 115l7 7-7 7" fill="none" stroke="#f3f0ea" stroke-width="1.5" stroke-linejoin="miter"/></g>
 </svg>
